@@ -1,0 +1,12 @@
+Stem Splitter
+Copyright 2026 qualitycoding
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Third-party components used at runtime (not vendored in this repository
+until implementation; each retains its own license):
+
+- onnxruntime-web (MIT) - Microsoft Corporation
+- coi-serviceworker (MIT) - Guido Zuidhof
+- HT-Demucs model architecture and pretrained weights (MIT) - Meta Platforms, Inc.
+- demucs-onnx ONNX exports, fetched from huggingface.co/StemSplitio (MIT) - StemSplit

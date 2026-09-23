@@ -1,0 +1,86 @@
+[
+  {
+    "id": "C-001",
+    "claim": "demucs-onnx 0.3.4 publishes ONNX exports of htdemucs, htdemucs_ft (4 specialists) and htdemucs_6s, each in fp32 and fp16weights variants",
+    "status": "verified",
+    "source": "demucs_onnx/_hub.py MODEL_REGISTRY"
+  },
+  {
+    "id": "C-002",
+    "claim": "demucs-onnx ships a browser-demo scaffolder and bundler configs (vite, webpack, esbuild, rollup, next)",
+    "status": "verified",
+    "source": "demucs_onnx/browser.py"
+  },
+  {
+    "id": "C-003",
+    "claim": "GitHub Pages cannot set COOP/COEP; coi-serviceworker (MIT, 0.1.7, last published 2023-07) injects them via a service worker + reload",
+    "status": "verified",
+    "source": "npm registry; ORT dist references crossOriginIsolated/SharedArrayBuffer"
+  },
+  {
+    "id": "C-004",
+    "claim": "ORT Web 1.30.0 default entry supports 'webgpu' and 'wasm' EPs",
+    "status": "verified",
+    "source": "onnxruntime-web 1.30.0 dist/ort.min.mjs"
+  },
+  {
+    "id": "C-005",
+    "claim": "Model I/O: input 'mix' (1,2,343980) float32 @44.1 kHz; output 'stems' (1,4,2,343980); sources drums,bass,other,vocals; 1/4 overlap, triangular window, weight-normalised OLA",
+    "status": "verified",
+    "source": "demucs_onnx/inference.py"
+  },
+  {
+    "id": "C-006",
+    "claim": "Standard (single htdemucs) 4-min song: minutes on multi-thread WASM, markedly faster on WebGPU; ft bag is ~4x the compute",
+    "status": "corroborated",
+    "source": "inference.py runs 4 sessions per chunk for the bag; absolute timings to be measured in T-027..T-030"
+  },
+  {
+    "id": "C-007",
+    "claim": "All processing is client-side; audio never uploaded",
+    "status": "by-design",
+    "source": "architecture"
+  },
+  {
+    "id": "C-008",
+    "claim": "fp16weights ft specialist ~166 MB download",
+    "status": "corroborated",
+    "source": "demucs_onnx/browser.py demo text; exact bytes to SP-1"
+  },
+  {
+    "id": "C-009",
+    "claim": "Default ORT import loads ort-wasm-simd-threaded.jsep.{mjs,wasm} (~28.3 MB wasm); plain threaded wasm is ~14.2 MB. Original 11.79 MB figure was wrong",
+    "status": "verified",
+    "source": "onnxruntime-web 1.30.0 tarball"
+  },
+  {
+    "id": "C-010",
+    "claim": "demucs-onnx vanilla demo imports ORT 1.18.0 from jsDelivr; must be replaced with local assets",
+    "status": "verified",
+    "source": "demucs_onnx/browser.py"
+  },
+  {
+    "id": "C-011",
+    "claim": "HF resolve/ URLs return CORS headers under COEP require-corp, via redirect host(s) to be listed in CSP",
+    "status": "open",
+    "source": "SP-1"
+  },
+  {
+    "id": "C-012",
+    "claim": "fp16weights sessions' in-memory size and WebGPU buffer limits are compatible with a 2-2.5 GB budget",
+    "status": "open",
+    "source": "SP-1"
+  },
+  {
+    "id": "C-013",
+    "claim": "ORT threaded WASM starts workers without violating planned CSP",
+    "status": "open",
+    "source": "SP-1"
+  },
+  {
+    "id": "C-014",
+    "claim": "htdemucs single-file fp16weights download size",
+    "status": "open",
+    "source": "SP-1"
+  }
+]
