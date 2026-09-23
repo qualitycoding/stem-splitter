@@ -8,8 +8,8 @@
   {
     "id": "C-002",
     "claim": "demucs-onnx ships a browser-demo scaffolder and bundler configs (vite, webpack, esbuild, rollup, next)",
-    "status": "verified",
-    "source": "demucs_onnx/browser.py"
+    "status": "downgraded",
+    "source": "browser.py demo imports ORT 1.18.0 ort.min.mjs, which does not exist in that release; no evidence of a working browser path (SP-1)"
   },
   {
     "id": "C-003",
@@ -43,9 +43,9 @@
   },
   {
     "id": "C-008",
-    "claim": "fp16weights ft specialist ~166 MB download",
-    "status": "corroborated",
-    "source": "demucs_onnx/browser.py demo text; exact bytes to SP-1"
+    "claim": "Each fp16weights model (htdemucs and each ft specialist) is 165,612,636 bytes",
+    "status": "verified",
+    "source": "SP-1 HF headers + browser download"
   },
   {
     "id": "C-009",
@@ -61,26 +61,26 @@
   },
   {
     "id": "C-011",
-    "claim": "HF resolve/ URLs return CORS headers under COEP require-corp, via redirect host(s) to be listed in CSP",
-    "status": "open",
+    "claim": "HF resolve/ URLs 302 to us.aws.cdn.hf.co; both hops send CORS headers; browser fetch works under COEP require-corp",
+    "status": "verified",
     "source": "SP-1"
   },
   {
     "id": "C-012",
-    "claim": "fp16weights sessions' in-memory size and WebGPU buffer limits are compatible with a 2-2.5 GB budget",
-    "status": "open",
-    "source": "SP-1"
+    "claim": "fp16weights model loads in ORT Web within a 2-2.5 GB budget",
+    "status": "failed",
+    "source": "SP-1: std::bad_alloc at session creation on wasm and webgpu, ORT 1.30, Chrome 153; diagnosis in SP-2"
   },
   {
     "id": "C-013",
-    "claim": "ORT threaded WASM starts workers without violating planned CSP",
-    "status": "open",
+    "claim": "ORT 1.30 threaded WASM uses same-origin module workers; no CSP worker-src violations",
+    "status": "verified",
     "source": "SP-1"
   },
   {
     "id": "C-014",
-    "claim": "htdemucs single-file fp16weights download size",
-    "status": "open",
+    "claim": "htdemucs single-file fp16weights download is 165,612,636 bytes",
+    "status": "verified",
     "source": "SP-1"
   }
 ]

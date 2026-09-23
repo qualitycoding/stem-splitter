@@ -10,3 +10,4 @@
 | R-06 | Model supply-chain tampering | Med | SHA-256 pinned in D-05, verified on every load incl. from cache |
 | R-07 | Pages bandwidth (100 GB/mo soft) | Low | Models not hosted on Pages; ORT wasm ~28 MB cached by browser |
 | R-08 | Model/weights licensing | Low | Demucs weights and demucs-onnx are MIT; listed in NOTICE |
+| R-09 | Published ONNX exports don't load in ORT Web (`std::bad_alloc`, SP-1) | **High** | SP-2 diagnosis; fallbacks: session-option/ORT-version pin, or re-export the model ourselves with demucs-onnx |

@@ -3,11 +3,21 @@
 - **D-01 Public API (worker):** `separate(left: Float32Array, right: Float32Array, mode: 'standard'|'hq', onProgress) → Promise<Record<'drums'|'bass'|'other'|'vocals', [Float32Array, Float32Array]>>`. Decoding stays on the main thread (no AudioContext in workers; AudioBuffer not transferable).
 - **D-02 Outputs:** four 44.1 kHz stereo 16-bit WAVs + one provenance JSON.
 - **D-03 Default model:** `htdemucs` single-file fp16weights. `htdemucs_ft` bag is opt-in and loads one specialist at a time.
-- **D-04 Model sources:** `https://huggingface.co/StemSplitio/htdemucs-onnx/resolve/main/htdemucs_fp16weights.onnx`; ft specialists at `StemSplitio/htdemucs-ft-{stem}-onnx/resolve/main/htdemucs_ft_{stem}_fp16weights.onnx`. Pin to a commit hash instead of `main` once SP-1 records one.
-- **D-05 Model integrity:** SHA-256 per file — *to be filled by SP-1*.
+- **D-04 Model sources (pinned, SP-1):**
+  - htdemucs: `https://huggingface.co/StemSplitio/htdemucs-onnx/resolve/d54ed9eb60e258ea82131c6ee14578628816456a/htdemucs_fp16weights.onnx`
+  - ft drums: `.../htdemucs-ft-drums-onnx/resolve/55f929d333054c69ae0e829b15e8f8826a39d6eb/htdemucs_ft_drums_fp16weights.onnx`
+  - ft bass: `.../htdemucs-ft-bass-onnx/resolve/410457f134bf91cb3ecb74abf1a897882d26afa8/htdemucs_ft_bass_fp16weights.onnx`
+  - ft other: `.../htdemucs-ft-other-onnx/resolve/db6d606b4a6ee0b34f3fb09a6be4d23b07811318/htdemucs_ft_other_fp16weights.onnx`
+  - ft vocals: `.../htdemucs-ft-vocals-onnx/resolve/2ef0d757d3e226d0da85fb8c71514f464fcabdd0/htdemucs_ft_vocals_fp16weights.onnx`
+- **D-05 Model integrity (SP-1; every file 165,612,636 bytes):**
+  - htdemucs `d05c269d0178d2a72ad484b10b11dd370193fc923201c3b27a99f848745db70a`
+  - ft drums `047764dff888cfb87da917013377d4ec7a134f7419cbe486d9c339aa17975ddd`
+  - ft bass `b533037176b14b2df31c92a5d5b3d5660d0811b9b360d3db761964768b079961`
+  - ft other `b739171a7057b3107bb0711c6222d4a619b41b13a8f04026431d30f32ad2bd71`
+  - ft vocals `0cbe651f535415c9d26a7bb614f7d322dd5a080fa0298f2e50f478030a994dce`
 - **D-06 ORT entry:** default `onnxruntime-web` import (includes WebGPU + WASM via the JSEP binary); vendor `ort-wasm-simd-threaded.jsep.{mjs,wasm}` under `public/ort/`.
 - **D-07 Threads:** `crossOriginIsolated ? min(8, max(1, hardwareConcurrency - 1)) : 1`.
-- **D-08 CSP:** `default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self' https://huggingface.co <redirect hosts from SP-1>; img-src 'self' data:; style-src 'self'`.
+- **D-08 CSP (SP-1):** `default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' https://huggingface.co https://*.hf.co; img-src 'self' data:; style-src 'self'`. `blob:` dropped (ORT uses same-origin module workers); `*.hf.co` because the CDN host is region-prefixed (`us.aws.cdn.hf.co`).
 - **D-09 Limits:** file ≤ 200 MB; duration ≤ 10 min; warn > 5 min.
 - **D-10 Deployment:** GitHub Actions Pages; `base: '/stem-splitter/'`; workflow enabled only after G-002.
 - **D-11 License:** Apache-2.0 for this repo; third-party MIT components listed in NOTICE.

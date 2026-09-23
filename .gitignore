@@ -3,3 +3,4 @@ dist/
 *.onnx
 *.log
 .DS_Store
+.sp1-cache/

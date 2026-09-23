@@ -1,12 +1,12 @@
 ```
-READY-FOR-IMPLEMENTATION (revised 2026-09-23 after review — see plan/REVIEW.md)
+BLOCKED at S-000 — model fails to load in ORT Web (C-012, std::bad_alloc); diagnosing with SP-2
 Profiles: software, computational
 Mode flags: software.deploys = true
-Claims: 14 (verified 7, corroborated 2, by-design 1, open → spike SP-1: 4)
+Claims: 14 (verified 10, corroborated 1, by-design 1, downgraded 1 [C-002], failed 1 [C-012])
 Tests: 32 (unit 12, integration 6, operational 5, security 3, performance 4, provenance 1, deploy smoke 1)
 Steps: 9 (S-000 spike + S-001..S-008)
 Gates: 1 (G-002 deployment)
-Risks: 0 Critical, 0 High, 5 Medium, 3 Low
+Risks: 0 Critical, 1 High (R-09), 5 Medium, 3 Low
 ```
 
 # Plan: Browser-Based Audio Stem Splitter (GitHub Pages)
@@ -51,6 +51,11 @@ zero-padded; triangular fade window; divide by summed window weights.
   without `blob:` workers under the planned CSP.
 - Outputs: `research/spikes/SP-1.md`; model SHA-256s into `plan/DECISIONS.md` D-05; CSP host list into D-08.
 - Done when: C-011, C-012, C-013, C-014 move to verified or the plan is amended.
+- **Status:** SP-1 run 2026-09-23 (`research/spikes/SP-1.md`): C-011/C-013/C-014 verified; C-012 failed
+  (`std::bad_alloc` at session creation, both EPs). SP-2 (`research/spikes/sp2.py`) runs a model/memory
+  analysis and an 8-configuration browser matrix. Exit paths: (a) a session-option or ORT-version setting
+  loads the model → record in D-06/D-12; (b) nothing loads → re-export upstream (fp32 weights and/or
+  external data, or split graph) as a new step S-000b before S-001.
 
 ### S-001 Scaffold
 - Depends: S-000

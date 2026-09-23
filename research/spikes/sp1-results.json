@@ -1,0 +1,288 @@
+{
+  "script_version": 1,
+  "run_at": "2026-09-23T20:40:57Z",
+  "python": "3.14.2",
+  "platform": "win32",
+  "ort_version": "1.30.0",
+  "csp_draft": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self' https://huggingface.co; img-src 'self' data:; style-src 'self'",
+  "huggingface": {
+    "htdemucs": {
+      "repo": "StemSplitio/htdemucs-onnx",
+      "file": "htdemucs_fp16weights.onnx",
+      "commit": "d54ed9eb60e258ea82131c6ee14578628816456a",
+      "redirect_chain": [
+        {
+          "host": "huggingface.co",
+          "path": "/StemSplitio/htdemucs-onnx/resolve/main/htdemucs_fp16weights.onnx",
+          "status": 302,
+          "access_control_allow_origin": "http://localhost:8765",
+          "cross_origin_resource_policy": null,
+          "content_range": null,
+          "x_linked_size": "165612636",
+          "x_linked_etag": "\"d05c269d0178d2a72ad484b10b11dd370193fc923201c3b27a99f848745db70a\"",
+          "x_repo_commit": "d54ed9eb60e258ea82131c6ee14578628816456a"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6a0f25dc469adc79cd0ca78c/d8069b7be381a46038ffee5591c8cc012651ddf8fa2d187d09ecac7e1091b402",
+          "status": 206,
+          "access_control_allow_origin": "*",
+          "cross_origin_resource_policy": null,
+          "content_range": "bytes 0-0/165612636",
+          "x_linked_size": null,
+          "x_linked_etag": null,
+          "x_repo_commit": null
+        }
+      ],
+      "sha256_from_hf": "d05c269d0178d2a72ad484b10b11dd370193fc923201c3b27a99f848745db70a",
+      "bytes": 165612636,
+      "final_status": 206,
+      "cors_ok_every_hop": true,
+      "pinned_url": "https://huggingface.co/StemSplitio/htdemucs-onnx/resolve/d54ed9eb60e258ea82131c6ee14578628816456a/htdemucs_fp16weights.onnx"
+    },
+    "htdemucs_ft_drums": {
+      "repo": "StemSplitio/htdemucs-ft-drums-onnx",
+      "file": "htdemucs_ft_drums_fp16weights.onnx",
+      "commit": "55f929d333054c69ae0e829b15e8f8826a39d6eb",
+      "redirect_chain": [
+        {
+          "host": "huggingface.co",
+          "path": "/StemSplitio/htdemucs-ft-drums-onnx/resolve/main/htdemucs_ft_drums_fp16weights.onnx",
+          "status": 302,
+          "access_control_allow_origin": "http://localhost:8765",
+          "cross_origin_resource_policy": null,
+          "content_range": null,
+          "x_linked_size": "165612636",
+          "x_linked_etag": "\"047764dff888cfb87da917013377d4ec7a134f7419cbe486d9c339aa17975ddd\"",
+          "x_repo_commit": "55f929d333054c69ae0e829b15e8f8826a39d6eb"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6a0e3be09a68441d88f834f5/5c312422b6cb6d1f30d4f75962ee9afe0ada09e306f5a5083fa3fdd1219fc452",
+          "status": 206,
+          "access_control_allow_origin": "*",
+          "cross_origin_resource_policy": null,
+          "content_range": "bytes 0-0/165612636",
+          "x_linked_size": null,
+          "x_linked_etag": null,
+          "x_repo_commit": null
+        }
+      ],
+      "sha256_from_hf": "047764dff888cfb87da917013377d4ec7a134f7419cbe486d9c339aa17975ddd",
+      "bytes": 165612636,
+      "final_status": 206,
+      "cors_ok_every_hop": true,
+      "pinned_url": "https://huggingface.co/StemSplitio/htdemucs-ft-drums-onnx/resolve/55f929d333054c69ae0e829b15e8f8826a39d6eb/htdemucs_ft_drums_fp16weights.onnx"
+    },
+    "htdemucs_ft_bass": {
+      "repo": "StemSplitio/htdemucs-ft-bass-onnx",
+      "file": "htdemucs_ft_bass_fp16weights.onnx",
+      "commit": "410457f134bf91cb3ecb74abf1a897882d26afa8",
+      "redirect_chain": [
+        {
+          "host": "huggingface.co",
+          "path": "/StemSplitio/htdemucs-ft-bass-onnx/resolve/main/htdemucs_ft_bass_fp16weights.onnx",
+          "status": 302,
+          "access_control_allow_origin": "http://localhost:8765",
+          "cross_origin_resource_policy": null,
+          "content_range": null,
+          "x_linked_size": "165612636",
+          "x_linked_etag": "\"b533037176b14b2df31c92a5d5b3d5660d0811b9b360d3db761964768b079961\"",
+          "x_repo_commit": "410457f134bf91cb3ecb74abf1a897882d26afa8"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6a0e56b7392178ab07a0a2bb/2fb101654f105bb6d1e89e44fa89b4703bf3f7b421db62083b7dad4fea5cbd55",
+          "status": 206,
+          "access_control_allow_origin": "*",
+          "cross_origin_resource_policy": null,
+          "content_range": "bytes 0-0/165612636",
+          "x_linked_size": null,
+          "x_linked_etag": null,
+          "x_repo_commit": null
+        }
+      ],
+      "sha256_from_hf": "b533037176b14b2df31c92a5d5b3d5660d0811b9b360d3db761964768b079961",
+      "bytes": 165612636,
+      "final_status": 206,
+      "cors_ok_every_hop": true,
+      "pinned_url": "https://huggingface.co/StemSplitio/htdemucs-ft-bass-onnx/resolve/410457f134bf91cb3ecb74abf1a897882d26afa8/htdemucs_ft_bass_fp16weights.onnx"
+    },
+    "htdemucs_ft_other": {
+      "repo": "StemSplitio/htdemucs-ft-other-onnx",
+      "file": "htdemucs_ft_other_fp16weights.onnx",
+      "commit": "db6d606b4a6ee0b34f3fb09a6be4d23b07811318",
+      "redirect_chain": [
+        {
+          "host": "huggingface.co",
+          "path": "/StemSplitio/htdemucs-ft-other-onnx/resolve/main/htdemucs_ft_other_fp16weights.onnx",
+          "status": 302,
+          "access_control_allow_origin": "http://localhost:8765",
+          "cross_origin_resource_policy": null,
+          "content_range": null,
+          "x_linked_size": "165612636",
+          "x_linked_etag": "\"b739171a7057b3107bb0711c6222d4a619b41b13a8f04026431d30f32ad2bd71\"",
+          "x_repo_commit": "db6d606b4a6ee0b34f3fb09a6be4d23b07811318"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6a0e56be15b989c3b727d9ab/a06b334c1d6af8d1f672f3a308a9968f05c954596a6a8f4b5eca04a70f4f8e2f",
+          "status": 206,
+          "access_control_allow_origin": "*",
+          "cross_origin_resource_policy": null,
+          "content_range": "bytes 0-0/165612636",
+          "x_linked_size": null,
+          "x_linked_etag": null,
+          "x_repo_commit": null
+        }
+      ],
+      "sha256_from_hf": "b739171a7057b3107bb0711c6222d4a619b41b13a8f04026431d30f32ad2bd71",
+      "bytes": 165612636,
+      "final_status": 206,
+      "cors_ok_every_hop": true,
+      "pinned_url": "https://huggingface.co/StemSplitio/htdemucs-ft-other-onnx/resolve/db6d606b4a6ee0b34f3fb09a6be4d23b07811318/htdemucs_ft_other_fp16weights.onnx"
+    },
+    "htdemucs_ft_vocals": {
+      "repo": "StemSplitio/htdemucs-ft-vocals-onnx",
+      "file": "htdemucs_ft_vocals_fp16weights.onnx",
+      "commit": "2ef0d757d3e226d0da85fb8c71514f464fcabdd0",
+      "redirect_chain": [
+        {
+          "host": "huggingface.co",
+          "path": "/StemSplitio/htdemucs-ft-vocals-onnx/resolve/main/htdemucs_ft_vocals_fp16weights.onnx",
+          "status": 302,
+          "access_control_allow_origin": "http://localhost:8765",
+          "cross_origin_resource_policy": null,
+          "content_range": null,
+          "x_linked_size": "165612636",
+          "x_linked_etag": "\"0cbe651f535415c9d26a7bb614f7d322dd5a080fa0298f2e50f478030a994dce\"",
+          "x_repo_commit": "2ef0d757d3e226d0da85fb8c71514f464fcabdd0"
+        },
+        {
+          "host": "us.aws.cdn.hf.co",
+          "path": "/xet-bridge-us/6a0e56c59a68441d88fc0182/ddb613c78bd974bc57234f21370b1cfb3e24f62cf4dcf4c591f4e2ab56c62fb0",
+          "status": 206,
+          "access_control_allow_origin": "*",
+          "cross_origin_resource_policy": null,
+          "content_range": "bytes 0-0/165612636",
+          "x_linked_size": null,
+          "x_linked_etag": null,
+          "x_repo_commit": null
+        }
+      ],
+      "sha256_from_hf": "0cbe651f535415c9d26a7bb614f7d322dd5a080fa0298f2e50f478030a994dce",
+      "bytes": 165612636,
+      "final_status": 206,
+      "cors_ok_every_hop": true,
+      "pinned_url": "https://huggingface.co/StemSplitio/htdemucs-ft-vocals-onnx/resolve/2ef0d757d3e226d0da85fb8c71514f464fcabdd0/htdemucs_ft_vocals_fp16weights.onnx"
+    }
+  },
+  "browsers": [
+    {
+      "started": "2026-09-23T20:41:15.532Z",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "crossOriginIsolated": true,
+      "hardwareConcurrency": 4,
+      "deviceMemoryGB": 16,
+      "cspViolations": [
+        {
+          "directive": "connect-src",
+          "blockedURI": "https://huggingface.co/StemSplitio/htdemucs-onnx/resolve/main/htdemucs_fp16weights.onnx",
+          "disposition": "report",
+          "sourceFile": ""
+        },
+        {
+          "directive": "connect-src",
+          "blockedURI": "https://huggingface.co/StemSplitio/htdemucs-ft-vocals-onnx/resolve/main/htdemucs_ft_vocals_fp16weights.onnx",
+          "disposition": "report",
+          "sourceFile": ""
+        }
+      ],
+      "workersCreated": [
+        {
+          "url": "http://localhost:8765/ort/ort-wasm-simd-threaded.jsep.mjs",
+          "type": "module"
+        },
+        {
+          "url": "http://localhost:8765/ort/ort-wasm-simd-threaded.jsep.mjs",
+          "type": "module"
+        }
+      ],
+      "webgpu": {
+        "info": {
+          "vendor": "intel",
+          "architecture": "gen-9",
+          "device": "",
+          "description": ""
+        },
+        "maxStorageBufferBindingSize": 2147483644,
+        "maxBufferSize": 2147483648,
+        "features": [
+          "depth32float-stencil8",
+          "rg11b10ufloat-renderable",
+          "texture-formats-tier1",
+          "texture-compression-bc",
+          "dual-source-blending",
+          "core-features-and-limits",
+          "float32-filterable",
+          "indirect-first-instance",
+          "float32-blendable",
+          "depth-clip-control",
+          "texture-compression-bc-sliced-3d",
+          "timestamp-query",
+          "clip-distances",
+          "texture-formats-tier2",
+          "primitive-index",
+          "texture-component-swizzle"
+        ]
+      },
+      "models": {
+        "htdemucs": {
+          "url": "https://huggingface.co/StemSplitio/htdemucs-onnx/resolve/main/htdemucs_fp16weights.onnx",
+          "finalHost": "us.aws.cdn.hf.co",
+          "finalPath": "/xet-bridge-us/6a0f25dc469adc79cd0ca78c/d8069b7be381a46038ffee5591c8cc012651ddf8fa2d187d09ecac7e1091b402",
+          "redirected": true,
+          "bytes": 165612636,
+          "seconds": 33,
+          "mbitPerSec": 40.1,
+          "sha256": "d05c269d0178d2a72ad484b10b11dd370193fc923201c3b27a99f848745db70a",
+          "runs": [
+            {
+              "ep": "wasm",
+              "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: std::bad_alloc"
+            },
+            {
+              "ep": "webgpu",
+              "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: std::bad_alloc"
+            }
+          ]
+        },
+        "htdemucs_ft_vocals": {
+          "url": "https://huggingface.co/StemSplitio/htdemucs-ft-vocals-onnx/resolve/main/htdemucs_ft_vocals_fp16weights.onnx",
+          "finalHost": "us.aws.cdn.hf.co",
+          "finalPath": "/xet-bridge-us/6a0e56c59a68441d88fc0182/ddb613c78bd974bc57234f21370b1cfb3e24f62cf4dcf4c591f4e2ab56c62fb0",
+          "redirected": true,
+          "bytes": 165612636,
+          "seconds": 22,
+          "mbitPerSec": 60.2,
+          "sha256": "0cbe651f535415c9d26a7bb614f7d322dd5a080fa0298f2e50f478030a994dce",
+          "runs": [
+            {
+              "ep": "wasm",
+              "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: std::bad_alloc"
+            },
+            {
+              "ep": "webgpu",
+              "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: std::bad_alloc"
+            }
+          ]
+        }
+      },
+      "errors": [],
+      "ortVersion": "1.30.0",
+      "numThreads": 3,
+      "finished": "2026-09-23T20:46:04.538Z",
+      "crossOriginIsolatedAtEnd": true
+    }
+  ]
+}
