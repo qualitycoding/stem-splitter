@@ -9,3 +9,4 @@
 C-011 (HF CORS/redirect hosts), C-012 (memory / WebGPU limits), C-013 (CSP vs ORT workers), C-014 (standard model size). huggingface.co was not reachable from the review sandbox, so none of these were measured.
 
 5. SP-1 run by the project owner, 2026-09-23 — `research/spikes/SP-1.md`, raw `sp1-results.json`. Also checked: onnxruntime-web 1.18.0 tarball contains no `.mjs` builds.
+6. SP-2 run by the project owner, 2026-09-23 — `research/spikes/SP-2.md`, raw `sp2-results.json`.

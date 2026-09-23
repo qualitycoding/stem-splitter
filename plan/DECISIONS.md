@@ -2,7 +2,7 @@
 
 - **D-01 Public API (worker):** `separate(left: Float32Array, right: Float32Array, mode: 'standard'|'hq', onProgress) → Promise<Record<'drums'|'bass'|'other'|'vocals', [Float32Array, Float32Array]>>`. Decoding stays on the main thread (no AudioContext in workers; AudioBuffer not transferable).
 - **D-02 Outputs:** four 44.1 kHz stereo 16-bit WAVs + one provenance JSON.
-- **D-03 Default model:** `htdemucs` single-file fp16weights. `htdemucs_ft` bag is opt-in and loads one specialist at a time.
+- **D-03 Default model:** `htdemucs` single-file fp16weights. `htdemucs_ft` bag is opt-in, **WebGPU only** (≈ 1 h on 3-thread WASM, SP-2), and loads one specialist at a time.
 - **D-04 Model sources (pinned, SP-1):**
   - htdemucs: `https://huggingface.co/StemSplitio/htdemucs-onnx/resolve/d54ed9eb60e258ea82131c6ee14578628816456a/htdemucs_fp16weights.onnx`
   - ft drums: `.../htdemucs-ft-drums-onnx/resolve/55f929d333054c69ae0e829b15e8f8826a39d6eb/htdemucs_ft_drums_fp16weights.onnx`
@@ -15,9 +15,11 @@
   - ft bass `b533037176b14b2df31c92a5d5b3d5660d0811b9b360d3db761964768b079961`
   - ft other `b739171a7057b3107bb0711c6222d4a619b41b13a8f04026431d30f32ad2bd71`
   - ft vocals `0cbe651f535415c9d26a7bb614f7d322dd5a080fa0298f2e50f478030a994dce`
-- **D-06 ORT entry:** default `onnxruntime-web` import (includes WebGPU + WASM via the JSEP binary); vendor `ort-wasm-simd-threaded.jsep.{mjs,wasm}` under `public/ort/`.
+- **D-06 ORT entry (1.30.0 required — only tested version with a working WebGPU path, SP-2):** default `onnxruntime-web` import (includes WebGPU + WASM via the JSEP binary); vendor `ort-wasm-simd-threaded.jsep.{mjs,wasm}` under `public/ort/`.
 - **D-07 Threads:** `crossOriginIsolated ? min(8, max(1, hardwareConcurrency - 1)) : 1`.
 - **D-08 CSP (SP-1):** `default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' https://huggingface.co https://*.hf.co; img-src 'self' data:; style-src 'self'`. `blob:` dropped (ORT uses same-origin module workers); `*.hf.co` because the CDN host is region-prefixed (`us.aws.cdn.hf.co`).
 - **D-09 Limits:** file ≤ 200 MB; duration ≤ 10 min; warn > 5 min.
 - **D-10 Deployment:** GitHub Actions Pages; `base: '/stem-splitter/'`; workflow enabled only after G-002.
 - **D-11 License:** Apache-2.0 for this repo; third-party MIT components listed in NOTICE.
+- **D-12 Session options (SP-2):** `{ graphOptimizationLevel: 'disabled', enableCpuMemArena: false, enableMemPattern: false }` for every session, both EPs. Any optimisation level ≥ `basic` exhausts the 4 GB wasm heap at load. Changing this requires re-running `research/spikes/sp2.py`.
+- **D-13 Session reuse:** create each session once per page and reuse it across files; session creation costs 27 s (WASM) / 48 s (WebGPU) on the reference machine.

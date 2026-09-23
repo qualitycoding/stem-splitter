@@ -19,9 +19,9 @@
   },
   {
     "id": "C-004",
-    "claim": "ORT Web 1.30.0 default entry supports 'webgpu' and 'wasm' EPs",
+    "claim": "ORT Web 1.30.0 default entry supports 'webgpu' and 'wasm' EPs; WebGPU path works on 1.30 but not on 1.22 (exception) or 1.18 (uses removed requestAdapterInfo)",
     "status": "verified",
-    "source": "onnxruntime-web 1.30.0 dist/ort.min.mjs"
+    "source": "onnxruntime-web 1.30.0 dist/ort.min.mjs; SP-2"
   },
   {
     "id": "C-005",
@@ -31,9 +31,9 @@
   },
   {
     "id": "C-006",
-    "claim": "Standard (single htdemucs) 4-min song: minutes on multi-thread WASM, markedly faster on WebGPU; ft bag is ~4x the compute",
-    "status": "corroborated",
-    "source": "inference.py runs 4 sessions per chunk for the bag; absolute timings to be measured in T-027..T-030"
+    "claim": "Measured on a 4-core Intel Gen9 laptop: WebGPU 1.26 s per chunk warm (4-min song ~1 min separation), 3-thread WASM 21.8 s per chunk (~15 min); htdemucs_ft costs 4x",
+    "status": "verified",
+    "source": "SP-2"
   },
   {
     "id": "C-007",
@@ -67,9 +67,9 @@
   },
   {
     "id": "C-012",
-    "claim": "fp16weights model loads in ORT Web within a 2-2.5 GB budget",
-    "status": "failed",
-    "source": "SP-1: std::bad_alloc at session creation on wasm and webgpu, ORT 1.30, Chrome 153; diagnosis in SP-2"
+    "claim": "htdemucs fp16weights loads in ORT Web 1.30 when graph optimisation is disabled (with CPU arena and memory-pattern off): wasm heap ~420 MB after create, ~890 MB after first run. With optimisation basic/all the 4 GB wasm heap is exhausted.",
+    "status": "verified-with-conditions",
+    "source": "SP-2"
   },
   {
     "id": "C-013",

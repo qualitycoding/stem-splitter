@@ -8,6 +8,7 @@
 | Usable outputs (WAV, progress) | T-007, T-008 | S-005 |
 | Works across browsers/EPs, degrades gracefully | T-010, T-018, T-023 | S-001, S-004 |
 | Model delivery reliable and verified | T-012, T-020, T-022 | S-004 |
+| Model loads within the 4 GB wasm heap | T-033, T-017 | S-004 |
 | Resource limits respected | T-017, T-021 | S-005, S-007 |
 | UI responsive, startup without model | T-019 | S-006 |
 | Privacy & security | T-024, T-025, T-026 | S-007 |

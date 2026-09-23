@@ -1,12 +1,12 @@
 ```
-BLOCKED at S-000 — model fails to load in ORT Web (C-012, std::bad_alloc); diagnosing with SP-2
+READY-FOR-IMPLEMENTATION — S-000 complete (SP-1, SP-2); model loads with graph optimisation disabled (D-12)
 Profiles: software, computational
 Mode flags: software.deploys = true
-Claims: 14 (verified 10, corroborated 1, by-design 1, downgraded 1 [C-002], failed 1 [C-012])
-Tests: 32 (unit 12, integration 6, operational 5, security 3, performance 4, provenance 1, deploy smoke 1)
+Claims: 14 (verified 11, verified-with-conditions 1 [C-012], by-design 1, downgraded 1 [C-002])
+Tests: 33 (unit 13, integration 6, operational 5, security 3, performance 4, provenance 1, deploy smoke 1)
 Steps: 9 (S-000 spike + S-001..S-008)
 Gates: 1 (G-002 deployment)
-Risks: 0 Critical, 1 High (R-09), 5 Medium, 3 Low
+Risks: 0 Critical, 0 High, 7 Medium, 3 Low
 ```
 
 # Plan: Browser-Based Audio Stem Splitter (GitHub Pages)
@@ -51,11 +51,9 @@ zero-padded; triangular fade window; divide by summed window weights.
   without `blob:` workers under the planned CSP.
 - Outputs: `research/spikes/SP-1.md`; model SHA-256s into `plan/DECISIONS.md` D-05; CSP host list into D-08.
 - Done when: C-011, C-012, C-013, C-014 move to verified or the plan is amended.
-- **Status:** SP-1 run 2026-09-23 (`research/spikes/SP-1.md`): C-011/C-013/C-014 verified; C-012 failed
-  (`std::bad_alloc` at session creation, both EPs). SP-2 (`research/spikes/sp2.py`) runs a model/memory
-  analysis and an 8-configuration browser matrix. Exit paths: (a) a session-option or ORT-version setting
-  loads the model → record in D-06/D-12; (b) nothing loads → re-export upstream (fp32 weights and/or
-  external data, or split graph) as a new step S-000b before S-001.
+- **Status: DONE.** SP-1 (`research/spikes/SP-1.md`): C-011/C-013/C-014 verified. SP-2
+  (`research/spikes/SP-2.md`): `std::bad_alloc` was caused by graph optimisation exhausting the 4 GB wasm
+  heap; with D-12 session options the model loads on WASM and WebGPU (ORT 1.30). C-012 verified under D-12.
 
 ### S-001 Scaffold
 - Depends: S-000
@@ -89,12 +87,12 @@ zero-padded; triangular fade window; divide by summed window weights.
 - Depends: S-000, S-001
 - Actions: `getModel(url, sha256)`: Cache API lookup → fetch with 3× backoff
   → verify SHA-256 → cache; on mismatch evict and refetch once.
-  `createSession(bytes)`: try `['webgpu']`, on failure `['wasm']`; record
-  the EP actually used. `ort.env.wasm.wasmPaths = BASE_URL + 'ort/'`;
+  `createSession(bytes)`: try `['webgpu']`, on failure `['wasm']`, always with the
+  D-12 session options; record the EP actually used; cache the session per page (D-13). `ort.env.wasm.wasmPaths = BASE_URL + 'ort/'`;
   `numThreads = crossOriginIsolated ? min(8, max(1, hwc-1)) : 1`.
   "Load model from disk" picker (same SHA check).
 - Outputs: `src/model/cache.ts`, `src/model/session.ts`
-- Evidence: T-010, T-012, T-020, T-022
+- Evidence: T-010, T-012, T-020, T-022, T-033
 - Claims: C-001, C-004, C-008, C-011
 
 ### S-005 Separation pipeline (runs in worker)
@@ -111,8 +109,9 @@ zero-padded; triangular fade window; divide by summed window weights.
 
 ### S-006 UI
 - Depends: S-005
-- Actions: drop zone, mode selector (Standard / High quality with time &
-  download estimate), progress, cancel (terminates worker), EP badge,
+- Actions: drop zone, mode selector (Standard / High quality; High quality
+  disabled on WASM with an explanation; time & download estimate per EP),
+  a distinct "Preparing model" stage (session creation takes 25–50 s), progress, cancel (terminates worker), EP badge,
   "slow mode" notice when not cross-origin isolated, mobile warning,
   per-stem download + "download all" (store-only zip, no dependency),
   privacy notice. No `innerHTML` with user data.
@@ -151,6 +150,8 @@ chromium, webkit, firefox) for everything touching Web APIs.
 - T-011 High-quality mode keeps row `SOURCES.indexOf(stem)` for each specialist (checked with a synthetic 4-row output).
 - T-012 Cache: stored, reused without network; corrupted bytes → SHA mismatch → evict + refetch.
 
+- T-033 Every session is created with the D-12 options; a test asserts that `basic`/`all` are never passed (regression guard for the 4 GB heap failure).
+
 **Integration** (Chromium unless stated)
 - T-013 10 s input → 4 stems each exactly input length.
 - T-014 Silence → each stem RMS < 1e-4.
@@ -172,10 +173,10 @@ chromium, webkit, firefox) for everything touching Web APIs.
 - T-026 `npm audit --audit-level=high` exits 0.
 
 **Performance** (recorded, informational on CI; enforced on reference machines)
-- T-027 Standard, 4-min song, M1 Air WASM multi-thread: < 6 min.
-- T-028 Standard, 4-min song, Chrome WebGPU on discrete/Apple GPU: < 90 s.
+- T-027 Standard, 4-min song, WASM multi-thread: < 6 min on M1 Air; ≤ 16 min on the SP-2 reference machine (4-core Intel Gen9, measured 21.8 s/chunk ≈ 15 min).
+- T-028 Standard, 4-min song, Chrome WebGPU: < 90 s separation excluding session creation (SP-2 reference iGPU: 1.26 s/chunk ≈ 53 s); session creation < 60 s.
 - T-029 Standard model cold download at 50 Mbps: < 45 s.
-- T-030 High quality, 4-min song, WebGPU: < 6 min (WASM expected 12–20 min; UI must say so).
+- T-030 High quality, 4-min song, WebGPU: < 8 min including four session creations (SP-2 estimate ≈ 3.5 min separation + 4 × ~48 s create ≈ 6.7 min). Not offered on WASM (≈ 1 h).
 
 **Provenance**
 - T-031 Sidecar JSON contains: app git SHA (build-time `define`), ORT version, model name + SHA-256, input SHA-256, UTC timestamp, EP, thread count, mode.

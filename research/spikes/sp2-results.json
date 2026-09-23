@@ -1,0 +1,455 @@
+{
+  "script": "sp2",
+  "version": 1,
+  "run_at": "2026-09-23T21:00:05Z",
+  "python": "3.14.2",
+  "platform": "win32",
+  "model_sha256": "d05c269d0178d2a72ad484b10b11dd370193fc923201c3b27a99f848745db70a",
+  "model_analysis": {
+    "skipped": "onnx not installed"
+  },
+  "native": [
+    {
+      "level": "ORT_DISABLE_ALL",
+      "ort_version": "1.30.0",
+      "peak_before": null,
+      "create_s": 37.47,
+      "peak_after_create": null,
+      "run_s": 6.98,
+      "out_shape": [
+        1,
+        4,
+        2,
+        343980
+      ],
+      "finite": true,
+      "peak_after_run": null
+    },
+    {
+      "level": "ORT_ENABLE_BASIC",
+      "ort_version": "1.30.0",
+      "peak_before": null,
+      "create_s": 8.09,
+      "peak_after_create": null,
+      "run_s": 6.59,
+      "out_shape": [
+        1,
+        4,
+        2,
+        343980
+      ],
+      "finite": true,
+      "peak_after_run": null
+    },
+    {
+      "level": "ORT_ENABLE_ALL",
+      "ort_version": "1.30.0",
+      "peak_before": null,
+      "create_s": 8.23,
+      "peak_after_create": null,
+      "run_s": 6.4,
+      "out_shape": [
+        1,
+        4,
+        2,
+        343980
+      ],
+      "finite": true,
+      "peak_after_run": null
+    }
+  ],
+  "browser": [
+    {
+      "i": 0,
+      "config": {
+        "ort": "1.30.0",
+        "threads": 1,
+        "opt": "disabled",
+        "arena": false,
+        "memPattern": false,
+        "webgpu": false,
+        "threadsResolved": 1
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "crossOriginIsolated": true,
+      "attempts": [
+        {
+          "ep": "wasm",
+          "createSeconds": 28.02,
+          "memAfterCreate": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 417
+            }
+          ],
+          "runSeconds": [
+            34.71
+          ],
+          "outputDims": [
+            1,
+            4,
+            2,
+            343980
+          ],
+          "nonFiniteCount": 0,
+          "ok": true,
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 886
+            }
+          ]
+        }
+      ],
+      "ortVersion": "1.30.0"
+    },
+    {
+      "i": 1,
+      "config": {
+        "ort": "1.30.0",
+        "threads": "max",
+        "opt": "disabled",
+        "arena": false,
+        "memPattern": false,
+        "webgpu": true,
+        "threadsResolved": 3
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "crossOriginIsolated": true,
+      "attempts": [
+        {
+          "ep": "wasm",
+          "createSeconds": 26.75,
+          "memAfterCreate": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 418
+            }
+          ],
+          "runSeconds": [
+            21.83
+          ],
+          "outputDims": [
+            1,
+            4,
+            2,
+            343980
+          ],
+          "nonFiniteCount": 0,
+          "ok": true,
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 887
+            }
+          ]
+        },
+        {
+          "ep": "webgpu",
+          "createSeconds": 48.34,
+          "memAfterCreate": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 887
+            }
+          ],
+          "runSeconds": [
+            8.2,
+            1.26
+          ],
+          "outputDims": [
+            1,
+            4,
+            2,
+            343980
+          ],
+          "nonFiniteCount": 0,
+          "ok": true,
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 887
+            }
+          ]
+        }
+      ],
+      "ortVersion": "1.30.0"
+    },
+    {
+      "i": 2,
+      "config": {
+        "ort": "1.30.0",
+        "threads": "max",
+        "opt": "basic",
+        "arena": true,
+        "memPattern": true,
+        "webgpu": true,
+        "threadsResolved": 3
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "crossOriginIsolated": true,
+      "attempts": [
+        {
+          "ep": "wasm",
+          "ok": false,
+          "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: std::bad_alloc",
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 4096
+            }
+          ]
+        },
+        {
+          "ep": "webgpu",
+          "ok": false,
+          "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: std::bad_alloc",
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 4096
+            }
+          ]
+        }
+      ],
+      "ortVersion": "1.30.0"
+    },
+    {
+      "i": 3,
+      "config": {
+        "ort": "1.30.0",
+        "threads": 1,
+        "opt": "all",
+        "arena": true,
+        "memPattern": true,
+        "webgpu": false,
+        "threadsResolved": 1
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "crossOriginIsolated": true,
+      "attempts": [
+        {
+          "ep": "wasm",
+          "ok": false,
+          "error": "Can't create a session. ERROR_CODE: 6, ERROR_MESSAGE: std::bad_alloc",
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 4096
+            }
+          ]
+        }
+      ],
+      "ortVersion": "1.30.0"
+    },
+    {
+      "i": 4,
+      "config": {
+        "ort": "1.22.0",
+        "threads": "max",
+        "opt": "disabled",
+        "arena": false,
+        "memPattern": false,
+        "webgpu": true,
+        "threadsResolved": 3
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "crossOriginIsolated": true,
+      "attempts": [
+        {
+          "ep": "wasm",
+          "createSeconds": 30.21,
+          "memAfterCreate": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 415
+            }
+          ],
+          "runSeconds": [
+            27.66
+          ],
+          "outputDims": [
+            1,
+            4,
+            2,
+            343980
+          ],
+          "nonFiniteCount": 0,
+          "ok": true,
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 886
+            }
+          ]
+        },
+        {
+          "ep": "webgpu",
+          "ok": false,
+          "error": "187671776",
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 886
+            }
+          ]
+        }
+      ],
+      "ortVersion": "1.22.0"
+    },
+    {
+      "i": 5,
+      "config": {
+        "ort": "1.22.0",
+        "threads": "max",
+        "opt": "all",
+        "arena": true,
+        "memPattern": true,
+        "webgpu": false,
+        "threadsResolved": 3
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "crossOriginIsolated": true,
+      "attempts": [
+        {
+          "ep": "wasm",
+          "ok": false,
+          "error": "Aborted(). Build with -sASSERTIONS for more info.",
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 4096
+            }
+          ]
+        }
+      ],
+      "ortVersion": "1.22.0"
+    },
+    {
+      "i": 6,
+      "config": {
+        "ort": "1.18.0",
+        "threads": 1,
+        "opt": "all",
+        "arena": true,
+        "memPattern": true,
+        "webgpu": false,
+        "threadsResolved": 1
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "crossOriginIsolated": true,
+      "attempts": [
+        {
+          "ep": "wasm",
+          "ok": false,
+          "error": "258805728",
+          "memAtEnd": []
+        }
+      ],
+      "ortVersion": "1.18.0"
+    },
+    {
+      "i": 7,
+      "config": {
+        "ort": "1.18.0",
+        "threads": "max",
+        "opt": "disabled",
+        "arena": false,
+        "memPattern": false,
+        "webgpu": true,
+        "threadsResolved": 3
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "crossOriginIsolated": true,
+      "attempts": [
+        {
+          "ep": "wasm",
+          "createSeconds": 21.45,
+          "memAfterCreate": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 415
+            }
+          ],
+          "runSeconds": [
+            24.08
+          ],
+          "outputDims": [
+            1,
+            4,
+            2,
+            343980
+          ],
+          "nonFiniteCount": 0,
+          "ok": true,
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 878
+            }
+          ]
+        },
+        {
+          "ep": "webgpu",
+          "ok": false,
+          "error": "no available backend found. ERR: [webgpu] TypeError: r.requestAdapterInfo is not a function",
+          "memAtEnd": [
+            {
+              "initialPages": 256,
+              "maximumPages": 65536,
+              "maximumMB": 4096,
+              "shared": true,
+              "currentMB": 878
+            }
+          ]
+        }
+      ],
+      "ortVersion": "1.18.0"
+    }
+  ]
+}
