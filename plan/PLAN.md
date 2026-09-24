@@ -4,7 +4,7 @@ Profiles: software, computational
 Mode flags: software.deploys = true
 Claims: 14 (verified 11, verified-with-conditions 1 [C-012], by-design 1, downgraded 1 [C-002])
 Tests: 33 written (unit 15, integration 6, operational 5, security 2 [moved to unit], performance 4, provenance 1, deploy smoke 1);
-       node-runnable subset (47 tests) passing locally; full browser subset written but unverified in this
+       node-runnable subset (54 tests) passing locally; full browser subset written but unverified in this
        environment (no network route to Playwright's browser CDN here — see plan/REVIEW.md-style note below)
 Steps: 9 (S-000 spike + S-001..S-008)
 Gates: 1 (G-002 deployment, pending)
@@ -19,7 +19,7 @@ Pages source: **GitHub Actions** (no `gh-pages` branch).
 ## Implementation status
 
 S-001 through S-007 are implemented in `src/`, with tests in `tests/unit/`
-(pure logic, no browser — 47 tests, all passing in every environment this
+(pure logic, no browser — 54 tests, all passing in every environment this
 was built in) and `tests/browser/` (real browser APIs, real ORT sessions,
 via Playwright — written and typechecked, but **not executed** in the
 sandbox this was built in, which has no network route to Playwright's
@@ -32,7 +32,13 @@ What's covered where:
 - Unit (Node, no browser): chunking/OLA/window edge cases (T-004, T-005,
   D-14), stem row extraction (T-011), WAV encoding (T-007), the ZIP writer,
   file-size/duration limits (T-021), the D-12 session-option regression
-  guard (T-033), the D-07 thread-count formula.
+  guard (T-033), the D-07 thread-count formula. Also, using a fake
+  `ort.InferenceSession` injected via `separate()`'s `createSessionForModel`
+  hook (no real ORT, no browser needed): the full standard/high-quality
+  orchestration, progress-stage sequencing, and cancellation between
+  chunks and between model loads (`tests/unit/separate-orchestration.test.ts`,
+  `tests/unit/separate-cancel.test.ts`) — this is real, executed coverage
+  of `separate.ts`'s control flow, not just the DSP it calls into.
 - Browser, fast (tiny synthetic ONNX fixtures, `tests/fixtures/tiny-stem-model*.onnx`,
   no network beyond the test server itself): decode/resample/mono (T-001,
   T-002, T-003), decode error handling (T-009), the full `separate()`

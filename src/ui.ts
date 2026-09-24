@@ -403,10 +403,17 @@ export class App {
     // isn't needed again on the main thread after this point.
   }
 
-  private cancelSeparation(): void {
-    this.worker?.postMessage({ type: "cancel" });
+  private terminateWorker(): void {
     this.worker?.terminate();
     this.worker = null;
+  }
+
+  private cancelSeparation(): void {
+    // No graceful cancel-message handshake: terminate() is immediate and
+    // guarantees the worker (and whatever WASM memory its ORT session
+    // holds) is actually gone, which matters more here than letting an
+    // in-flight chunk finish cleanly.
+    this.terminateWorker();
     this.setStage("ready");
   }
 
@@ -416,19 +423,19 @@ export class App {
       return;
     }
     if (message.type === "result") {
-      this.worker = null;
+      this.terminateWorker();
       this.buildResultDownloads(message);
       this.setStage("done");
       return;
     }
     if (message.type === "error") {
-      this.worker = null;
+      this.terminateWorker();
       this.els.notices.append(el("p", { class: "notice error" }, [message.message || "Separation failed."]));
       this.setStage("error");
       return;
     }
     if (message.type === "cancelled") {
-      this.worker = null;
+      this.terminateWorker();
       this.setStage("ready");
     }
   }
