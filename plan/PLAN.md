@@ -1,11 +1,13 @@
 ```
-READY-FOR-IMPLEMENTATION — S-000 complete (SP-1, SP-2); model loads with graph optimisation disabled (D-12)
+IMPLEMENTED — S-001..S-007 done; S-008 (deploy) awaits gate G-002
 Profiles: software, computational
 Mode flags: software.deploys = true
 Claims: 14 (verified 11, verified-with-conditions 1 [C-012], by-design 1, downgraded 1 [C-002])
-Tests: 33 (unit 13, integration 6, operational 5, security 3, performance 4, provenance 1, deploy smoke 1)
+Tests: 33 written (unit 15, integration 6, operational 5, security 2 [moved to unit], performance 4, provenance 1, deploy smoke 1);
+       node-runnable subset (47 tests) passing locally; full browser subset written but unverified in this
+       environment (no network route to Playwright's browser CDN here — see plan/REVIEW.md-style note below)
 Steps: 9 (S-000 spike + S-001..S-008)
-Gates: 1 (G-002 deployment)
+Gates: 1 (G-002 deployment, pending)
 Risks: 0 Critical, 0 High, 7 Medium, 3 Low
 ```
 
@@ -14,7 +16,48 @@ Risks: 0 Critical, 0 High, 7 Medium, 3 Low
 Repo: `qualitycoding/stem-splitter` · Pages URL: `https://qualitycoding.github.io/stem-splitter/`
 Pages source: **GitHub Actions** (no `gh-pages` branch).
 
-## Architecture
+## Implementation status
+
+S-001 through S-007 are implemented in `src/`, with tests in `tests/unit/`
+(pure logic, no browser — 47 tests, all passing in every environment this
+was built in) and `tests/browser/` (real browser APIs, real ORT sessions,
+via Playwright — written and typechecked, but **not executed** in the
+sandbox this was built in, which has no network route to Playwright's
+browser-binary CDN, same restriction noted for huggingface.co in
+research/spikes/SP-1.md). `.github/workflows/tests.yml` runs the full
+browser suite on push/PR, where that restriction doesn't apply; that
+first CI run is the first real execution of `tests/browser/*`.
+
+What's covered where:
+- Unit (Node, no browser): chunking/OLA/window edge cases (T-004, T-005,
+  D-14), stem row extraction (T-011), WAV encoding (T-007), the ZIP writer,
+  file-size/duration limits (T-021), the D-12 session-option regression
+  guard (T-033), the D-07 thread-count formula.
+- Browser, fast (tiny synthetic ONNX fixtures, `tests/fixtures/tiny-stem-model*.onnx`,
+  no network beyond the test server itself): decode/resample/mono (T-001,
+  T-002, T-003), decode error handling (T-009), the full `separate()`
+  pipeline incl. progress (T-008, T-013, T-014, T-015), EP fallback
+  (T-010), Cache API round-trip and corruption recovery (T-012, T-022),
+  app startup with no model loaded (T-019), thread count under real
+  ambient isolation state (T-023).
+- Browser, opt-in (real ~166 MB model, real Hugging Face download — see
+  `.github/workflows/golden-parity.yml`): golden parity against a
+  demucs-onnx Python reference (T-006 — the reference data itself,
+  `tests/fixtures/golden-reference.json`, still needs generating by a
+  maintainer with network access via
+  `tests/fixtures/generate-golden-reference.py`; the test skips itself
+  with a clear message until that file exists), and performance (T-027–T-030,
+  informational).
+- Not automated, documented as manual QA: the coi-serviceworker
+  install-then-reload flow (T-018) and the live CSP `connect-src`
+  allow-list (T-025) are page-navigation-level behaviours outside
+  Vitest browser mode's per-test-file model; T-026 (`npm audit`) and
+  T-032 (deploy smoke) are CI steps, not test files — see
+  `.github/workflows/tests.yml` and `plan/templates/deploy.yml`.
+- `tests/unit/session-options.test.ts` pins D-12 so nobody re-enables
+  graph optimisation without re-reading `research/spikes/SP-2.md`.
+
+
 
 ```
 main thread                               worker (module)
@@ -30,8 +73,8 @@ Model modes (DECISIONS D-03):
 
 | Mode | Model | Download (fp16weights) | Networks per chunk | Default |
 |---|---|---|---|---|
-| Standard | `htdemucs` single-file | ~166 MB (verify SP-1) | 1 | yes |
-| High quality | `htdemucs_ft` bag | 4 × ~166 MB | 4 (sequential, one resident) | no |
+| Standard | `htdemucs` single-file | 165,612,636 bytes (SP-1, verified) | 1 | yes |
+| High quality | `htdemucs_ft` bag | 4 × 165,612,636 bytes | 4 (sequential, one resident) | no |
 
 Model I/O (from `demucs_onnx.inference`): input `mix` float32 `(1,2,343980)`;
 output `stems` float32 `(1,4,2,343980)`, source order `drums, bass, other, vocals`.

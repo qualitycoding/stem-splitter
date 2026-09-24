@@ -1,0 +1,44 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run typecheck
+
+      - name: Unit tests (pure DSP, no browser)
+        run: npm test
+
+      - name: Production build
+        run: npm run build
+        env:
+          VITE_GIT_SHA: ${{ github.sha }}
+
+      - name: Dependency audit (T-026)
+        run: npm audit --audit-level=high
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      - name: Browser tests (tiny synthetic model fixtures — no Hugging Face download)
+        run: npm run test:browser
+        # golden-parity.test.ts and performance.test.ts self-skip here: they
+        # need VITE_RUN_GOLDEN_PARITY=1 / VITE_RUN_PERFORMANCE_TESTS=1, which
+        # are intentionally not set on every push (real ~166 MB model
+        # download + real inference). See .github/workflows/golden-parity.yml
+        # and plan/PLAN.md T-006 / T-027-030.

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stem Splitter</title>
+    <meta name="description" content="Split a song into vocals, drums, bass and other — entirely in your browser. Nothing is uploaded." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎚️</text></svg>" />
+
+    <!--
+      D-08 (plan/DECISIONS.md). Must load before anything else touches the
+      network: it installs the service worker that adds COOP/COEP response
+      headers GitHub Pages can't send itself, then reloads the page once.
+      See plan/REVIEW.md #1/#13 and research/spikes/SP-1.md.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' https://huggingface.co https://*.hf.co; img-src 'self' data:; style-src 'self'"
+    />
+    <script src="/coi-serviceworker.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

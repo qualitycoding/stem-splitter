@@ -1,0 +1,34 @@
+name: Golden parity & performance (manual)
+
+# Downloads the real ~166 MB pinned htdemucs model from Hugging Face and
+# runs real inference (T-006, T-027-030) — not run on every push. Trigger
+# manually from the Actions tab.
+#
+# T-006 additionally needs tests/fixtures/golden-reference.json, generated
+# once by a maintainer via tests/fixtures/generate-golden-reference.py (see
+# that file's docstring) and committed to the repo. If it's absent, the
+# golden-parity test skips itself with a clear message rather than failing.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      - name: Golden parity + performance (real model, real inference)
+        run: npm run test:browser -- golden-parity performance
+        env:
+          VITE_RUN_GOLDEN_PARITY: "1"
+          VITE_RUN_PERFORMANCE_TESTS: "1"

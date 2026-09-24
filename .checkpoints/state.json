@@ -1,11 +1,18 @@
 {
-  "plan_version": 4,
-  "updated": "2026-09-23",
-  "status": "ready-for-implementation",
+  "plan_version": 5,
+  "updated": "2026-09-24",
+  "status": "implemented-pending-ci-verification",
   "completed_steps": [
-    "S-000"
+    "S-000",
+    "S-001",
+    "S-002",
+    "S-003",
+    "S-004",
+    "S-005",
+    "S-006",
+    "S-007"
   ],
-  "current_step": "S-001",
+  "current_step": "S-008",
   "spikes": {
     "SP-1": "done",
     "SP-2": "done"
@@ -13,5 +20,10 @@
   "blocking_claims": [],
   "gates": {
     "G-002": "pending"
-  }
+  },
+  "notes": [
+    "tests/browser/* written and typechecked but not executed in the sandbox this was built in (no network to Playwright's browser CDN or Hugging Face) -- .github/workflows/tests.yml on push/PR is the first real run",
+    "tests/fixtures/golden-reference.json (T-006) not yet generated -- needs a maintainer with network access, see tests/fixtures/generate-golden-reference.py",
+    "S-008 not started: awaits gate G-002 sign-off"
+  ]
 }

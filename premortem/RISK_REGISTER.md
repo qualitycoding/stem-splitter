@@ -12,3 +12,4 @@
 | R-08 | Model/weights licensing | Low | Demucs weights and demucs-onnx are MIT; listed in NOTICE |
 | R-09 | Model exhausts the 4 GB wasm heap if graph optimisation is enabled (SP-2) | Med | D-12 options, T-033 regression guard; if a future ORT/model breaks it, re-export with constants pre-folded offline |
 | R-10 | Slow session creation (27 s WASM, 48 s WebGPU on reference iGPU) and slow WASM separation (≈ 15 min / 4-min song) | Med | "Preparing model" stage, session reuse (D-13), per-EP time estimate, HQ WebGPU-only; future: pre-optimised model export |
+| R-11 | `tests/browser/*` has never actually run (sandbox had no network to Playwright's browser CDN) | Med | `.github/workflows/tests.yml` runs it on the first push/PR — treat that run as the real completion gate for S-001–S-007, not this plan document |

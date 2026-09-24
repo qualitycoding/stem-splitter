@@ -1,0 +1,27 @@
+{
+  "name": "stem-splitter",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/copy-static-assets.mjs && vite",
+    "build": "node scripts/copy-static-assets.mjs && tsc -p tsconfig.build.json && vite build",
+    "preview": "vite preview",
+    "test": "vitest run --project node",
+    "test:browser": "vitest run --project browser",
+    "test:all": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@vitest/browser": "5.0.1",
+    "@vitest/browser-playwright": "^5.0.1",
+    "playwright": "1.63.0",
+    "typescript": "5.9.3",
+    "vite": "8.3.0",
+    "vitest": "5.0.1"
+  },
+  "dependencies": {
+    "coi-serviceworker": "0.1.7",
+    "onnxruntime-web": "1.30.0"
+  }
+}
