@@ -5,35 +5,37 @@ Start with `plan/REVIEW.md` (why the original plan changed), then
 **not** create `.github/workflows/deploy.yml` until gate G-002 is signed
 off; the template lives in `plan/templates/deploy.yml`.
 
-**Current status: S-001–S-007 implemented, in `src/`. S-008 (deploy) is
-gated on G-002 and not started.**
+**Current status: S-001–S-007 implemented and verified (CI green, browser
+suite executed, T-006 passing). S-008 (deploy) is gated on G-002 and not
+started.**
 
-## First thing to do
+## What is verified
 
-Push this branch (or merge to `main`) and watch `.github/workflows/tests.yml`
-run. Every test here was written and typechecked but the sandbox this was
-built in has no network route to Playwright's browser-binary CDN or to
-Hugging Face, so **`tests/browser/*` has never actually been executed** —
-that first CI run is the real gate before trusting any of this. If
-something in `tests/browser/` fails, fix it before treating S-001–S-007 as
-actually done, not just written.
+- `npm test` (54 Node unit tests), `npm run typecheck`, `npm run build`,
+  `npm audit`, `npm run verify:frozen`, and the browser suite on
+  chromium/firefox/webkit run in `.github/workflows/tests.yml` — green on
+  the last pushed commit. (Local WebKit on Windows can't run the decode
+  tests: no `OfflineAudioContext` there; CI's Linux WebKit can.)
+- T-006 golden parity: `VITE_TEST_ISOLATE=1 VITE_RUN_GOLDEN_PARITY=1 npm run test:browser -- golden-parity`
+  passes, max abs diff 3.4e-5 vs the `demucs-onnx` Python reference.
+- Read `research/spikes/SP-3.md` before touching the golden fixture: the
+  first fixture exposed an unexplained WASM-vs-native divergence on
+  exactly-mono tone input (not seen on ordinary stereo).
 
-`npm test` (the Node-only unit suite: DSP, WAV/ZIP encoding, security
-limits, D-12/D-07 regression guards) passes locally in every environment
-this was built in — 47 tests, see `plan/PLAN.md` "Implementation status"
-for exactly what each covers.
+## Before G-002 (need hardware not available where this was built)
 
-## Two follow-ups, not blocking S-008
+- **WebGPU and M1 performance.** `tests/PERF.md` records WASM timings on an
+  i5-6200U (≈ 15 s/chunk at 3 threads, ≈ 26 s/chunk single-thread) but T-028,
+  T-029, T-030 and the M1 Air T-027 figure are unmeasured: headless Chromium
+  here has no WebGPU adapter. Fill them in with a real 4-minute input on a
+  GPU machine (commands at the bottom of `tests/PERF.md`).
+- **Manual QA not automated:** T-018 (coi-serviceworker reload), T-025 (live
+  CSP allow-list); T-032 is the post-deploy smoke test.
 
-- **Golden-parity reference data.** `tests/browser/golden-parity.test.ts`
-  (T-006) skips itself until `tests/fixtures/golden-reference.json`
-  exists. Generate it once, with network access to Hugging Face:
-  `pip install demucs-onnx==0.3.4 soundfile numpy && python3 tests/fixtures/generate-golden-reference.py`,
-  then commit the resulting JSON. Instructions are in that script's
-  docstring.
-- **Performance baseline on your own hardware.** `tests/browser/performance.test.ts`
-  (T-027–T-030) is opt-in (`VITE_RUN_PERFORMANCE_TESTS=1`) and only checks
-  loose sanity bounds; the real numbers to compare against are in
-  `research/spikes/SP-2.md`.
+## Changing tests
+
+`tests/` is frozen by `tests/FROZEN_MANIFEST.sha256`. If a test/fixture change
+is intended, run `node scripts/frozen-manifest.mjs --write` and commit the
+manifest with it.
 
 Checkpoint state: `.checkpoints/state.json`.

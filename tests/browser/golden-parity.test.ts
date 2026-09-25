@@ -57,19 +57,39 @@ describe.skipIf(!enabled)("golden parity vs demucs-onnx Python reference (T-006)
     const file = new File([await fileRes.blob()], "golden-20s.wav", { type: "audio/wav" });
     const { left, right } = await decodeTo44k(file);
 
-    const result = await separate(left, right, "standard");
+    // T-006 is defined on the WASM EP (plan/PLAN.md). Shadow navigator.gpu so
+    // createSession() can't pick WebGPU on a machine that has it (T-016 owns
+    // the WebGPU-vs-WASM bound).
+    Object.defineProperty(navigator, "gpu", { value: undefined, configurable: true });
+    let result;
+    try {
+      result = await separate(left, right, "standard");
+    } finally {
+      delete (navigator as unknown as Record<string, unknown>).gpu;
+    }
+    expect(result.executionProvider).toBe("wasm");
     expect(result.models).toHaveLength(1);
     expect(result.models[0].name).toBe(STANDARD_MODEL);
     expect(result.models[0].sha256).toBe(MODELS[STANDARD_MODEL].sha256);
 
+    let maxDiff = 0;
     for (const [stem, ref] of Object.entries(reference.stems)) {
       const [outL, outR] = result.stems[stem as keyof typeof result.stems];
       expect(outL.length).toBe(ref.length);
       for (const [indexStr, expected] of Object.entries(ref.samples)) {
         const i = Number(indexStr);
-        expect(Math.abs(outL[i] - expected.left)).toBeLessThanOrEqual(1e-3);
-        expect(Math.abs(outR[i] - expected.right)).toBeLessThanOrEqual(1e-3);
+        maxDiff = Math.max(maxDiff, Math.abs(outL[i] - expected.left), Math.abs(outR[i] - expected.right));
       }
+      // Whole-stem energy as a coarser cross-check than six sample points;
+      // stems the reference itself renders near-silent (rms < 1e-3) are
+      // dominated by relative noise, so only absolute-check those.
+      let sumSq = 0;
+      for (let k = 0; k < outL.length; k++) sumSq += outL[k] * outL[k];
+      const rmsL = Math.sqrt(sumSq / outL.length);
+      if (ref.rms_left >= 1e-3) expect(Math.abs(rmsL - ref.rms_left) / ref.rms_left).toBeLessThanOrEqual(1e-2);
+      else expect(Math.abs(rmsL - ref.rms_left)).toBeLessThanOrEqual(1e-3);
     }
-  }, 300_000); // model download + real inference; generous timeout
+    console.info(`[golden-parity] max abs diff vs reference: ${maxDiff}`);
+    expect(maxDiff).toBeLessThanOrEqual(1e-3);
+  }, 900_000); // model download + WASM session creation + real inference; generous timeout
 });

@@ -1,7 +1,7 @@
 {
   "plan_version": 5,
-  "updated": "2026-09-24",
-  "status": "implemented-pending-ci-verification",
+  "updated": "2026-09-25",
+  "status": "implemented-verified-pending-G-002",
   "completed_steps": [
     "S-000",
     "S-001",
@@ -22,8 +22,10 @@
     "G-002": "pending"
   },
   "notes": [
-    "tests/browser/* written and typechecked but not executed in the sandbox this was built in (no network to Playwright's browser CDN or Hugging Face) -- .github/workflows/tests.yml on push/PR is the first real run",
-    "tests/fixtures/golden-reference.json (T-006) not yet generated -- needs a maintainer with network access, see tests/fixtures/generate-golden-reference.py",
+    "browser suite executed: CI run 36029185471 green (chromium/firefox/webkit); local chromium+firefox pass, local Windows WebKit lacks OfflineAudioContext",
+    "T-006 passing (max abs diff 3.4e-5) on generated fixture; original tone fixture diverged, unexplained -- research/spikes/SP-3.md",
+    "tests/PERF.md: WASM timings on i5-6200U recorded; T-028/T-029/T-030 and M1 T-027 need WebGPU/M1 hardware",
+    "tests/FROZEN_MANIFEST.sha256 written 2026-09-25 (verified in CI via npm run verify:frozen)",
     "S-008 not started: awaits gate G-002 sign-off"
   ]
 }

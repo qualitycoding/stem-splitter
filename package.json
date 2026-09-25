@@ -10,7 +10,8 @@
     "test": "vitest run --project node",
     "test:browser": "vitest run --project browser",
     "test:all": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify:frozen": "node scripts/frozen-manifest.mjs"
   },
   "devDependencies": {
     "@vitest/browser": "5.0.1",

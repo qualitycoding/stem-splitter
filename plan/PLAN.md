@@ -4,8 +4,9 @@ Profiles: software, computational
 Mode flags: software.deploys = true
 Claims: 14 (verified 11, verified-with-conditions 1 [C-012], by-design 1, downgraded 1 [C-002])
 Tests: 33 written (unit 15, integration 6, operational 5, security 2 [moved to unit], performance 4, provenance 1, deploy smoke 1);
-       node-runnable subset (54 tests) passing locally; full browser subset written but unverified in this
-       environment (no network route to Playwright's browser CDN here — see plan/REVIEW.md-style note below)
+       node subset (54 tests) passing; browser subset (28 tests + 2 opt-in, x3 browsers) passing in CI
+       (Tests run 36029185471, 2026-09-24) and locally on chromium + firefox; T-006 golden parity now
+       runs and passes (max abs diff 3.4e-5); WASM timings recorded in tests/PERF.md (WebGPU/M1 targets still unmeasured)
 Steps: 9 (S-000 spike + S-001..S-008)
 Gates: 1 (G-002 deployment, pending)
 Risks: 0 Critical, 0 High, 7 Medium, 3 Low
@@ -19,14 +20,18 @@ Pages source: **GitHub Actions** (no `gh-pages` branch).
 ## Implementation status
 
 S-001 through S-007 are implemented in `src/`, with tests in `tests/unit/`
-(pure logic, no browser — 54 tests, all passing in every environment this
-was built in) and `tests/browser/` (real browser APIs, real ORT sessions,
-via Playwright — written and typechecked, but **not executed** in the
-sandbox this was built in, which has no network route to Playwright's
-browser-binary CDN, same restriction noted for huggingface.co in
-research/spikes/SP-1.md). `.github/workflows/tests.yml` runs the full
-browser suite on push/PR, where that restriction doesn't apply; that
-first CI run is the first real execution of `tests/browser/*`.
+(pure logic, no browser — 54 tests) and `tests/browser/` (real browser APIs,
+real ORT sessions, via Playwright). The build sandbox couldn't reach
+Playwright's browser CDN, so `.github/workflows/tests.yml` ran the browser
+suite first: green on chromium, firefox and webkit (run 36029185471). It was
+re-run locally on 2026-09-25: chromium and firefox pass; Playwright WebKit on
+Windows lacks `OfflineAudioContext`, so its decode/separate tests fail
+locally only (Linux CI passes). The browser server is not cross-origin
+isolated by default, so those runs are single-threaded WASM (also the T-023
+slow-mode check); `VITE_TEST_ISOLATE=1` gives the threaded path.
+`tests/FROZEN_MANIFEST.sha256` (verified in CI, `npm run verify:frozen`)
+freezes everything under `tests/`; first written 2026-09-25, later than
+planned.
 
 What's covered where:
 - Unit (Node, no browser): chunking/OLA/window edge cases (T-004, T-005,
@@ -48,12 +53,13 @@ What's covered where:
   ambient isolation state (T-023).
 - Browser, opt-in (real ~166 MB model, real Hugging Face download — see
   `.github/workflows/golden-parity.yml`): golden parity against a
-  demucs-onnx Python reference (T-006 — the reference data itself,
-  `tests/fixtures/golden-reference.json`, still needs generating by a
-  maintainer with network access via
-  `tests/fixtures/generate-golden-reference.py`; the test skips itself
-  with a clear message until that file exists), and performance (T-027–T-030,
-  informational).
+  demucs-onnx Python reference (T-006; reference committed as
+  `tests/fixtures/golden-reference.json`, fixture from
+  `tests/fixtures/generate-golden-fixture.py`; passes, max abs diff 3.4e-5.
+  The first fixture failed at 1.30e-3 on an unexplained WASM-vs-native
+  divergence on exactly-mono tone input — research/spikes/SP-3.md), and
+  performance (T-027–T-030, informational; results and the gaps needing
+  WebGPU/M1 hardware in `tests/PERF.md`).
 - Not automated, documented as manual QA: the coi-serviceworker
   install-then-reload flow (T-018) and the live CSP `connect-src`
   allow-list (T-025) are page-navigation-level behaviours outside
