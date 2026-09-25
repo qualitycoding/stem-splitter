@@ -28,7 +28,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
 
       - name: Golden parity + performance (real model, real inference)
-        run: npm run test:browser -- golden-parity performance
+        run: npm run test:browser -- --browser.name=chromium golden-parity performance
         env:
           VITE_RUN_GOLDEN_PARITY: "1"
           VITE_RUN_PERFORMANCE_TESTS: "1"
