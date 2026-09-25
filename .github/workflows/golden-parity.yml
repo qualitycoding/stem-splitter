@@ -32,3 +32,4 @@ jobs:
         env:
           VITE_RUN_GOLDEN_PARITY: "1"
           VITE_RUN_PERFORMANCE_TESTS: "1"
+          VITE_TEST_ISOLATE: "1" # multi-threaded WASM, as the deployed app runs

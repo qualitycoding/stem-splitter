@@ -21,6 +21,9 @@ jobs:
 
       - run: npm run typecheck
 
+      - name: Frozen test manifest (tests/ unchanged since freeze)
+        run: npm run verify:frozen
+
       - name: Unit tests (pure DSP, no browser)
         run: npm test
 

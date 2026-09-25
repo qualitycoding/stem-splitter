@@ -36,7 +36,7 @@ def main() -> None:
         sys.exit("pip install demucs-onnx==0.3.4 soundfile numpy first (see this file's docstring)")
 
     if not FIXTURE.exists():
-        sys.exit(f"missing fixture: {FIXTURE} (regenerate with tests/fixtures/README.md's ffmpeg command)")
+        sys.exit(f"missing fixture: {FIXTURE} (regenerate with tests/fixtures/generate-golden-fixture.py)")
 
     print(f"Running htdemucs (fp16weights, CPU EP) on {FIXTURE.name} ...")
     stems = separate(
@@ -52,7 +52,7 @@ def main() -> None:
     # a handful of exact sample values at fixed indices (spread across the
     # track, away from sample 0 — see tests/unit/ola.test.ts for why sample
     # 0 is special), and per-stem RMS as a coarser cross-check.
-    sample_indices = [1000, 50_000, 200_000, 400_000, 600_000, 800_000]
+    sample_indices = [1000, 50_000, 200_000, 400_000, 600_000, 800_000, 860_000]
     reference = {"fixture_sha256": hashlib.sha256(FIXTURE.read_bytes()).hexdigest(), "stems": {}}
     for name, audio in stems.items():
         left, right = audio[0], audio[1]
