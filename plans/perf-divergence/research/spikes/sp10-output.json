@@ -1,0 +1,59 @@
+{
+ "browser": "154.0.8037.57",
+ "ort": "1.30.0",
+ "createMs": 46158,
+ "features": [
+  "core-features-and-limits",
+  "timestamp-query"
+ ],
+ "runs": [
+  {
+   "run_ms": 9740.8,
+   "extra_wait_after_run_ms": 28.7
+  },
+  {
+   "run_ms": 1325.8,
+   "extra_wait_after_run_ms": 0.3
+  },
+  {
+   "run_ms": 1297.6,
+   "extra_wait_after_run_ms": 0.3
+  }
+ ],
+ "firstRunCheck": {
+  "nonFinite": 0,
+  "perStem": [
+   {
+    "name": "drums",
+    "rel_l2": 1
+   },
+   {
+    "name": "bass",
+    "rel_l2": 1
+   },
+   {
+    "name": "other",
+    "rel_l2": 1
+   },
+   {
+    "name": "vocals",
+    "rel_l2": 1
+   }
+  ]
+ },
+ "errorCount": 2030,
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "\u001b[0;93m2026-09-26 22:58:02.893899 [W:onnxruntime:, session_state.cc:1397 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf",
+  "\u001b[0;93m2026-09-26 22:58:02.905199 [W:onnxruntime:, session_state.cc:1399 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.\u001b[m",
+  "An uncaught WebGPU validation error was raised: Error while parsing WGSL: :7:70 error: 'f16' type used without 'f16' extension enabled\n      @group(0) @binding(0) var<storage, read> inputData: array<vec4<f16>>;\n                                                                     ^^^\n\n\n - While calli",
+  "Error while parsing WGSL: :7:70 error: 'f16' type used without 'f16' extension enabled\n      @group(0) @binding(0) var<storage, read> inputData: array<vec4<f16>>;\n                                                                     ^^^\n\n\n - While calling [Device].CreateShaderModule([ShaderModuleDesc",
+  "An uncaught WebGPU validation error was raised: [Invalid ShaderModule \"Cast\"] is invalid due to a previous error.\n - While validating compute stage ([Invalid ShaderModule \"Cast\"], entryPoint: \"main\").\n - While calling [Device].CreateComputePipeline([ComputePipelineDescriptor \"\"Cast\"\"]).\n",
+  "[Invalid ShaderModule \"Cast\"] is invalid due to a previous error.\n - While validating compute stage ([Invalid ShaderModule \"Cast\"], entryPoint: \"main\").\n - While calling [Device].CreateComputePipeline([ComputePipelineDescriptor \"\"Cast\"\"]).\n",
+  "An uncaught WebGPU validation error was raised: [Invalid ComputePipeline \"Cast\"] is invalid due to a previous error.\n - While Validating GetBindGroupLayout (0) on [Invalid ComputePipeline \"Cast\"]\n",
+  "[Invalid ComputePipeline \"Cast\"] is invalid due to a previous error.\n - While Validating GetBindGroupLayout (0) on [Invalid ComputePipeline \"Cast\"]\n",
+  "An uncaught WebGPU validation error was raised: [Invalid BindGroupLayout (unlabeled)] is invalid due to a previous error.\n - While validating [BindGroupDescriptor \"\"Cast\"\"] against [Invalid BindGroupLayout (unlabeled)]\n - While calling [Device].CreateBindGroup([BindGroupDescriptor \"\"Cast\"\"]).\n",
+  "[Invalid BindGroupLayout (unlabeled)] is invalid due to a previous error.\n - While validating [BindGroupDescriptor \"\"Cast\"\"] against [Invalid BindGroupLayout (unlabeled)]\n - While calling [Device].CreateBindGroup([BindGroupDescriptor \"\"Cast\"\"]).\n",
+  "An uncaught WebGPU validation error was raised: [Invalid ComputePipeline \"Cast\"] is invalid due to a previous error.\n - While encoding [ComputePassEncoder (unlabeled)].SetPipeline([Invalid ComputePipeline \"Cast\"]).\n - While finishing [CommandEncoder (unlabeled)].\n"
+ ]
+}

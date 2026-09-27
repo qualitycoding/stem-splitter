@@ -1,0 +1,27 @@
+{
+ "InstanceNormalization": {
+  "ref_dtype": "float64",
+  "ref_s": 0.27,
+  "ort32_vs_ref64_relL2": 2.122581164153091e-07
+ },
+ "Conv": {
+  "ref_dtype": "float64",
+  "ref_s": 0.01,
+  "ort32_vs_ref64_relL2": 8.440190977602194e-08
+ },
+ "LayerNormalization": {
+  "ref_dtype": "float64",
+  "ref_s": 0.01,
+  "ort32_vs_ref64_relL2": 5.8109531692696154e-08
+ },
+ "Erf": {
+  "ref_dtype": "float64",
+  "ref_s": 0.35,
+  "ort32_vs_ref64_relL2": 3.3129607757025886e-08
+ },
+ "Softmax": {
+  "ref_dtype": "float64",
+  "ref_s": 0.02,
+  "ort32_vs_ref64_relL2": 1.701523033880773e-07
+ }
+}

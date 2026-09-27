@@ -1,0 +1,6 @@
+/tencoder.0/Erf_output_0                                     n=  4127760 relL2=8.457e-05 maxabs=6.860e-05
+r.0/dconv/layers.0/layers.0.1/InstanceNormalization_output_0 n=   515970 relL2=8.875e-05 maxabs=8.450e-04
+/tencoder.0/dconv/layers.0/layers.0.2/Erf_output_0           n=   515970 relL2=5.624e-05 maxabs=1.379e-04
+r.0/dconv/layers.0/layers.0.4/InstanceNormalization_output_0 n=  8255520 relL2=3.549e-03 maxabs=3.179e-02
+r.0/dconv/layers.1/layers.1.1/InstanceNormalization_output_0 n=   515970 relL2=1.945e-03 maxabs=6.076e-03
+/tencoder.0/dconv/layers.1/layers.1.2/Erf_output_0           n=   515970 relL2=2.059e-03 maxabs=1.112e-02

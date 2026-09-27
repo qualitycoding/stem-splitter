@@ -1,0 +1,72 @@
+{
+ "sha256": "d05c269d0178d2a72ad484b10b11dd370193fc923201c3b27a99f848745db70a",
+ "opset": [
+  [
+   "",
+   17
+  ]
+ ],
+ "inputs": [
+  [
+   "mix",
+   [
+    1,
+    2,
+    343980
+   ]
+  ]
+ ],
+ "outputs": [
+  [
+   "stems",
+   [
+    "Addstems_dim_0",
+    "Addstems_dim_1",
+    "Addstems_dim_2",
+    "Addstems_dim_3"
+   ]
+  ]
+ ],
+ "n_nodes": 24917,
+ "n_initializers": 549,
+ "ops": {
+  "Constant": 11684,
+  "Shape": 2968,
+  "Slice": 2090,
+  "Unsqueeze": 945,
+  "Reshape": 927,
+  "Cast": 908,
+  "Gather": 829,
+  "Concat": 784,
+  "Expand": 701,
+  "Range": 697,
+  "ScatterND": 684,
+  "Add": 605,
+  "Mul": 357,
+  "Transpose": 116,
+  "Conv": 94,
+  "Div": 84,
+  "InstanceNormalization": 74,
+  "MatMul": 68,
+  "Erf": 56,
+  "Split": 48,
+  "Sigmoid": 48,
+  "LayerNormalization": 26,
+  "ConstantOfShape": 25,
+  "Sub": 13,
+  "Equal": 12,
+  "Where": 12,
+  "Pow": 11,
+  "Softmax": 10,
+  "ConvTranspose": 10,
+  "Pad": 7,
+  "ReduceMean": 6,
+  "Tile": 4,
+  "Mod": 3,
+  "Sin": 3,
+  "Cos": 3,
+  "ReduceProd": 2,
+  "Sqrt": 2,
+  "Clip": 1
+ }
+}

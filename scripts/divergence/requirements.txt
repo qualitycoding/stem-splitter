@@ -1,0 +1,6 @@
+# Pinned for the divergence investigation (plans/perf-divergence D-108). Verified by research spike SP-5 on Python 3.14.2, Windows 10.
+numpy==2.5.3
+onnx==1.23.0
+onnxruntime==1.30.0
+soundfile==0.14.0
+pytest==9.1.1

@@ -1,0 +1,43 @@
+S-101 baseline — recorded 2026-09-27
+
+Branch: impl/perf-divergence (from generation branch tip b9173b7)
+
+Toolchain observed:
+  node -v   -> v24.13.0
+  npm -v    -> 11.18.0
+  git --version -> git version 2.42.0.windows.2
+  python --version -> Python 3.14.2
+  onnxruntime (venv) -> 1.30.0
+
+Setup:
+  npm ci -> ok (76 packages)
+  python -m venv ../stem-splitter-venv -> created
+  pip install -r scripts/divergence/requirements.txt -> ok, all pinned versions matched
+
+verify:frozen -> initially FAILED (10 files under tests/ present in working tree but
+  not yet in tests/FROZEN_MANIFEST.sha256: tests/divergence/{conftest.py,test_fixture.py,
+  test_harness_tiny.py,test_metrics.py}, tests/fixtures/diagnostic/{README.md,
+  golden-tones-mono-20s.wav}, tests/unit/perf-{record,report,stats,timeline}.test.ts).
+  These are new stub/fixture files delivered by the planning phase, never registered.
+  Ran `node scripts/frozen-manifest.mjs --write` (42 entries) per the plan's own
+  add-test-then-refreeze pattern (S-108/S-109) — additive only, no existing frozen
+  test touched. Logged in DEVIATIONS.md. Re-run: "tests/ matches the frozen manifest
+  (42 files)." -> exit 0.
+
+typecheck -> exit 0, clean
+
+npm test -> Test Files 4 failed | 10 passed (14); Tests 65 failed | 54 passed (119)
+  Matches plan expectation exactly (54 passed pre-existing, 65 failed from the four
+  perf-*.test.ts stub files).
+
+pytest tests/divergence (PYTHONDONTWRITEBYTECODE=1, -p no:cacheprovider) ->
+  44 failed, 4 passed, 5 errors
+  Matches plan expectation exactly.
+
+node plans/perf-divergence/research/spikes/sp4-webgpu.mjs ->
+  both "channel chrome, headless" and "channel chrome, headless + unsafe-webgpu"
+  entries show "adapter": true (vendor intel, architecture gen-9). WebGPU configs
+  are measurable; no fallback to unmeasured needed.
+
+Result: S-101 DONE. All done-when criteria met (steps 3-7), with the one recorded
+deviation above (frozen-manifest write, additive).

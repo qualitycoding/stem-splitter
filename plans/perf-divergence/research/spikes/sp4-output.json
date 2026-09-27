@@ -1,0 +1,56 @@
+[
+  {
+    "config": "bundled chromium headless (baseline)",
+    "version": "153.0.8010.12",
+    "gpu": true,
+    "adapter": null
+  },
+  {
+    "config": "channel chrome, headless",
+    "version": "154.0.8037.57",
+    "gpu": true,
+    "adapter": true,
+    "info": {
+      "vendor": "intel",
+      "architecture": "gen-9",
+      "description": ""
+    },
+    "maxStorage": 2147483644
+  },
+  {
+    "config": "channel chrome, headless + unsafe-webgpu",
+    "version": "154.0.8037.57",
+    "gpu": true,
+    "adapter": true,
+    "info": {
+      "vendor": "intel",
+      "architecture": "gen-9",
+      "description": ""
+    },
+    "maxStorage": 2147483644
+  },
+  {
+    "config": "channel chrome, headed",
+    "version": "154.0.8037.57",
+    "gpu": true,
+    "adapter": true,
+    "info": {
+      "vendor": "intel",
+      "architecture": "gen-9",
+      "description": ""
+    },
+    "maxStorage": 2147483644
+  },
+  {
+    "config": "channel chrome, headed + unsafe-webgpu",
+    "version": "154.0.8037.57",
+    "gpu": true,
+    "adapter": true,
+    "info": {
+      "vendor": "intel",
+      "architecture": "gen-9",
+      "description": ""
+    },
+    "maxStorage": 2147483644
+  }
+]

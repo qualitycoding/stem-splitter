@@ -1,0 +1,1714 @@
+[
+ {
+  "id": "C-101",
+  "claim": "tests/browser/performance.test.ts starts the 'separation' timer at the first `separating` event with completed===1 (after chunk 1 has run), so the timed interval covers 3 chunks of a 4-chunk clip; tests/PERF.md divides it by 4. Corrected from the recorded totals: 61.7/3=20.6 s/chunk (~14.4 min for 42 chunks, not 10.8) and 105.0/3=35.0 s/chunk (~24.5 min, not 18.4). The corrected values agree with SP-2 (21.8 / 34.7 s) and a Node single-thread run (34.8 s).",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "tests/browser/performance.test.ts",
+    "doi": "",
+    "title": "repo source",
+    "version": "HEAD b9173b7",
+    "locator": "L27-38 (modelLoadedAt set at completed===1; separationSeconds=t1-modelLoadedAt)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "src/separate.ts",
+    "doi": "",
+    "title": "repo source",
+    "version": "HEAD b9173b7",
+    "locator": "L58-69 runAllStems: onChunkDone(i+1) after each chunk",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "tests/PERF.md",
+    "doi": "",
+    "title": "repo record",
+    "version": "",
+    "locator": "measured table (61.7 s, 15.4 s/chunk)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   },
+   {
+    "url": "research/spikes/SP-2.md",
+    "doi": "",
+    "title": "repo record",
+    "version": "",
+    "locator": "Performance table (21.8 / 34.7 s per chunk)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-101",
+   "T-101",
+   "T-104",
+   "T-105",
+   "PD-SC-1"
+  ]
+ },
+ {
+  "id": "C-102",
+  "claim": "The ORIGINAL first golden fixture is recoverable from git (`git show 729c249:tests/fixtures/golden-20s.wav`, sha256 9d60e12d..., 3,528,078 bytes; 20 s, 44.1 kHz, 16-bit, exactly mono, chord 330/440/550 Hz). On it, ORT Web 1.30 WASM (1 thread, Node) vs native ORT CPU, chunk 3: vocals rel_l2 1.155 (SP-3 browser: 1.19), bass 0.141, other 0.072, drums 0.328. SP-3's statement that the original is 'not kept in the repo' is incorrect.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/sp6-output-original-chunk3.json",
+    "doi": "",
+    "title": "spike SP-6",
+    "version": "",
+    "locator": "whole file",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "git show 729c249:tests/fixtures/golden-20s.wav",
+    "doi": "",
+    "title": "git history",
+    "version": "",
+    "locator": "sha256 9d60e12d...",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [
+   "research/spikes/SP-3.md statement: original fixture not kept"
+  ],
+  "informs": [
+   "D-105",
+   "A-105",
+   "T-201",
+   "T-205",
+   "S-108"
+  ]
+ },
+ {
+  "id": "C-103",
+  "claim": "A regenerated three-tone mono chord (261.63/329.63/392.00 Hz, amp 0.1) does NOT reproduce the divergence in the same harness (chunk 3: vocals 0.0023, other 4.1e-5). The reproduction is specific to the original input.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/sp6-output-chunk3.json",
+    "doi": "",
+    "title": "spike SP-6",
+    "version": "",
+    "locator": "whole file",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "A-105",
+   "D-106 D1",
+   "S-108"
+  ]
+ },
+ {
+  "id": "C-104",
+  "claim": "Intermediate tensors can be compared across runtimes by appending their names to graph.output as FLOAT ValueInfo with unknown shape; this works in native ORT 1.30 and in ORT Web 1.30 (Node, WASM). onnx.utils.extract_model cannot be used because the model has no value_info. On Git-Bash, argv strings beginning with '/' are rewritten, so tensor names must be passed by file.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/sp7-output.txt",
+    "doi": "",
+    "title": "spike SP-7",
+    "version": "",
+    "locator": "6 tensors compared",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "plans/perf-divergence/research/spikes/sp7-extract.py",
+    "doi": "",
+    "title": "spike SP-7",
+    "version": "",
+    "locator": "docstring + expose mode",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-107",
+   "S-107",
+   "S-109"
+  ]
+ },
+ {
+  "id": "C-105",
+  "claim": "ORT Web 1.30.0 runs the pinned htdemucs fp16-weights model under Node 24.13 (WASM EP, 1 thread) with the D-12 session options; create ~18-20 s, run ~35-42 s per chunk; output shape (1,4,2,343980).",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/sp6-node-wasm.mjs",
+    "doi": "",
+    "title": "spike SP-6",
+    "version": "",
+    "locator": "script",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "plans/perf-divergence/research/spikes/SPIKES.md",
+    "doi": "",
+    "title": "spike index",
+    "version": "",
+    "locator": "SP-6 row",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-107",
+   "S-107",
+   "S-108"
+  ]
+ },
+ {
+  "id": "C-106",
+  "claim": "Playwright 1.63 launching system Chrome 154 (channel:'chrome') exposes a WebGPU adapter on this machine (Intel Gen9, maxStorageBufferBindingSize 2147483644), headless and headed, without extra flags; the bundled Chromium 153 returns adapter null. navigator.gpu requires a secure context (http://localhost). tests/PERF.md's statement that WebGPU needs unavailable hardware is therefore wrong for this machine.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/sp4-output.json",
+    "doi": "",
+    "title": "spike SP-4",
+    "version": "",
+    "locator": "5 configs",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "plans/perf-divergence/research/spikes/sp4-webgpu.mjs",
+    "doi": "",
+    "title": "spike SP-4",
+    "version": "",
+    "locator": "script",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [
+   "tests/PERF.md L32-33"
+  ],
+  "informs": [
+   "D-111",
+   "S-103",
+   "S-104",
+   "S-105"
+  ]
+ },
+ {
+  "id": "C-107",
+  "claim": "Vitest 5.0.1 browser mode accepts Playwright launch options (including channel) via playwright({launchOptions}) at provider level; per-instance provider options replace (not merge with) the parent; a separate Vitest project is the clean way to use channel:'chrome' without affecting firefox/webkit.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "node_modules/@vitest/browser-playwright/dist/index.d.ts",
+    "doi": "",
+    "title": "installed typings",
+    "version": "5.0.1",
+    "locator": "L9-46 PlaywrightProviderOptions",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://vitest.dev/config/browser/playwright",
+    "doi": "",
+    "title": "Vitest docs",
+    "version": "current",
+    "locator": "Passing launchOptions; Per-Instance Configuration",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-111",
+   "S-103"
+  ]
+ },
+ {
+  "id": "C-108",
+  "claim": "Node v24.13.0 executes a .ts file imported from a .mjs (native type stripping) with explicit .ts extensions and `import type`, without flags; tsconfig already sets allowImportingTsExtensions and erasableSyntaxOnly.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/sp8-node-ts/output.txt",
+    "doi": "",
+    "title": "spike SP-8",
+    "version": "",
+    "locator": "prints 42",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "tsconfig.json",
+    "doi": "",
+    "title": "repo config",
+    "version": "",
+    "locator": "allowImportingTsExtensions, erasableSyntaxOnly",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-102",
+   "D-104",
+   "S-102",
+   "S-106"
+  ]
+ },
+ {
+  "id": "C-109",
+  "claim": "vitest/browser exposes commands.writeFile(path, content, options) for browser tests; whether it is permitted in this repo's configuration (api.allowWrite) is unverified.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "node_modules/vitest/dist/browser.d.ts",
+    "doi": "",
+    "title": "installed typings",
+    "version": "5.0.1",
+    "locator": "L56 writeFile",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-111",
+   "S-103"
+  ]
+ },
+ {
+  "id": "C-110",
+  "claim": "The pinned model has 24,917 nodes, opset 17, input mix (1,2,343980), output stems (1,4,2,343980) and contains InstanceNormalization x74, LayerNormalization x26, Erf x56, Softmax x10, Conv x94, MatMul x68 among others.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/sp5-model-inspect-output.json",
+    "doi": "",
+    "title": "spike SP-5",
+    "version": "",
+    "locator": "whole file",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-106 D3"
+  ]
+ },
+ {
+  "id": "C-111",
+  "claim": "SP-2 measured 21.8 s/chunk (3-thread WASM), 34.7 s/chunk (1-thread), 1.26 s/chunk (WebGPU warm; first run 8.2 s), session create 27 s (WASM) / 48 s (WebGPU) on its reference machine.",
+  "kind": "numerical",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "research/spikes/SP-2.md",
+    "doi": "",
+    "title": "repo record",
+    "version": "",
+    "locator": "Performance table",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "A-102",
+   "D-110"
+  ]
+ },
+ {
+  "id": "C-112",
+  "claim": "On the target chunk, native-vs-WASM relative L2 error is already 8.5e-5 at the first /tencoder.0/Erf output and 3.5e-3 at /tencoder.0/dconv/layers.0/layers.0.4/InstanceNormalization, i.e. the disagreement grows within the first block. (One chunk, one run, no control.)",
+  "kind": "numerical",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/sp7-output.txt",
+    "doi": "",
+    "title": "spike SP-7",
+    "version": "",
+    "locator": "6 rows",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-106 D3"
+  ]
+ },
+ {
+  "id": "C-113",
+  "claim": "onnx.reference.ReferenceEvaluator run on float64 single-node models is a usable oracle for InstanceNormalization, Conv, LayerNormalization, Erf and Softmax; native ORT fp32 differs from it by 3.3e-8..2.1e-7 relative L2 on random data, below the frozen judging floor 2^-20.",
+  "kind": "numerical",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/sp9-output.json",
+    "doi": "",
+    "title": "spike SP-9",
+    "version": "",
+    "locator": "whole file",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-106 D4",
+   "T-204"
+  ]
+ },
+ {
+  "id": "C-114",
+  "claim": "The frozen decision constants (reproduction threshold 0.5, oracle floor 2^-20, ratio 10, bisection tau 10) are engineering judgements calibrated on SP-2..SP-9 observations, not literature values.",
+  "kind": "policy",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "plans/perf-divergence/research/spikes/SPIKES.md",
+    "doi": "",
+    "title": "spike index",
+    "version": "",
+    "locator": "SP-6, SP-9 rows",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "inferred",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "D-106",
+   "T-204",
+   "R-104"
+  ]
+ },
+ {
+  "id": "C-201",
+  "claim": "CPU EP InstanceNormalization<float> (used by both native and WASM builds; no WASM-specific kernel) computes per (n,c) channel: mean = Eigen Xi.mean(); variance is TWO-PASS: squared_norm = (Xi - mean).squaredNorm(); inv_stdev = 1.0f / std::sqrt(squared_norm / W + epsilon) (epsilon inside the sqrt, added to the variance); all in float (fp32) with no double accumulation; output Yi = Xi*channel_scale + (B - mean*channel_scale) where channel_scale = inv_stdev*scale (i.e. an algebraically folded affine, not (x-mean)*inv*scale+B).",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/onnxruntime/core/providers/cpu/nn/instance_norm.cc",
+    "doi": "",
+    "title": "instance_norm.cc",
+    "version": "v1.30.0",
+    "locator": "lines 24-50 (mean L40, squaredNorm L41, inv_stdev+epsilon L42, folded affine L44-46)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-1)"
+  ]
+ },
+ {
+  "id": "C-202",
+  "claim": "Because InstanceNorm uses Eigen reductions (mean(), squaredNorm()) and Eigen's summation order depends on the compile-time SIMD packet width, the fp32 rounding of mean/variance differs between builds with different Eigen vectorisation (native x64: SSE2/AVX packets and tree-reduction of lanes; WASM: whatever Eigen selects under emscripten, which as far as I know has no wasm-simd128 packet backend in Eigen 3.4, so it falls to scalar/sequential order). The ORT build only turns Eigen vectorisation off via option onnxruntime_DONT_VECTORIZE (EIGEN_DONT_VECTORIZE=1); I did not find it forced on for Emscripten in the files inspected. Exact per-build packet type NOT verified.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/cmake/adjust_global_compile_flags.cmake",
+    "doi": "",
+    "title": "adjust_global_compile_flags.cmake",
+    "version": "v1.30.0",
+    "locator": "lines 194-196 (onnxruntime_DONT_VECTORIZE -> EIGEN_DONT_VECTORIZE=1); lines 40-45 (wasm gets -msimd128, or -msimd128 -mrelaxed-simd only if onnxruntime_ENABLE_WEBASSEMBLY_RELAXED_SIMD)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "inferred",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-2)"
+  ]
+ },
+ {
+  "id": "C-203",
+  "claim": "CPU EP LayerNormalization<float> (layer_norm_impl.cc ComputeJob) FIRST tries MlasLayerNormF32(...); only if that returns false does it run the generic scalar fallback. The generic fallback uses Welford's ONE-PASS online algorithm in type T (float for fp32 models): delta=x-mean; mean += delta/(h+1); M2 += delta*(x-mean); std_dev = sqrt(M2/norm_size + epsilon) (epsilon added to variance inside the sqrt); output = (x-mean)/std_dev*scale + bias (a true divide by std_dev, not multiply by reciprocal), all in float.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/onnxruntime/core/providers/cpu/nn/layer_norm_impl.cc",
+    "doi": "",
+    "title": "layer_norm_impl.cc",
+    "version": "v1.30.0",
+    "locator": "MLAS attempt L49-59; Welford L76-85 (epsilon L85); normalise loop L88-96",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-3)"
+  ]
+ },
+ {
+  "id": "C-204",
+  "claim": "MlasLayerNormF32 returns false (=> fallback to Welford) when GetMlasPlatform().LayerNormF32Kernel is nullptr. On x86/AMD64 it also returns false if NormSize < 8 (LayerNorm) / < 16 (RMSNorm). The kernel pointer is assigned ONLY in platform.cpp for RISC-V RVV (L373) and x86 AVX2+FMA3 (L573 in the AMD64 AVX2 block; L718 for IX86). There is no assignment for WASM/Emscripten, so on ORT Web WASM LayerNormalization always takes the scalar Welford fallback, while native x64 with AVX2+FMA3 takes the AVX2 kernel (A-5).",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/onnxruntime/core/mlas/lib/layernorm.cpp",
+    "doi": "",
+    "title": "layernorm.cpp",
+    "version": "v1.30.0",
+    "locator": "lines 34-37 (nullptr => false), 39-57 (x86 size threshold)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/onnxruntime/core/mlas/lib/platform.cpp",
+    "doi": "",
+    "title": "platform.cpp",
+    "version": "v1.30.0",
+    "locator": "grep 'LayerNormF32Kernel' hits at L373, L573, L718 only",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-4)"
+  ]
+ },
+ {
+  "id": "C-205",
+  "claim": "The native AVX2+FMA3 LayerNorm kernel differs numerically from the WASM/Welford path in three ways: (1) mean is a two-pass double-precision sum (vcvtps2pd+vaddpd, 4 lanes) then cast to float; (2) variance is a CENTERED TWO-PASS sum((x-mean)^2) accumulated in fp32 with 8-lane FMA (_mm256_fmadd_ps) and lane-tree horizontal reduction; (3) normalisation multiplies by inv_denom = 1.0f/sqrtf(var/n + eps) then by scale and uses FMA for the bias add (vy = fma(vy, scale, bias)), whereas the fallback divides by std_dev. Epsilon placement is the same (inside the sqrt, added to variance). So native and WASM LayerNorm are NOT bit-identical by construction; expected difference is a few fp32 ulps per element.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/onnxruntime/core/mlas/lib/layernorm_kernel_avx2.cpp",
+    "doi": "",
+    "title": "layernorm_kernel_avx2.cpp",
+    "version": "v1.30.0",
+    "locator": "header comment L17-31; mean pass L146-164; variance pass L172-193 (eps at L193); normalise+FMA bias L200-240 (FMA at L234)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-5)"
+  ]
+ },
+ {
+  "id": "C-206",
+  "claim": "WASM build flags in v1.30.0: -msimd128 when onnxruntime_ENABLE_WEBASSEMBLY_SIMD; -msimd128 -mrelaxed-simd (relaxed madd/FMA-like ops, may fuse mul+add non-deterministically across engines) only when onnxruntime_ENABLE_WEBASSEMBLY_RELAXED_SIMD. The installed npm package node_modules/onnxruntime-web 1.30.0 dist ships ort-wasm-simd-threaded{,.asyncify,.jsep,.jspi}.wasm and no 'relaxedsimd' artifact, so the browser/Node WASM EP used here is the plain simd128 build (no relaxed-simd).",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/cmake/adjust_global_compile_flags.cmake",
+    "doi": "",
+    "title": "adjust_global_compile_flags.cmake",
+    "version": "v1.30.0",
+    "locator": "lines 40-45",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "file:///D:/projects (dev)/stem-splitter/node_modules/onnxruntime-web/dist",
+    "doi": "",
+    "title": "local onnxruntime-web 1.30.0 dist listing",
+    "version": "1.30.0",
+    "locator": "directory listing (no relaxedsimd file)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-6)"
+  ]
+ },
+ {
+  "id": "C-207",
+  "claim": "The session config key exists with the exact string \"session.set_denormal_as_zero\" (C constant kOrtSessionOptionsConfigSetDenormalAsZero). Value \"1\" enables flush-to-zero and denormal-as-zero; default \"0\". Header doc says: first session's setting applies to the main thread (and global OpenMP pool); threads in per-session thread pools follow each session's option; and 'turning this option on may hurt model accuracy'.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/include/onnxruntime/core/session/onnxruntime_session_options_config_keys.h",
+    "doi": "",
+    "title": "onnxruntime_session_options_config_keys.h",
+    "version": "v1.30.0",
+    "locator": "lines 35-42 (key string at L42)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-7)"
+  ]
+ },
+ {
+  "id": "C-208",
+  "claim": "Native behaviour: InferenceSession reads the key (GetConfigOrDefault(..., \"0\") == \"1\") and, inside a process-wide std::call_once, calls SetDenormalAsZero(value) on the calling thread (so even with default \"0\" it ACTIVELY SETS FTZ/DAZ OFF on the main thread for the first session created in the process). Each intra/inter-op pool worker calls SetDenormalAsZero(set_denormal_as_zero_) at thread start. SetDenormalAsZero is implemented only for x86/x86_64 (needs SSE3 per CPUIDInfo): _MM_SET_DENORMALS_ZERO_MODE + _MM_SET_FLUSH_ZERO_MODE ON/OFF (MXCSR DAZ/FTZ bits), returns true; otherwise returns false and does nothing.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/onnxruntime/core/session/inference_session.cc",
+    "doi": "",
+    "title": "inference_session.cc",
+    "version": "v1.30.0",
+    "locator": "lines 516-528 (read key + call_once + SetDenormalAsZero), 563 and 623 (copied to thread-pool options)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/include/onnxruntime/core/platform/EigenNonBlockingThreadPool.h",
+    "doi": "",
+    "title": "EigenNonBlockingThreadPool.h",
+    "version": "v1.30.0",
+    "locator": "line 878 (ctor stores option), line 1730 (worker calls SetDenormalAsZero(set_denormal_as_zero_))",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/onnxruntime/core/common/denormal.cc",
+    "doi": "",
+    "title": "denormal.cc",
+    "version": "v1.30.0",
+    "locator": "lines 4-19 (PLATFORM_X86 / DENORMAL_INTRINC gating), 27-43 (SetDenormalAsZero; non-x86 branch L39-41 just ORT_UNUSED_PARAMETER, returns false at L42)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-8)"
+  ]
+ },
+ {
+  "id": "C-209",
+  "claim": "ORT Web WASM build: the key CAN be passed from JS (sessionOptions.extra.session.set_denormal_as_zero = '1' or true; iterateExtraOptions joins nested keys with '.' and converts booleans to '1'/'0', then calls _OrtAddSessionConfigEntry), and the string is present in the shipped ort-wasm-simd-threaded.wasm, but because Emscripten/wasm32 does not define the x86 macros, SetDenormalAsZero is a no-op returning false. Hence the WASM EP does NOT honour the option: setting it has no effect, and WASM float ops keep subnormals (the WebAssembly core spec's floating-point numerics define IEEE-754 semantics and do not define any flush-to-zero mode; only NaN payload nondeterminism is permitted). Caveat: 'not honoured' inferred from the x86-only implementation + absence of any other call site (grep of denormal.cc, EigenNonBlockingThreadPool.h, inference_session.cc, platform/env.cc, posix/env.cc, windows/env.cc); I did not execute a runtime probe with a subnormal input.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/js/web/lib/wasm/wasm-utils.ts",
+    "doi": "",
+    "title": "wasm-utils.ts iterateExtraOptions",
+    "version": "v1.30.0",
+    "locator": "lines 21-47 (name joined with '.', boolean -> '1'/'0')",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/js/web/lib/wasm/session-options.ts",
+    "doi": "",
+    "title": "session-options.ts",
+    "version": "v1.30.0",
+    "locator": "lines 290-294 (extra -> appendSessionConfig)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://webassembly.github.io/spec/core/exec/numerics.html",
+    "doi": "",
+    "title": "WebAssembly Core Spec: Numerics",
+    "version": "WebAssembly 3.0 (as served 2026-09-26)",
+    "locator": "floating-point operations section (no FTZ/DAZ mode defined; NaN payload nondeterminism)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-9)"
+  ]
+ },
+ {
+  "id": "C-210",
+  "claim": "Implication: with defaults, both native and WASM preserve subnormals, so denormals are NOT a built-in source of native-vs-WASM divergence UNLESS the native host process has FTZ/DAZ set in MXCSR by other code (another library, a prior ORT session created with '1', etc.) - the once-only main-thread rule in A-8 means the native flag state can depend on which session/library touched MXCSR first. Also, x86 FTZ/DAZ affects only SSE/AVX arithmetic on the calling/worker threads.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/onnxruntime/core/session/inference_session.cc",
+    "doi": "",
+    "title": "inference_session.cc",
+    "version": "v1.30.0",
+    "locator": "lines 519-528",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "inferred",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-10)"
+  ]
+ },
+ {
+  "id": "C-211",
+  "claim": "microsoft/onnxruntime PR #31973 'Add AVX2 LayerNorm/RMSNorm kernel for x86-64 (MLAS)' (state: merged, merge date reported as 2026-09-04) introduced the native x86 LayerNorm fast path. Its stated design: centered two-pass with fp64 mean accumulator, described as 'improving accuracy over the existing scalar fp32 Welford path for poorly conditioned inputs'; adversarial cases (e.g. base=1e6, spread=1e-3, N=256) show scalar Welford far less accurate than the AVX2 kernel; kernel declines dispatch for NormSize<8. Directly explains why native x64 (AVX2 kernel) and WASM (scalar Welford fallback) LayerNorm outputs are expected to differ in low-order bits and more for large-mean/small-spread rows. Consistent with local source read (A-3..A-5). Author's stated metrics on 'accuracy vs fp64' are the PR's own.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://github.com/microsoft/onnxruntime/pull/31973",
+    "doi": "",
+    "title": "Add AVX2 LayerNorm/RMSNorm kernel for x86-64 (MLAS)",
+    "version": "merged 2026-09-04 per page; code present at tag v1.30.0",
+    "locator": "PR description ('Numerical accuracy' section) - opened via WebFetch summary",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-11)"
+  ]
+ },
+ {
+  "id": "C-212",
+  "claim": "microsoft/onnxruntime PR #32715 'Optimize FP16 LayerNorm and RMSNorm on x86' (merged, reported 2026-09-25) covers FP16 only (widen to FP32, double-precision mean); explicitly keeps 'the existing scalar path' for other architectures, older x86, short rows (<16), BF16. Not applicable to an fp32 model, and it landed after the tag date as far as I can tell (not verified whether in v1.30.0); noted only to avoid confusion with #31973. No mention of WASM.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://github.com/microsoft/onnxruntime/pull/32715",
+    "doi": "",
+    "title": "Optimize FP16 LayerNorm and RMSNorm on x86",
+    "version": "unknown release",
+    "locator": "PR description - opened via WebFetch summary",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-12)"
+  ]
+ },
+ {
+  "id": "C-213",
+  "claim": "Opened issue #24070 '[Web] Different model output with WebGPU vs WASM (or Python with the CUDA EP)': closed; labels ep:WebGPU, platform:web; WASM output matched the reporter's ground truth and Python CPU/CUDA, WebGPU was wrong; linked fix PR #24172. This is a WebGPU-operator bug, NOT a WASM-vs-native mismatch. Evidence only that WASM EP matched native CPU EP on that model within reporter's eyeballed tolerance.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://github.com/microsoft/onnxruntime/issues/24070",
+    "doi": "",
+    "title": "[Web] Different model output with WebGPU vs WASM (or Python with the CUDA EP)",
+    "version": "n/a",
+    "locator": "issue body + labels (via WebFetch summary)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-13)"
+  ]
+ },
+ {
+  "id": "C-214",
+  "claim": "Opened issue #29651 '[Web/WebGPU EP] First Conv reducing a >3-channel graph input miscomputes (error scales with channel count; WASM/CPU correct)': open, labels ep:WebGPU, ep:WebNN, platform:web, stale; ORT Web 1.27.0. WASM, Python CPU and a native reference agree; only WebGPU diverges. Reports 3-channel WebGPU-vs-WASM max|delta| = 9.5e-7 (i.e. an fp32-noise-level baseline between EPs). Not a WASM-vs-native mismatch.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://github.com/microsoft/onnxruntime/issues/29651",
+    "doi": "",
+    "title": "[Web/WebGPU EP] First Conv reducing a >3-channel graph input miscomputes",
+    "version": "onnxruntime-web 1.27.0",
+    "locator": "issue body (via WebFetch summary)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-14)"
+  ]
+ },
+ {
+  "id": "C-215",
+  "claim": "Opened issue #14995 '[Web] ONNX model gives different outputs when run in python vs javascript, Using same model and passing same input' (Silero STT en_v5, ORT 1.14.0, WASM EP): closed; labels api:Javascript, platform:web; the fetched content showed no root cause and no resolution. Old version; no numerical analysis; not usable as evidence.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://github.com/microsoft/onnxruntime/issues/14995",
+    "doi": "",
+    "title": "[Web] ONNX model gives different outputs when run in python vs javascript",
+    "version": "1.14.0",
+    "locator": "issue body (via WebFetch summary)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-15)"
+  ]
+ },
+ {
+  "id": "C-216",
+  "claim": "Opened issue #22031 '[Web] Demucs model won't run in both WASM and WGPU': closed; a crash/failure report for a Demucs export in WASM/WebGPU while the model works in Python ORT; no numerical-difference content.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://github.com/microsoft/onnxruntime/issues/22031",
+    "doi": "",
+    "title": "[Web] Demucs model won't run in both WASM and WGPU",
+    "version": "n/a",
+    "locator": "issue body (via WebFetch summary)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-16)"
+  ]
+ },
+ {
+  "id": "C-217",
+  "claim": "Third-party repo issue Shorokoo/Shorokoo #384 (NOT microsoft/onnxruntime) reports ORT CPU LayerNormalization float32 badly wrong / NaN for rows with large mean vs spread, attributing it to E[x^2]-E[x]^2 variance. It gives NO ORT version. This contradicts the v1.30.0 source, where the fallback is Welford and the AVX2 kernel is centered two-pass (A-3, A-5), so it likely describes an older ORT or another code path; treat as unverified for 1.30.0.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://github.com/Shorokoo/Shorokoo/issues/384",
+    "doi": "",
+    "title": "LayerNormalization on the ONNX Runtime backend is badly wrong, or NaN, for float32 rows whose mean is large next to their spread",
+    "version": "unspecified",
+    "locator": "issue body (via WebFetch summary)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [
+   "A-3 and A-5 (v1.30.0 source: Welford / centered two-pass, not E[x^2]-mean^2)"
+  ],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-17)"
+  ]
+ },
+ {
+  "id": "C-218",
+  "claim": "NOT FOUND: no microsoft/onnxruntime issue was located (across ~8 queries) documenting WASM-EP vs native CPU-EP output differences for InstanceNormalization, LayerNormalization, Erf, Softmax, or htdemucs. Absence of evidence from a search engine only; not proof none exists. Therefore the divergence should be treated as a new report and, per Q4, needs a minimal repro.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://github.com/microsoft/onnxruntime/issues",
+    "doi": "",
+    "title": "microsoft/onnxruntime issues (searched via WebSearch, github.com-scoped)",
+    "version": "n/a",
+    "locator": "search queries listed in this section",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-18)"
+  ]
+ },
+ {
+  "id": "C-219",
+  "claim": "At tag v1.30.0 (identical to main when fetched 2026-09-26 for 04-web.yml) .github/ISSUE_TEMPLATE has NO dedicated 'inference bug' template; files are 01-build, 02-documentation, 03-mobile, 04-web, 05-performance, 06-training, 07-feature_request, 08-general, config.yml (blank issues enabled). For an ORT Web vs native discrepancy the applicable choices are 04-web (title prefix '[Web] ', auto-label platform:web) or 08-general.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://api.github.com/repos/microsoft/onnxruntime/git/trees/v1.30.0?recursive=1",
+    "doi": "",
+    "title": "git tree of tag v1.30.0",
+    "version": "v1.30.0",
+    "locator": "paths under .github/ISSUE_TEMPLATE/",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/.github/ISSUE_TEMPLATE/config.yml",
+    "doi": "",
+    "title": "config.yml",
+    "version": "v1.30.0",
+    "locator": "L1 blank_issues_enabled: true; L2-14 contact links",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-19)"
+  ]
+ },
+ {
+  "id": "C-220",
+  "claim": "04-web.yml required fields: 'Describe the issue' (textarea; placeholder asks for description, expected behavior, extra context), 'To reproduce' (textarea; 'Steps to reproduce the issue. As applicable, please provide code and model(s) if possible.'), 'ONNX Runtime Installation' (dropdown: Built from Source / Released Package / Other), 'ONNX Runtime Version or Commit ID' (input), 'Execution Provider' (dropdown, multi-select: 'webgl', \"'wasm'/'cpu' (WebAssembly CPU)\", 'xnnpack', 'webgpu', Other). Optional: 'Urgency'. Template preface: use GitHub Discussions for questions/ideas, and 'review past submissions to ensure that it is not a duplicate'.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/.github/ISSUE_TEMPLATE/04-web.yml",
+    "doi": "",
+    "title": "04-web.yml",
+    "version": "v1.30.0",
+    "locator": "L1-65 (required: L17, L24, L46, L52, L65; Urgency optional L31)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-20)"
+  ]
+ },
+ {
+  "id": "C-221",
+  "claim": "08-general.yml additionally requires Platform (Windows/Linux/Mac/Android/iOS/Web Browser/Other), OS Version, ONNX Runtime Installation, ONNX Runtime Version or Commit ID, ONNX Runtime API (Python/C++/C#/C/Java/JavaScript/Obj-C/WinML/Other), Architecture (X64/X86/ARM64/ARM32/IBM Power/Other) and Execution Provider (Default CPU, ...); optional EP library version. Architecture/CPU is a required field there and is directly relevant here because native LayerNorm dispatch depends on AVX2+FMA3 (A-4).",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/.github/ISSUE_TEMPLATE/08-general.yml",
+    "doi": "",
+    "title": "08-general.yml",
+    "version": "v1.30.0",
+    "locator": "L1-129 (Architecture L87-99, EP L100-122)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-21)"
+  ]
+ },
+ {
+  "id": "C-222",
+  "claim": "The templates give NO size limit or hosting guidance for models: only 'provide code and model(s) if possible'. CONTRIBUTING.md (v1.30.0) contains no bug-report/model-attachment guidance either (grep). GitHub's own attachment limits (docs.github.com, attaching-files): 25MB for non-image/video files, 10MB images/gifs; .zip/.gz/.tgz archives allowed; .onnx not in the listed supported types (per fetch summary, so wrap it in .zip). A 165 MB htdemucs ONNX (local scratch file htdemucs_fp16.onnx is 165,612,636 bytes) cannot be attached directly: a minimal repro would need to be a small subgraph (e.g. one InstanceNormalization or LayerNormalization node plus saved input tensor) under 25 MB, or an external link (release/HF) - the latter is my inference, not template guidance.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/attaching-files",
+    "doi": "",
+    "title": "Attaching files - GitHub Docs",
+    "version": "n/a",
+    "locator": "file-size limits list (via WebFetch summary)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   },
+   {
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.30.0/CONTRIBUTING.md",
+    "doi": "",
+    "title": "CONTRIBUTING.md",
+    "version": "v1.30.0",
+    "locator": "whole file (no bug-report section)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-A.md (original id A-22)"
+  ]
+ },
+ {
+  "id": "C-301",
+  "claim": "Select Chrome for Vitest 5.0.1 browser mode with playwright({launchOptions:{channel:'chrome', args:[...]}}). PlaywrightProviderOptions = { launchOptions (Playwright LaunchOptions minus tracesDir), connectOptions, contextOptions, actionTimeout, persistentContext }. The provider spreads providerOptions.launchOptions and then overwrites headless with the resolved browser.headless, so `headless` belongs in browser config, not launchOptions. `args` is the launch-args array (e.g. ['--enable-unsafe-webgpu']); per local spike no extra flags are needed for the Gen9 adapter.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://vitest.dev/config/browser/playwright",
+    "doi": "",
+    "title": "Vitest docs: Playwright provider",
+    "version": "current docs",
+    "locator": "'Passing launchOptions' example (channel: 'chrome-beta') and 'New Headless' example (channel: 'chromium')",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/@vitest/browser-playwright/dist/index.d.ts",
+    "doi": "",
+    "title": "installed @vitest/browser-playwright typings (local)",
+    "version": "5.0.1",
+    "locator": "L9-46 interface PlaywrightProviderOptions",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/@vitest/browser-playwright/dist/index.js",
+    "doi": "",
+    "title": "installed provider source (local)",
+    "version": "5.0.1",
+    "locator": "resolveLaunchOptions L921-945; launch at L1053 `playwright[browserName].launch(launchOptions)`",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://playwright.dev/docs/browsers",
+    "doi": "",
+    "title": "Playwright docs: Browsers",
+    "version": "current docs",
+    "locator": "'Google Chrome & Microsoft Edge' + headless notes",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-1)"
+  ]
+ },
+ {
+  "id": "C-302",
+  "claim": "Exact syntax. Global (all instances): `provider: playwright({ launchOptions: { channel: 'chrome' } })`. Per-instance override: give the instance its own `provider: playwright({...})`. Docs: per-instance provider options are NOT merged with the parent, they replace it, so repeat every launch option. The instances page lists no instance-level `launchOptions` key (documented: browser, headless, locators, viewport, testerHtmlPath, screenshotDirectory, screenshotFailures, provider). Installed Vitest allows an instance to carry its own provider but requires the same provider NAME/factory across all instances of a project. CONSEQUENCE for this repo: vitest.config.ts uses one global `playwright()` for chromium+firefox+webkit; putting channel:'chrome' there would also be passed to firefox/webkit launches. Two safe shapes: (i) per-instance `provider: playwright({launchOptions:{channel:'chrome'}})` on the chromium instance only, or (ii) a separate project (e.g. name 'browser-webgpu', include performance test only, instances:[{browser:'chromium'}], its own playwright({launchOptions:{channel:'chrome'}})). Shape (ii) is inferred to be the cleaner one because a project can also set its own `server.headers`/include; both are documented patterns.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://vitest.dev/config/browser/playwright",
+    "doi": "",
+    "title": "Vitest docs: Playwright provider",
+    "version": "current docs",
+    "locator": "'Per-Instance Configuration'; sentence 'this will NOT merge options with the parent one'",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://vitest.dev/config/browser/instances",
+    "doi": "",
+    "title": "Vitest docs: browser.instances",
+    "version": "current docs",
+    "locator": "option list",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/vitest/dist/chunks/index.DzobfTyw.js",
+    "doi": "",
+    "title": "installed Vitest core (local)",
+    "version": "5.0.1",
+    "locator": "L7610-7616 (provider from browser.provider or first instance.provider), L12926 (instance provider must match parent provider name), L14394-14399 (all instances must share one provider name/factory; otherwise move to separate projects)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-2)"
+  ]
+ },
+ {
+  "id": "C-303",
+  "claim": "ORT Web 1.30.0 default env.wasm.numThreads (when unset/0/non-integer): 1 if !self.crossOriginIsolated; otherwise min(4, ceil(navigator.hardwareConcurrency / 2)). On this i5-6200U (hardwareConcurrency 4) the ORT default would be 2. The repo overrides it in src/model/session.ts (computeThreadCount = isolated ? min(8, max(1, hc-1)) : 1 => 3), which is why PERF.md reports '3 threads'. Docs paraphrase: 'half of navigator.hardwareConcurrency or 4, whichever is smaller; 1 disables multithreading'; multithreading only works when crossOriginIsolated.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/onnxruntime-web/dist/ort.mjs",
+    "doi": "",
+    "title": "installed ORT Web bundle (local)",
+    "version": "1.30.0",
+    "locator": "initializeFlags L17973-17980",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://onnxruntime.ai/docs/tutorials/web/env-flags-and-session-options.html",
+    "doi": "",
+    "title": "ORT Web: env flags and session options",
+    "version": "current docs",
+    "locator": "env.wasm.numThreads",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://onnxruntime.ai/docs/tutorials/web/performance-diagnosis.html",
+    "doi": "",
+    "title": "ORT Web: performance diagnosis",
+    "version": "current docs",
+    "locator": "'Always enable multi-threading...only works when crossOriginIsolated'",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/src/model/session.ts",
+    "doi": "",
+    "title": "repo session.ts (local)",
+    "version": "HEAD",
+    "locator": "computeThreadCount L41-44, resolveThreadCount L46-50",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-3)"
+  ]
+ },
+ {
+  "id": "C-304",
+  "claim": "env.webgpu.profiling = { mode?: 'off'|'default' (default 'off'), ondata?: (data)=>void }. With mode 'default' and no ondata, per-kernel GPU timings are printed to the console with prefix '[profiling]' (logged as 'kernel ... start time: N ns, execution time: N ns'). If ondata is set it receives the data instead. Uses WebGPU timestamp queries: requires device feature 'timestamp-query' (or chromium-experimental-timestamp-query-inside-passes); if the adapter lacks it queryType stays 'none' and nothing is reported. Legacy env.webgpu.profilingMode is deprecated. Set before creating the session. Profiling adds overhead, so never use it in the runs that produce headline timings.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://onnxruntime.ai/docs/tutorials/web/performance-diagnosis.html",
+    "doi": "",
+    "title": "ORT Web: performance diagnosis",
+    "version": "current docs",
+    "locator": "'WebGPU Profiling' section",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/onnxruntime-common/dist/esm/env.d.ts",
+    "doi": "",
+    "title": "onnxruntime-common typings (local)",
+    "version": "as installed with ORT Web 1.30.0",
+    "locator": "WebGpuFlags L142-165",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/onnxruntime-web/dist/ort.mjs",
+    "doi": "",
+    "title": "installed ORT Web bundle (local)",
+    "version": "1.30.0",
+    "locator": "setQueryType L16484-16492; ondata/console emit L16153-16181",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-4)"
+  ]
+ },
+ {
+  "id": "C-305",
+  "claim": "WebGPU shader compilation is lazy: a program's shader module + compute pipeline are built the first time a kernel with that (program, input-shape) key is dispatched, not at InferenceSession.create(); artifacts are then cached per key inside the backend. So the FIRST session.run() carries the compile/warm-up cost and later runs with identical input shapes reuse it. Chunks in this app are fixed-shape (1,2,343980), so run 2..N are steady state. Local measurement in SP-2 on the SP-2 reference (Gen9 4-core) machine agrees: WebGPU run 8.2 s (first) then 1.26 s (steady), create 48.3 s.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://github.com/microsoft/onnxruntime/pull/29851",
+    "doi": "",
+    "title": "PR #29851 [WebGPU] Support concurrent Session creation and execution (comment by Xiaofei Han)",
+    "version": "main, 2026",
+    "locator": "quote: 'Today ORT WebGPU compiles shaders lazily on the first session.Run() that hits a given program, not during session creation'; 'moving pipeline creation into session initialization is something we may optimize in a follow-up PR'",
+    "accessed": "2026-09-26",
+    "tier": 2
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/onnxruntime-web/dist/ort.mjs",
+    "doi": "",
+    "title": "installed ORT Web bundle (local)",
+    "version": "1.30.0",
+    "locator": "ProgramManager.build/createComputePipeline L15846-15853; getArtifact/build/setArtifact keyed by getProgramInfoUniqueKey(program, inputTensorViews, ...) L16314-16322",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/research/spikes/SP-2.md",
+    "doi": "",
+    "title": "repo spike SP-2 (local)",
+    "version": "ORT 1.30",
+    "locator": "results row 2 'create 48.3 s, run 8.2 s then 1.26 s'",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-5)"
+  ]
+ },
+ {
+  "id": "C-306",
+  "claim": "With the default output location ('cpu'), `await session.run()` resolves only after the GPU work for that run has finished: the WASM-side output copy calls backend.download -> downloadGpuData, which encodes copyBufferToBuffer, flush()es (queue.submit) and `await gpuReadBuffer.mapAsync(GPUMapMode.READ)` before returning bytes. mapAsync resolves only after previously submitted queue work completes, so performance.now() before/after `await session.run(...)` is a valid wall-clock for the run including readback. Caveats: (1) this holds for cpu outputs only; with preferredOutputLocation:'gpu-buffer' (or graph capture) run() can resolve before GPU completion and would need an explicit sync/download; the app uses the default. (2) The number includes the readback/copy of the (1,4,2,343980) fp32 output, which is part of real cost. (3) No official doc states this contract; it is inferred from source, hence a spike check is listed in (b).",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/onnxruntime-web/dist/ort.mjs",
+    "doi": "",
+    "title": "installed ORT Web bundle (local)",
+    "version": "1.30.0",
+    "locator": "downloadGpuData L3703-3732 (flush + mapAsync at L3719-3720); jsepCopyAsync -> `await backend.download` L16735-16745; default preferred output location 'cpu' L17053",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://github.com/microsoft/onnxruntime/blob/main/js/web/lib/wasm/jsep/backend-webgpu.ts",
+    "doi": "",
+    "title": "ORT source: backend-webgpu.ts",
+    "version": "main (not pinned to 1.30)",
+    "locator": "flush() -> device.queue.submit; mapAsync().then(...) for query readback",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "inferred",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-6)"
+  ]
+ },
+ {
+  "id": "C-307",
+  "claim": "Recommended WebGPU timing procedure (no official ORT warm-up doc exists: the ORT ep-webgpu, env-flags and performance-diagnosis pages contain no warm-up/first-run guidance). Derived from B-5/B-6: create the session once; perform >=1 untimed warm-up session.run with the SAME input shape (a real chunk or zeros of shape [1,2,343980]) and dispose its outputs; report three separate numbers: (i) download, (ii) session.create, (iii) first-run (cold) latency, then (iv) steady-state per-chunk = median of runs 2..N. Time each run individually with performance.now() around `await session.run()` plus reading `.data`. Extrapolate a 4-min song as first_run + (N-1) * steady, not N * mean(all). In a fresh browser profile there is no persistent shader/driver cache from earlier runs, so the cold first-run number is a realistic 'first visit' figure and a 'second visit' figure needs a relaunch of the same profile (see open questions).",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://onnxruntime.ai/docs/tutorials/web/ep-webgpu.html",
+    "doi": "",
+    "title": "ORT Web: Using WebGPU",
+    "version": "current docs",
+    "locator": "whole page; no warm-up section (negative finding)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://onnxruntime.ai/docs/tutorials/web/performance-diagnosis.html",
+    "doi": "",
+    "title": "ORT Web: performance diagnosis",
+    "version": "current docs",
+    "locator": "whole page; no warm-up section (negative finding)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://github.com/microsoft/onnxruntime/pull/29851",
+    "doi": "",
+    "title": "PR #29851",
+    "version": "2026",
+    "locator": "lazy compile on first Run",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "inferred",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-7)"
+  ]
+ },
+ {
+  "id": "C-308",
+  "claim": "REPO FINDING (measurement bug that affects PERF.md): tests/browser/performance.test.ts sets modelLoadedAt at the FIRST 'separating' progress event with completed===1, i.e. AFTER chunk 1 has finished. 'model-ready' therefore includes download + session create + the entire first run (cold: WASM heap growth or WebGPU shader compile), and 'separation' (t1 - modelLoadedAt) covers only chunks 2..4 = 3 chunks. PERF.md divides that separation time by 4 ('per chunk 15.4 s' = 61.7/4; '26.3 s' = 105.0/4) and extrapolates 42 chunks, so per-chunk cost is UNDERSTATED by ~25% for that table (true steady-state per chunk from those numbers would be ~20.6 s for 3 threads and ~35.0 s for 1 thread, matching SP-2's 21.8 and 34.7 s/chunk much better) and the 4-min extrapolations (10.8 min / 18.4 min) are ~25% low (~14.4 and ~24.5 min at 42 chunks). The fix is to emit a progress/marker event after session creation (stage 'preparing-model' completed===1 already exists) and time each run separately.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "D:/projects (dev)/stem-splitter/tests/browser/performance.test.ts",
+    "doi": "",
+    "title": "repo performance test (local)",
+    "version": "HEAD",
+    "locator": "L27-38 (modelLoadedAt set when completed === 1)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/src/separate.ts",
+    "doi": "",
+    "title": "repo separate.ts (local)",
+    "version": "HEAD",
+    "locator": "onProgress 'separating' fired after each chunk L68, L94; 'preparing-model' completed:1 fired in defaultCreateSessionForModel L122",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/tests/PERF.md",
+    "doi": "",
+    "title": "repo PERF.md (local)",
+    "version": "HEAD",
+    "locator": "'Measured' table and its extrapolation note",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-8)"
+  ]
+ },
+ {
+  "id": "C-309",
+  "claim": "Benchmark methodology (2C/4T laptop). Supported points: (1) do not assume a steady state after a fixed number of warm-up iterations; a peer-reviewed study of VM benchmarks found only at most 43.5% of <VM, benchmark> pairs consistently reached steady state and recommends checking for it (changepoint analysis) rather than blindly discarding N iterations. (2) Repeat across separate process/browser launches, not only in-process iterations, because launch-to-launch variance (JIT/driver/thermal state) is not captured by in-process repeats. (3) Summarize with median and IQR (Tukey fences 1.5*IQR for outliers), not the mean. Concrete plan for this repo (inferred from these principles, not from a single authoritative source): >=5 fresh Playwright launches per config (WASM-3T, WASM-1T, WebGPU), each = 1 warm-up run (B-7) + >=5 timed chunks; report median and IQR of steady-state s/chunk, plus first-run and create times separately; alternate config order across launches (ABAB) to spread thermal drift; discard a launch only if its logged CPU frequency dropped (B-11) and say so; keep the machine on AC, lid open, no other heavy apps, same display state, and start each launch after CPU temperature/frequency is back to baseline (a 30-60 s idle gap; the exact value is a spike parameter).",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://arxiv.org/abs/1602.00602",
+    "doi": "",
+    "title": "Barrett, Bolz-Tereick, Killick, Mount, Tratt: Virtual Machine Warmup Blows Hot and Cold",
+    "version": "OOPSLA 2017 / arXiv v-latest",
+    "locator": "abstract: 'at most 43.5% of <VM, benchmark> pairs consistently reach a steady state of peak performance'",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://bheisler.github.io/criterion.rs/book/analysis.html",
+    "doi": "",
+    "title": "Criterion.rs analysis process (warm-up, sampling, outlier classification via IQR fences)",
+    "version": "current",
+    "locator": "'Analysis Process'",
+    "accessed": "2026-09-26",
+    "tier": 3
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-9)"
+  ]
+ },
+ {
+  "id": "C-310",
+  "claim": "Windows power/thermal controls. Active plan on this machine is Balanced (GUID 381b4222-f694-41f0-9685-ff5bb260df2e). powercfg options documented: /list, /getactivescheme, /setactive <GUID|alias>, /setacvalueindex <scheme> <sub> <setting> <value> (AC) and /setdcvalueindex (battery), /query, /aliases; aliases usable instead of GUIDs. Aliases present locally: SCHEME_BALANCED, SCHEME_MIN (High performance), SCHEME_MAX (Power saver), SUB_PROCESSOR, PROCTHROTTLEMIN, PROCTHROTTLEMAX. Sample controls: `powercfg /setactive SCHEME_MIN` (if a High-performance plan exists; on some OEM/modern-standby laptops it is hidden, check `powercfg /list`); pin min/max processor state on AC with `powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100` then `powercfg /setactive SCHEME_CURRENT`; hidden PERFBOOSTMODE (GUID be337238-0d82-4146-a960-4f3749d470c7; 0 Disabled, 1 Enabled, 2 Aggressive, ...) controls turbo eagerness, and disabling boost gives a more thermally stable (but slower and non-representative) baseline. Record the plan GUID and settings in every result file; restore the original plan afterwards. Thermal throttling itself cannot be switched off from powercfg; detect it via B-11 counters.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options",
+    "doi": "",
+    "title": "Microsoft Learn: Powercfg command-line options",
+    "version": "page updated 2021-12-15",
+    "locator": "/list, /getactivescheme, /setactive, /setacvalueindex, /aliases; 'Overlay Scheme' section (SUB_PROCESSOR alias)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://learn.microsoft.com/en-us/windows-hardware/customize/power-settings/options-for-perf-state-engine-perfboostmode",
+    "doi": "",
+    "title": "Microsoft Learn: PERFBOOSTMODE",
+    "version": "current",
+    "locator": "page title/URL surfaced via search; GUID and value list came from search-result summary, page body itself not fetched (fetch of a sibling URL 404'd)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "local: powercfg /getactivescheme; powercfg /aliases (run 2026-09-26 on this machine)",
+    "doi": "",
+    "title": "local command output",
+    "version": "Windows 10 Pro 10.0.19045",
+    "locator": "Balanced active; aliases listed",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-10)"
+  ]
+ },
+ {
+  "id": "C-311",
+  "claim": "Recording CPU frequency/throttling on Windows: sample the perf counters with typeperf at 1 s during each run. Counters confirmed to exist on THIS machine via `typeperf -qx \"Processor Information\"`: \\Processor Information(_Total)\\Processor Frequency, \\% of Maximum Frequency, \\% Processor Performance, \\% Performance Limit, \\Performance Limit Flags (also % Processor Utility). Example: `typeperf \"\\Processor Information(_Total)\\Processor Frequency\" \"\\Processor Information(_Total)\\% of Maximum Frequency\" \"\\Processor Information(_Total)\\% Processor Performance\" \"\\Processor Information(_Total)\\% Performance Limit\" \"\\Processor Information(_Total)\\Performance Limit Flags\" -si 1 -f CSV -o freq.csv` (typeperf options: -si sample interval, -sc sample count, -f CSV|TSV|BIN|SQL, -o file, -cf counter file; Ctrl+C stops). Start it before the run and stop after; join to per-chunk timestamps. Throttling indicator: frequency (or % of Maximum Frequency) falling while CPU utilisation stays ~100%, or non-zero Performance Limit flags/% Performance Limit. Do NOT use Win32_Processor.CurrentClockSpeed/MaxClockSpeed: locally it reported 2300 / 2400 MHz (static-looking, MaxClockSpeed 2400 vs the SKU's 2.3 GHz base) and is not a live frequency. Interpretation of '% Processor Performance' relative to base frequency (can exceed 100 with turbo) comes from search summaries only.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/typeperf",
+    "doi": "",
+    "title": "Microsoft Learn: typeperf",
+    "version": "page updated 2025-10-22",
+    "locator": "Syntax / Options table / Examples",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "local: typeperf -qx \"Processor Information\" (run 2026-09-26)",
+    "doi": "",
+    "title": "local counter listing",
+    "version": "Windows 10 Pro 10.0.19045",
+    "locator": "_Total instance counters listed above",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://powershellmagazine.com/2013/07/19/querying-performance-counters-from-powershell/",
+    "doi": "",
+    "title": "Querying performance counters from PowerShell (pointer for Get-Counter alternative)",
+    "version": "2013",
+    "locator": "n/a",
+    "accessed": "2026-09-26",
+    "tier": 3
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-11)"
+  ]
+ },
+ {
+  "id": "C-312",
+  "claim": "NO published or maintainer numbers were found for htdemucs on ORT Web (WASM or WebGPU) on Apple M1/M2. Searched: ORT docs, ORT issues/discussions, gianlourbano/demucs-onnx, timcsy/demucs-web, StemSplit blog, HF model cards, sevagh repos. Non-authoritative pointers only, none of them equals the target (ORT Web on M1): (a) HF model card StemSplitio/htdemucs-onnx: NATIVE ORT CPU EP on Apple M4 Pro, one 7.8 s segment, fp16weights ~1.6 s (RTF 0.20), ~1.1 GB RAM; card says CUDA/DirectML/CoreML EPs are 'typically >=5x faster on real GPUs'. (b) StemSplit blog: native ORT CPU, Apple M4 Pro, 3-minute song, full 4-model bag ~88 s, one specialist ~22 s (vs PyTorch MPS 47 s); says browser WASM is 'slower than CPU EP (WebAssembly tax)' with no browser numbers. (c) sevagh/free-music-demixer (custom C++/Eigen WASM, NOT ORT): maintainer on HN says ~17 min for an average 4-min song with ONE worker, and with multi-threading 'your track will demix within 7-5 minutes'; hardware not stated. (d) In-repo: native ORT CPU on this i5-6200U class machine 6.6 s/chunk (SP-2). Do not use any of these as an M1 T-027 result; T-027's M1 number must be measured.",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://huggingface.co/StemSplitio/htdemucs-onnx",
+    "doi": "",
+    "title": "StemSplitio/htdemucs-onnx model card",
+    "version": "HF page as of 2026-09-26",
+    "locator": "latency/RTF table (Apple M4 Pro CPU)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   },
+   {
+    "url": "https://stemsplit.io/blog/htdemucs-ft-onnx-export",
+    "doi": "",
+    "title": "HT-Demucs FT to ONNX: First Working Export (2026)",
+    "version": "2026",
+    "locator": "benchmark table (M4 Pro, 3-min song)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   },
+   {
+    "url": "https://news.ycombinator.com/item?id=38840776",
+    "doi": "",
+    "title": "HN: Free-music-demixer adds multi-threading (sevagh)",
+    "version": "2024-01",
+    "locator": "post text: ~17 min single worker, 5-7 min multi-threaded",
+    "accessed": "2026-09-26",
+    "tier": 2
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/research/spikes/SP-2.md",
+    "doi": "",
+    "title": "repo SP-2 (local)",
+    "version": "ORT 1.30",
+    "locator": "Performance table, native CPU 6.6 s/chunk",
+    "accessed": "2026-09-26",
+    "tier": 2
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-12)"
+  ]
+ },
+ {
+  "id": "C-313",
+  "claim": "CDP throttling API and units. Network.emulateNetworkConditions {offline, latency (ms, 'minimum latency from request sent to response headers received'), downloadThroughput (bytes/sec, 'maximal AGGREGATED download throughput', -1 disables), uploadThroughput (bytes/sec, -1 disables), connectionType?}. It is marked DEPRECATED in the current protocol in favour of Network.emulateNetworkConditionsByRule (experimental; per-request urlPattern using URLPattern syntax, absolute patterns, first matching rule wins, empty pattern = global) plus Network.overrideNetworkState (navigator.onLine/connection). 50 Mbps = 50,000,000 / 8 = 6,250,000 bytes/sec (use 6.25e6, not 50*1024*1024/8 = 6,553,600 unless binary Mbit is intended). Because the by-rule form can target only the HF/CDN hosts, it avoids throttling the Vite dev-server assets; whether Chrome 154 accepts it must be checked (protocol JSON is 'master'). Playwright 1.63 has no native throttling API (only setOffline; feature request microsoft/playwright#32618 was open when read).",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://raw.githubusercontent.com/ChromeDevTools/devtools-protocol/master/json/browser_protocol.json",
+    "doi": "",
+    "title": "devtools-protocol browser_protocol.json (parsed locally)",
+    "version": "master, protocol 1.3",
+    "locator": "domains[Network].commands emulateNetworkConditions, emulateNetworkConditionsByRule, overrideNetworkState; types NetworkConditions",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://github.com/microsoft/playwright/issues/32618",
+    "doi": "",
+    "title": "Playwright #32618 setNetworkThrottling feature request",
+    "version": "n/a",
+    "locator": "issue body; no maintainer replies visible to the fetcher",
+    "accessed": "2026-09-26",
+    "tier": 2
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/playwright-core/lib/coreBundle.js",
+    "doi": "",
+    "title": "installed Playwright core (local)",
+    "version": "1.63.0",
+    "locator": "_setOfflineForSession L36085-36095 (only Network.emulateNetworkConditions use; skips worker sessions via `if (info.workerFrame) return`)",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "verified",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-13)"
+  ]
+ },
+ {
+  "id": "C-314",
+  "claim": "How to reach CDP from a Vitest 5 browser test: `import { cdp } from 'vitest/browser'; const s = cdp(); await s.send('Network.enable'); await s.send('Network.emulateNetworkConditions', {offline:false, latency:L, downloadThroughput:6_250_000, uploadThroughput:-1})`. Vitest docs: works only with the playwright provider and chromium, and (per docs summary) needs the API write/exec permissions in config (api.allowWrite / api.allowExec) - verify the exact keys against 5.0.1 before relying on them. Alternative that avoids that permission: register a server-side command with defineBrowserCommand (exported by @vitest/browser-playwright) whose context exposes { page, context } (getCommandsContext), then call `context.newCDPSession(page)` and send the same commands; the page CDPSession is the documented Playwright route (Chromium only). The CDP session is per page target and throttling state must be removed (-1/0) or the context closed after the test.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://vitest.dev/api/browser/context",
+    "doi": "",
+    "title": "Vitest docs: browser context API (cdp)",
+    "version": "current docs",
+    "locator": "'cdp()' section",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/@vitest/browser-playwright/dist/index.d.ts",
+    "doi": "",
+    "title": "installed typings (local)",
+    "version": "5.0.1",
+    "locator": "export defineBrowserCommand (L2); getCommandsContext returns page/context (L71-76); CDPSession import L3",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://playwright.dev/docs/api/class-cdpsession",
+    "doi": "",
+    "title": "Playwright CDPSession",
+    "version": "current",
+    "locator": "linked from Vitest docs; page not fetched",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-14)"
+  ]
+ },
+ {
+  "id": "C-315",
+  "claim": "Does Network.emulateNetworkConditions apply to the app's model download? (a) Requests from the page/frames on the CDP-attached page target: yes, this is the mechanism DevTools presets use (multiple practitioner posts; Puppeteer docs). (b) Service-worker-initiated fetches: NOT throttled (Puppeteer #4305: page request 1,421 ms vs SW request 38 ms under Slow 3G; closed with no documented fix). (c) Dedicated Web Worker fetches (the production path: separate() runs in src/worker.ts and getModel/fetch runs there): NO authoritative source found either way. Playwright's own code skips worker sessions when issuing Network.emulateNetworkConditions, and a search summary claimed 'workers are affected by the owner frame's emulation', but neither is a maintainer statement about throttling. (d) Cross-origin redirects (HF /resolve/ URL -> CDN host): no source found; the protocol says latency is per request and throughput is 'aggregated', and DevTools throttling operates at the network layer for the page, so redirects are expected to be covered, but this is unverified. (e) Puppeteer docs: emulation does not affect WebSockets/WebRTC (crbug 563644), irrelevant to fetch(). Consequence: the existing perf test calls separate() on the test-page main thread (not the worker) so (a) applies; a measurement through the real UI/worker path must be verified by a spike.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://github.com/puppeteer/puppeteer/issues/4305",
+    "doi": "",
+    "title": "Puppeteer #4305: ServiceWorker is not being throttled",
+    "version": "2019, closed",
+    "locator": "issue body (1,421 ms vs 38 ms)",
+    "accessed": "2026-09-26",
+    "tier": 2
+   },
+   {
+    "url": "https://pptr.dev/api/puppeteer.page.emulatenetworkconditions",
+    "doi": "",
+    "title": "Puppeteer Page.emulateNetworkConditions",
+    "version": "current",
+    "locator": "note about WebSockets/WebRTC (crbug 563644); use setOfflineMode for offline",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/playwright-core/lib/coreBundle.js",
+    "doi": "",
+    "title": "installed Playwright core (local)",
+    "version": "1.63.0",
+    "locator": "L36088 `if (info.workerFrame) return;`",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "single-source",
+  "evidence_class": "n/a",
+  "contradicted_by": [
+   "Unsourced search summary said workers inherit the owner frame's emulation; not verified, treated as unproven."
+  ],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-15)"
+  ]
+ },
+ {
+  "id": "C-316",
+  "claim": "Cold Cache API in a fresh context. Playwright BrowserContexts are 'equivalent to incognito-like profiles' with their own storage, and Vitest 5.0.1's provider does `this.persistentContext ?? await browser.newContext(options)`; persistentContext defaults to false, so each Vitest browser session starts with an empty Cache Storage and empty HTTP cache. Guard against reuse: leave persistentContext off (it is off in vitest.config.ts); ONE Vitest session/context is shared by all test files of that instance, so a prior test in the same run that calls getModel() will already have populated Cache Storage - either run the download test first/alone, or delete the entry: `await caches.delete(<CACHE_NAME from src/model/cache.ts>)` (cache.ts opens caches.open(CACHE_NAME) and cache.match(info.url)) and also assert `!(await cache.match(url))` before timing. HTTP cache: use Network.setCacheDisabled {cacheDisabled:true} (protocol: 'cache will not be used') or Network.clearBrowserCache, or fetch(..., {cache:'no-store'}) for the timed download; a fresh incognito context already has an empty HTTP cache.",
+  "kind": "software",
+  "load_bearing": true,
+  "sources": [
+   {
+    "url": "https://playwright.dev/docs/browser-contexts",
+    "doi": "",
+    "title": "Playwright docs: Isolation / BrowserContexts",
+    "version": "current",
+    "locator": "'BrowserContexts which are equivalent to incognito-like profiles'",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/node_modules/@vitest/browser-playwright/dist/index.js",
+    "doi": "",
+    "title": "installed provider source (local)",
+    "version": "5.0.1",
+    "locator": "createContext L1198 `this.persistentContext ?? await browser.newContext(options)`; persistentContext option L1026-1038",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "https://raw.githubusercontent.com/ChromeDevTools/devtools-protocol/master/json/browser_protocol.json",
+    "doi": "",
+    "title": "devtools-protocol JSON (parsed locally)",
+    "version": "master",
+    "locator": "Network.setCacheDisabled, Network.clearBrowserCache",
+    "accessed": "2026-09-26",
+    "tier": 1
+   },
+   {
+    "url": "D:/projects (dev)/stem-splitter/src/model/cache.ts",
+    "doi": "",
+    "title": "repo cache.ts (local)",
+    "version": "HEAD",
+    "locator": "L29 fetch(url,{mode:'cors'}); L73-90 caches.open / match / put",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-16)"
+  ]
+ },
+ {
+  "id": "C-317",
+  "claim": "Playwright with channel:'chrome': Playwright docs say branded Chrome/Edge use the 'new headless mode' (a real Chrome, closer to headed) while the default bundled 'chromium' headless is the separate headless shell; `channel:'chromium'` opts a bundled Chromium into new headless. This is consistent with the local spike (bundled Chromium -> adapter null; Chrome channel -> Gen9 adapter) but the docs do not mention WebGPU. Playwright requires a branded Chrome installed (`npx playwright install chrome` overwrites the global install - avoid; Chrome 154 is already installed here).",
+  "kind": "software",
+  "load_bearing": false,
+  "sources": [
+   {
+    "url": "https://playwright.dev/docs/browsers",
+    "doi": "",
+    "title": "Playwright docs: Browsers",
+    "version": "current",
+    "locator": "Google Chrome & Microsoft Edge; new headless notes; warning about global install",
+    "accessed": "2026-09-26",
+    "tier": 1
+   }
+  ],
+  "confidence": "corroborated",
+  "evidence_class": "n/a",
+  "contradicted_by": [],
+  "informs": [
+   "research/rounds/round-1-B.md (original id B-17)"
+  ]
+ }
+]
