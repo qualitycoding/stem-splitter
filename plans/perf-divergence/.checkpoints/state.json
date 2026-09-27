@@ -2,12 +2,13 @@
   "plan": "perf-and-divergence",
   "branch": "impl/perf-divergence",
   "generation_branch_tip": "b9173b7d80c0323b28bf69cfe09e8b6eb478bef9",
-  "completed": ["S-101", "S-102", "S-103"],
+  "completed": ["S-101", "S-102", "S-103", "S-107"],
   "gates": {},
   "notes": [
     "S-101: Node v24.13.0, npm 11.18.0, git 2.42.0.windows.2, python 3.14.2, onnxruntime 1.30.0 (venv). All observed versions match plan/ENVIRONMENT.md pins.",
     "S-101: one deviation recorded (frozen-manifest --write for previously-unregistered new test files) — see DEVIATIONS.md.",
     "S-102: stats.ts and timeline.ts implemented; 30/30 T-101..T-106 tests pass; npm test now 84 passed / 35 failed (remaining failures are perf-record/perf-report, S-103/S-106 scope).",
-    "S-103: validateRunRecord + thresholds implemented (T-107/T-108, 12/12 pass); make-input.py verified (exact byte count for 240s); vitest 'perf' project + perf/harness/run.perf.ts + scripts/perf/{run-matrix.mjs,validate.ts,collect.mjs} added. Deviation: commands/cdp from @vitest/browser/context are unusable on the pinned vitest 5.0.1 (known upstream bug, fixed post-5.0.1) — harness uses fetch() for input reading and the PERFRECORD stdout fallback exclusively, throttling (T-029) is unmeasured — see DEVIATIONS.md. Smoke test verified: real webgpu-standard 20s run produced perf/results/webgpu-standard-golden-20s-20260927T114653Z.json, validate.ts OK. npm test now 98 passed / 21 failed (remaining: evaluateTargets/renderReport, S-106 scope)."
+    "S-103: validateRunRecord + thresholds implemented (T-107/T-108, 12/12 pass); make-input.py verified (exact byte count for 240s); vitest 'perf' project + perf/harness/run.perf.ts + scripts/perf/{run-matrix.mjs,validate.ts,collect.mjs} added. Deviation: commands/cdp from @vitest/browser/context are unusable on the pinned vitest 5.0.1 (known upstream bug, fixed post-5.0.1) — harness uses fetch() for input reading and the PERFRECORD stdout fallback exclusively, throttling (T-029) is unmeasured — see DEVIATIONS.md. Smoke test verified: real webgpu-standard 20s run produced perf/results/webgpu-standard-golden-20s-20260927T114653Z.json, validate.ts OK. npm test now 98 passed / 21 failed (remaining: evaluateTargets/renderReport, S-106 scope).",
+    "S-107: metrics.py, harness.py, run-wasm-node.mjs implemented per D-105/D-106/D-107. pytest tests/divergence: 53/53 passed (was 44 failed/4 passed/5 errors at baseline). No __pycache__/.pytest_cache leaked into tests/. Ready for S-108 (divergence rungs D0/D0b/D1) whenever that track starts."
   ]
 }
