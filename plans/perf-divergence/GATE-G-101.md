@@ -159,4 +159,8 @@ implementer stops, all committed artifacts remain as-is.
 
 ## Human decisions
 
-_(awaiting reply)_
+**2026-09-27 — `proceed`.** The verdicts as they stand (T-028 fail; T-027/T-029/T-030
+unmeasured) are accepted as the record for this gate. S-112 (housekeeping/handoff) may
+run once its other dependency (S-111, which itself needs S-108–S-110's divergence
+outcome) is also satisfied. No threshold changed. The divergence track (S-107 already
+done) is now clear to proceed per D-110 rule 1 (no measurement run is active).
