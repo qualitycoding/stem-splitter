@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stem Splitter — Local Performance Check</title>
+    <meta
+      name="description"
+      content="Runs a real stem separation in this browser tab and times each phase — for plans/perf-divergence. Nothing is uploaded."
+    />
+    <!--
+      Same COOP/COEP-via-service-worker trick as the main app's index.html
+      (D-08): installs a service worker that adds the headers a plain
+      static host can't send, then reloads once, enabling multi-threaded
+      WASM. Must load before anything else touches the network.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' https://huggingface.co https://*.hf.co; img-src 'self' data:; style-src 'self' 'unsafe-inline'"
+    />
+    <script src="./coi-serviceworker.min.js"></script>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 46rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        line-height: 1.5;
+      }
+      label {
+        display: inline-block;
+        margin-bottom: 0.4rem;
+      }
+      button {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 0.3rem 0.6rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      pre {
+        white-space: pre-wrap;
+        word-break: break-all;
+        background: #f4f4f4;
+        padding: 1rem;
+        border-radius: 6px;
+      }
+      #isolation-status {
+        font-size: 0.9rem;
+        color: #555;
+      }
+      #progress {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Stem Splitter — Local Performance Check</h1>
+    <p>
+      Runs a real separation entirely in this browser tab (your CPU/GPU, nothing uploaded) and times the model
+      download, session creation and each chunk. See <code>plans/perf-divergence/</code> in the repo for context; the
+      result below is shaped like a <code>perf/results/*.json</code> run record and can be dropped straight into
+      that directory.
+    </p>
+    <p id="isolation-status"></p>
+    <form id="run-form">
+      <p>
+        <label for="mode">Mode:</label><br />
+        <select id="mode">
+          <option value="standard">standard (one model, all four stems)</option>
+          <option value="hq">high quality (four specialist models)</option>
+        </select>
+      </p>
+      <p><label><input type="checkbox" id="force-wasm" /> Force WASM (skip WebGPU even if this browser has it)</label></p>
+      <p>
+        <label for="input-file">Input audio file:</label><br />
+        <input type="file" id="input-file" accept="audio/*" required />
+      </p>
+      <p>
+        <label for="cpu-model">CPU model (optional, recorded as provenance):</label><br />
+        <input type="text" id="cpu-model" placeholder="e.g. Apple M1, Intel i7-1165G7" size="40" />
+      </p>
+      <p>
+        <label for="ac-power">On AC power?</label><br />
+        <select id="ac-power">
+          <option value="">unknown</option>
+          <option value="1">yes</option>
+          <option value="0">no</option>
+        </select>
+      </p>
+      <button type="submit" id="run-button">Run separation</button>
+    </form>
+    <p id="progress"></p>
+    <div id="results" hidden>
+      <h2>Result</h2>
+      <table id="result-table"></table>
+      <p><button id="download-button" type="button">Download result.json</button></p>
+      <pre id="result-json"></pre>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
