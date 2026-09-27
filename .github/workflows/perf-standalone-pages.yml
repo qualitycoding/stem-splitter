@@ -1,0 +1,67 @@
+name: Deploy local perf-check page (manual)
+
+# Publishes perf/standalone/ (a diagnostic tool, NOT the deployed app — see
+# perf/standalone/vite.config.ts's header comment) to GitHub Pages at
+# /perf-standalone/, so it can be opened by URL instead of built locally.
+# Requires Settings -> Pages -> Source: "GitHub Actions" to be enabled once.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [impl/perf-divergence]
+    paths:
+      - "perf/standalone/**"
+      - ".github/workflows/perf-standalone-pages.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run perf:standalone:build
+
+      - name: Assemble Pages site (root placeholder + /perf-standalone/)
+        run: |
+          mkdir -p site/perf-standalone
+          cp -r perf/standalone/dist/. site/perf-standalone/
+          cat > site/index.html <<'HTML'
+          <!doctype html>
+          <meta charset="utf-8">
+          <title>stem-splitter — diagnostics</title>
+          <p>This is a diagnostics-only Pages deployment (plans/perf-divergence).
+          The real app is not deployed here yet.</p>
+          <p><a href="./perf-standalone/">Local performance check</a></p>
+          HTML
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
