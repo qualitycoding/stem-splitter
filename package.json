@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "test": "vitest run --project node",
     "test:browser": "vitest run --project browser",
+    "test:perf": "vitest run --project perf",
     "test:all": "vitest run",
     "typecheck": "tsc --noEmit",
     "verify:frozen": "node scripts/frozen-manifest.mjs"

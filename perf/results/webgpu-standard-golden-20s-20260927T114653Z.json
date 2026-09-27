@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "id": "webgpu-standard-golden-20s-20260927T114653Z",
+  "config": "webgpu-standard",
+  "input": {
+    "name": "golden-20s.wav",
+    "sha256": "818f9f83bb4a8e7ec4cb9f2e564d0c2746784eaba14974e009e949e8a304abd2",
+    "durationSeconds": 20,
+    "chunkCount": 4
+  },
+  "throttleMbps": null,
+  "cacheCold": false,
+  "executionProvider": "webgpu",
+  "threadCount": 3,
+  "models": [
+    {
+      "downloadMs": 1244.2299999892712,
+      "sessionCreateMs": 57396.160000026226,
+      "chunkMs": [
+        10456.854999989271,
+        1577.8549999892712,
+        1625.094999998808,
+        1574.9650000035763
+      ]
+    }
+  ],
+  "provenance": {
+    "gitCommit": "82fe183ecfa1d2d73949b701a48aa695010188bc",
+    "lockfileSha256": "67ee91ba88d812077f0bd913b372043c9574c2e6e1ac9d86c764ada261e51650",
+    "ortVersion": "1.30.0",
+    "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+    "os": "Win32",
+    "cpuModel": "unknown (4 logical cores)",
+    "logicalCores": 4,
+    "acPower": null,
+    "startedAtUtc": "2026-09-27T11:46:53.286Z"
+  }
+}
