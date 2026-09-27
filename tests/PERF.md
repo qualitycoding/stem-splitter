@@ -1,3 +1,8 @@
+> **SUPERSEDED** (2026-09-27). The timer started after the first chunk (the
+> model-ready mark was set at `completed === 1`), so the "separation"
+> interval covered 3 chunks but was divided by 4; see `perf/REPORT.md` for
+> the corrected, generated figures.
+
 # Performance record (T-027 – T-030)
 
 Recorded 2026-09-25 with `tests/browser/performance.test.ts`

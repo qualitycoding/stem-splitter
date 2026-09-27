@@ -15,7 +15,8 @@
     "perf:standalone:build": "vite build --config perf/standalone/vite.config.ts",
     "perf:standalone:preview": "vite preview --config perf/standalone/vite.config.ts --outDir perf/standalone/dist",
     "typecheck": "tsc --noEmit",
-    "verify:frozen": "node scripts/frozen-manifest.mjs"
+    "verify:frozen": "node scripts/frozen-manifest.mjs",
+    "perf:report": "node scripts/perf/report.ts"
   },
   "devDependencies": {
     "@vitest/browser": "5.0.1",
