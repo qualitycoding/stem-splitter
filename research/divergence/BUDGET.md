@@ -15,6 +15,9 @@ Every harness/experiment invocation below is logged as it runs.
 | D3 | `d3_profile.py` (offline: reads the 6 result.json files above, no new runs) | <1 | 2026-09-28T |
 | D3 | 4 window-W batches (80 tensors) x {target, control} via `harness.py run --expose-file` | 962 | 2026-09-28T |
 | D3 | `d3_candidates.py` (offline) | <1 | 2026-09-28T |
+| D4 | `capture_inputs.py` (native-only, captures 10 real tensor values feeding the 5 D3 candidates) | 58 | 2026-09-28T |
+| D4 | `d4_isolate.py` (5 candidates: native + wasm-node single-node runs + float64 oracle each) | ~30 | 2026-09-28T |
+| D5 | `d5_perturbation.py` (one native session reused across 20 perturbed inputs, 4 epsilons x 5 seeds) | 325 | 2026-09-28T |
 
-**Total so far: 4303 s (~71.7 min) of ~4h (A-103) budget for S-107..S-111 excluding docs.**
+**Total: 4716 s (~78.6 min) of ~4h (A-103) budget for S-107..S-111 excluding docs.**
 

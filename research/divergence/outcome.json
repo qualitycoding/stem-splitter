@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "inputs": {
+    "reproduced": true,
+    "op_result": "agree",
+    "budget_exhausted": false
+  },
+  "outcome": "AMPLIFICATION",
+  "basis": "D0/D0b reproduced the divergence in both Node and real Chrome (vocals rel_l2 1.155 vs native, bit-identical between environments). D4 evaluated all 5 D3 candidates (Mul, Add, Mul, Div, Div in decoder.2's dconv block) against a float64 oracle on IDENTICAL real captured inputs: every candidate agreed (err_native and err_wasm both ~2.5e-8, far under the judge floor). No decisive op was found; per D-106, op_result='agree' with reproduced=True and budget not exhausted classifies as AMPLIFICATION."
+}

@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "chunk": 3,
+  "rows": [
+    {
+      "epsilon": 1e-07,
+      "seed": 0,
+      "vocals_rel_l2": 9.152827705254719e-05,
+      "amplification": 915.2827705254718
+    },
+    {
+      "epsilon": 1e-07,
+      "seed": 1,
+      "vocals_rel_l2": 3.538503314774397e-05,
+      "amplification": 353.85033147743974
+    },
+    {
+      "epsilon": 1e-07,
+      "seed": 2,
+      "vocals_rel_l2": 0.00010137026474920081,
+      "amplification": 1013.7026474920082
+    },
+    {
+      "epsilon": 1e-07,
+      "seed": 3,
+      "vocals_rel_l2": 3.5163000069915206e-05,
+      "amplification": 351.63000069915205
+    },
+    {
+      "epsilon": 1e-07,
+      "seed": 4,
+      "vocals_rel_l2": 0.0001372358964569425,
+      "amplification": 1372.3589645694249
+    },
+    {
+      "epsilon": 1e-06,
+      "seed": 0,
+      "vocals_rel_l2": 0.000125558337616362,
+      "amplification": 125.55833761636201
+    },
+    {
+      "epsilon": 1e-06,
+      "seed": 1,
+      "vocals_rel_l2": 0.0001852134350793477,
+      "amplification": 185.2134350793477
+    },
+    {
+      "epsilon": 1e-06,
+      "seed": 2,
+      "vocals_rel_l2": 0.0002536447009876293,
+      "amplification": 253.6447009876293
+    },
+    {
+      "epsilon": 1e-06,
+      "seed": 3,
+      "vocals_rel_l2": 1.2688652205681653e-05,
+      "amplification": 12.688652205681652
+    },
+    {
+      "epsilon": 1e-06,
+      "seed": 4,
+      "vocals_rel_l2": 1.3311336806014639e-05,
+      "amplification": 13.311336806014639
+    },
+    {
+      "epsilon": 1e-05,
+      "seed": 0,
+      "vocals_rel_l2": 8.422714075173186e-05,
+      "amplification": 8.422714075173186
+    },
+    {
+      "epsilon": 1e-05,
+      "seed": 1,
+      "vocals_rel_l2": 0.002015907448199059,
+      "amplification": 201.5907448199059
+    },
+    {
+      "epsilon": 1e-05,
+      "seed": 2,
+      "vocals_rel_l2": 0.0013138865510859774,
+      "amplification": 131.38865510859773
+    },
+    {
+      "epsilon": 1e-05,
+      "seed": 3,
+      "vocals_rel_l2": 0.0008889223826714144,
+      "amplification": 88.89223826714144
+    },
+    {
+      "epsilon": 1e-05,
+      "seed": 4,
+      "vocals_rel_l2": 0.0002890008783674591,
+      "amplification": 28.900087836745907
+    },
+    {
+      "epsilon": 0.0001,
+      "seed": 0,
+      "vocals_rel_l2": 0.0014044593602095912,
+      "amplification": 14.044593602095912
+    },
+    {
+      "epsilon": 0.0001,
+      "seed": 1,
+      "vocals_rel_l2": 0.01964899806014947,
+      "amplification": 196.4899806014947
+    },
+    {
+      "epsilon": 0.0001,
+      "seed": 2,
+      "vocals_rel_l2": 0.014333731060549948,
+      "amplification": 143.33731060549948
+    },
+    {
+      "epsilon": 0.0001,
+      "seed": 3,
+      "vocals_rel_l2": 0.008473433889345933,
+      "amplification": 84.73433889345932
+    },
+    {
+      "epsilon": 0.0001,
+      "seed": 4,
+      "vocals_rel_l2": 0.0022558036850670285,
+      "amplification": 22.558036850670284
+    }
+  ]
+}

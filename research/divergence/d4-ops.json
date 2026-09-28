@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "candidates": [
+    {
+      "candidate": "/decoder.2/Mul_output_0",
+      "node_name": "/decoder.2/Mul",
+      "op_type": "Mul",
+      "status": "evaluated",
+      "err_native": 2.5221955581648824e-08,
+      "err_wasm": 2.5221955581648824e-08,
+      "judge_op": "agree"
+    },
+    {
+      "candidate": "/decoder.2/dconv/layers.1/layers.1.2/Add_output_0",
+      "node_name": "/decoder.2/dconv/layers.1/layers.1.2/Add",
+      "op_type": "Add",
+      "status": "evaluated",
+      "err_native": 2.718764506920077e-08,
+      "err_wasm": 2.718764506920077e-08,
+      "judge_op": "agree"
+    },
+    {
+      "candidate": "/decoder.2/dconv/layers.1/layers.1.2/Mul_1_output_0",
+      "node_name": "/decoder.2/dconv/layers.1/layers.1.2/Mul_1",
+      "op_type": "Mul",
+      "status": "evaluated",
+      "err_native": 0.0,
+      "err_wasm": 0.0,
+      "judge_op": "agree"
+    },
+    {
+      "candidate": "/decoder.2/dconv/layers.1/layers.1.2/Div_output_0",
+      "node_name": "/decoder.2/dconv/layers.1/layers.1.2/Div",
+      "op_type": "Div",
+      "status": "evaluated",
+      "err_native": 2.5021050390261142e-08,
+      "err_wasm": 2.5021050390261142e-08,
+      "judge_op": "agree"
+    },
+    {
+      "candidate": "/decoder.2/Div_output_0",
+      "node_name": "/decoder.2/Div",
+      "op_type": "Div",
+      "status": "evaluated",
+      "err_native": 2.5397490986152848e-08,
+      "err_wasm": 2.5397490986152848e-08,
+      "judge_op": "agree"
+    }
+  ],
+  "op_result": "agree"
+}
