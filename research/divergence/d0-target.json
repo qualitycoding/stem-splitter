@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "model": {
+    "path": "C:\\Users\\Admin\\.cache\\huggingface\\hub\\models--StemSplitio--htdemucs-onnx\\snapshots\\d54ed9eb60e258ea82131c6ee14578628816456a\\htdemucs_fp16weights.onnx",
+    "sha256": "d05c269d0178d2a72ad484b10b11dd370193fc923201c3b27a99f848745db70a"
+  },
+  "input": {
+    "path": "tests\\fixtures\\diagnostic\\golden-tones-mono-20s.wav",
+    "sha256": "9d60e12db5fd40ac8c71356e05dbed8c6e387c7330c668f4403a134e57260376",
+    "chunk": 3,
+    "chunk_start_sample": 515970,
+    "samples": 343980
+  },
+  "reference": "native",
+  "runtimes": {
+    "native": {
+      "session_options": {
+        "graph_optimization_level": "disabled",
+        "enable_cpu_mem_arena": false,
+        "enable_mem_pattern": false
+      },
+      "ort_version": "1.30.0",
+      "create_s": 84.0544957999955,
+      "run_s": 17.649279300007038
+    },
+    "wasm-node": {
+      "session_options": {
+        "graph_optimization_level": "disabled",
+        "enable_cpu_mem_arena": false,
+        "enable_mem_pattern": false
+      },
+      "ort_version": "1.30.0",
+      "create_s": 31.6399647,
+      "run_s": 50.83894189999999,
+      "threads": 1
+    }
+  },
+  "per_stem": {
+    "drums": {
+      "rel_l2": 0.3282935465361253,
+      "max_abs": 0.0008234683191403747,
+      "rms_ref": 0.00017132576462278268,
+      "rms_test": 0.00019256076664943256
+    },
+    "bass": {
+      "rel_l2": 0.14147783075966022,
+      "max_abs": 0.0010315680410712957,
+      "rms_ref": 0.0008253850390120321,
+      "rms_test": 0.0008367642218730797
+    },
+    "other": {
+      "rel_l2": 0.07185408956961503,
+      "max_abs": 0.006168171763420105,
+      "rms_ref": 0.026709558496308596,
+      "rms_test": 0.025452055665430705
+    },
+    "vocals": {
+      "rel_l2": 1.1550122815433677,
+      "max_abs": 0.006132335402071476,
+      "rms_ref": 0.0015271678675309705,
+      "rms_test": 0.0032300510147845133
+    }
+  },
+  "exposed": [],
+  "provenance": {
+    "git_commit": "5b690eb59132b99d56c1f7a6abfe87b5177adc30",
+    "requirements_sha256": "2d4452c196811f3acec5c6e3ef65b05b1e96a23fe0d683f5cf71d8c7f5cc5f3f",
+    "python": "3.14.2",
+    "node": "v24.13.0",
+    "ort_web_version": "1.30.0",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "utc": "2026-09-28T08:10:01Z"
+  }
+}
