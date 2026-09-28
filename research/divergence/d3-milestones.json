@@ -1,0 +1,307 @@
+[
+  {
+    "name": "/tencoder.0/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/encoder.0/dconv/layers.0/layers.0.1/InstanceNormalization_output_0",
+    "kind": "instancenorm",
+    "n": null
+  },
+  {
+    "name": "/encoder.0/dconv/layers.0/layers.0.4/InstanceNormalization_output_0",
+    "kind": "instancenorm",
+    "n": null
+  },
+  {
+    "name": "/encoder.0/dconv/layers.1/layers.1.1/InstanceNormalization_output_0",
+    "kind": "instancenorm",
+    "n": null
+  },
+  {
+    "name": "/encoder.0/dconv/layers.1/layers.1.4/InstanceNormalization_output_0",
+    "kind": "instancenorm",
+    "n": null
+  },
+  {
+    "name": "/encoder.0/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/tencoder.1/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/encoder.1/dconv/layers.0/layers.0.1/InstanceNormalization_output_0",
+    "kind": "instancenorm",
+    "n": null
+  },
+  {
+    "name": "/encoder.1/dconv/layers.0/layers.0.4/InstanceNormalization_output_0",
+    "kind": "instancenorm",
+    "n": null
+  },
+  {
+    "name": "/encoder.1/dconv/layers.1/layers.1.1/InstanceNormalization_output_0",
+    "kind": "instancenorm",
+    "n": null
+  },
+  {
+    "name": "/encoder.1/dconv/layers.1/layers.1.4/InstanceNormalization_output_0",
+    "kind": "instancenorm",
+    "n": null
+  },
+  {
+    "name": "/encoder.1/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/tencoder.2/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/encoder.2/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/tencoder.3/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/encoder.3/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/norm_in/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/norm_in_t/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.0/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.0/self_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.0/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.0/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.0/self_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.0/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.1/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.1/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.1/cross_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.1/norm3/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.1/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.1/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.1/cross_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.1/norm3/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.2/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.2/self_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.2/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.2/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.2/self_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.2/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.3/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.3/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.3/cross_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.3/norm3/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.3/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.3/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.3/cross_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.3/norm3/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.4/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.4/self_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers.4/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.4/norm1/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.4/self_attn/Softmax_output_0",
+    "kind": "softmax",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/layers_t.4/norm2/LayerNormalization_output_0",
+    "kind": "layernorm",
+    "n": null
+  },
+  {
+    "name": "/crosstransformer/Transpose_8_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/decoder.0/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/tdecoder.0/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/decoder.1/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/tdecoder.1/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/decoder.2/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/tdecoder.2/Mul_2_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/decoder.3/Slice_output_0",
+    "kind": "block",
+    "n": null
+  },
+  {
+    "name": "/tdecoder.3/Slice_output_0",
+    "kind": "block",
+    "n": null
+  }
+]

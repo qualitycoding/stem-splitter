@@ -10,6 +10,11 @@ Every harness/experiment invocation below is logged as it runs.
 | D0b | `run-wasm-browser.mjs htdemucs_fp16weights.onnx d0-target/in_chunk3.f32 raw/d0b-single --threads 1` | 108 | 2026-09-28T |
 | D0b | same, `raw/d0b-multi --threads 3` | 89 | 2026-09-28T |
 | D1 | `harness.py sweep --model htdemucs_fp16weights.onnx --wav tests/fixtures/diagnostic/golden-tones-mono-20s.wav --chunk 3 --out research/divergence/raw/d1-sweep` (24 variants, native+wasm-node sessions each created once) | 1471 | 2026-09-28T |
+| D2 | `d2_variants.py --model-fp16 htdemucs_fp16weights.onnx --model-fp32 htdemucs.onnx --wav tests/fixtures/diagnostic/golden-tones-mono-20s.wav --chunk 3 --out research/divergence` (native default/1t/4t/denormal/fp32 + webgpu via run-wasm-browser.mjs) | 356 | 2026-09-28T |
+| D3 | 3 milestone batches (61 tensors) x {target, control} via `harness.py run --expose-file` | 750 | 2026-09-28T |
+| D3 | `d3_profile.py` (offline: reads the 6 result.json files above, no new runs) | <1 | 2026-09-28T |
+| D3 | 4 window-W batches (80 tensors) x {target, control} via `harness.py run --expose-file` | 962 | 2026-09-28T |
+| D3 | `d3_candidates.py` (offline) | <1 | 2026-09-28T |
 
-**Total so far: 2235 s (~37.3 min) of ~4h (A-103) budget for S-107..S-111 excluding docs.**
+**Total so far: 4303 s (~71.7 min) of ~4h (A-103) budget for S-107..S-111 excluding docs.**
 

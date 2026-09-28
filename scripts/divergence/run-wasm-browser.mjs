@@ -1,14 +1,16 @@
-// Runs one model + one chunk through ORT Web's WASM EP in real Chrome (D0b,
-// plans/perf-divergence D-106: browser-vs-Node environment equivalence check).
+// Runs one model + one chunk through ORT Web in real Chrome (D0b/D2,
+// plans/perf-divergence D-106: browser-vs-Node environment equivalence check
+// and the WebGPU "third opinion").
 //
-//   node run-wasm-browser.mjs <model.onnx> <input.f32> <outprefix> --threads <1|N>
+//   node run-wasm-browser.mjs <model.onnx> <input.f32> <outprefix> --threads <1|N> [--ep wasm|webgpu]
 //
-// Single-thread needs no cross-origin isolation; multi-thread (--threads > 1)
+// Single-thread WASM needs no cross-origin isolation; multi-thread (--threads > 1)
 // needs COOP/COEP (for SharedArrayBuffer) -- served here via response headers
 // (the deployed app uses coi-serviceworker for this on a host that can't set
-// headers itself; a plain Node http server can just set them directly).
+// headers itself; a plain Node http server can just set them directly). WebGPU
+// (--ep webgpu) ignores --threads (not applicable to that EP).
 // Prints the same JSON contract as run-wasm-node.mjs (outputNames, shapes,
-// create_s, run_s, ort_version) plus crossOriginIsolated/actualThreads, and
+// create_s, run_s, ort_version) plus crossOriginIsolated/actualThreads/ep, and
 // writes the primary output to "<outprefix>.0.f32".
 import { writeFileSync, createReadStream, statSync } from "node:fs";
 import http from "node:http";
@@ -28,16 +30,17 @@ function parseArgs(argv, flagNames) {
   return { flags, positional };
 }
 
-const { flags, positional } = parseArgs(process.argv.slice(2), ["--threads"]);
+const { flags, positional } = parseArgs(process.argv.slice(2), ["--threads", "--ep"]);
 const [modelArg, inputArg, outPrefix] = positional;
 if (!modelArg || !inputArg || !outPrefix) {
-  console.error("usage: run-wasm-browser.mjs <model.onnx> <input.f32> <outprefix> --threads <1|N>");
+  console.error("usage: run-wasm-browser.mjs <model.onnx> <input.f32> <outprefix> --threads <1|N> [--ep wasm|webgpu]");
   process.exit(2);
 }
 const modelPath = resolve(modelArg);
 const inputPath = resolve(inputArg);
 const threads = Number(flags.threads ?? "1");
-const isolate = threads > 1;
+const ep = flags.ep ?? "wasm";
+const isolate = ep === "wasm" && threads > 1;
 
 const ORT_DIST = resolve("node_modules/onnxruntime-web/dist");
 const html = `<!doctype html><title>d0b</title>`;
@@ -80,7 +83,7 @@ page.on("console", (m) => {
 
 await page.goto(`${base}/`);
 const out = await page.evaluate(
-  async ({ base, threads }) => {
+  async ({ base, threads, ep }) => {
     function bufferToBase64(buffer) {
       const bytes = new Uint8Array(buffer);
       let binary = "";
@@ -93,12 +96,18 @@ const out = await page.evaluate(
     ort.env.wasm.wasmPaths = `${base}/ort/`;
     ort.env.wasm.numThreads = threads;
 
+    if (ep === "webgpu" && !navigator.gpu) throw new Error("run-wasm-browser: --ep webgpu requires navigator.gpu");
+    if (ep === "webgpu") {
+      const adapter = await navigator.gpu.requestAdapter();
+      if (!adapter) throw new Error("run-wasm-browser: --ep webgpu requires a WebGPU adapter, requestAdapter() returned null");
+    }
+
     const modelBytes = new Uint8Array(await (await fetch(`${base}/model.onnx`)).arrayBuffer());
     const inputBytes = new Float32Array(await (await fetch(`${base}/input.f32`)).arrayBuffer());
 
     const t0 = performance.now();
     const session = await ort.InferenceSession.create(modelBytes, {
-      executionProviders: ["wasm"],
+      executionProviders: [ep],
       graphOptimizationLevel: "disabled",
       enableCpuMemArena: false,
       enableMemPattern: false,
@@ -123,7 +132,7 @@ const out = await page.evaluate(
       dataBase64: bufferToBase64(output.data.buffer),
     };
   },
-  { base, threads },
+  { base, threads, ep },
 );
 
 writeFileSync(`${outPrefix}.0.f32`, Buffer.from(out.dataBase64, "base64"));
@@ -134,6 +143,7 @@ console.log(
     create_s: out.createS,
     run_s: out.runS,
     ort_version: out.ortVersion,
+    executionProvider: ep,
     requestedThreads: threads,
     actualThreads: out.actualThreads,
     crossOriginIsolated: out.crossOriginIsolated,

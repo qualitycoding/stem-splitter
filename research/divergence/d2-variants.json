@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "chunk": 3,
+  "variants": [
+    "native_fp16_default",
+    "native_fp16_threads1",
+    "native_fp16_threads4",
+    "native_fp16_denormal_as_zero",
+    "native_fp32_default",
+    "webgpu_fp16"
+  ],
+  "matrix_whole_tensor_rel_l2": {
+    "native_fp16_default": {
+      "native_fp16_default": 0.0,
+      "native_fp16_threads1": 0.0,
+      "native_fp16_threads4": 0.0,
+      "native_fp16_denormal_as_zero": 0.0,
+      "native_fp32_default": 0.0009576882764964276,
+      "webgpu_fp16": 1.0
+    },
+    "native_fp16_threads1": {
+      "native_fp16_default": 0.0,
+      "native_fp16_threads1": 0.0,
+      "native_fp16_threads4": 0.0,
+      "native_fp16_denormal_as_zero": 0.0,
+      "native_fp32_default": 0.0009576882764964276,
+      "webgpu_fp16": 1.0
+    },
+    "native_fp16_threads4": {
+      "native_fp16_default": 0.0,
+      "native_fp16_threads1": 0.0,
+      "native_fp16_threads4": 0.0,
+      "native_fp16_denormal_as_zero": 0.0,
+      "native_fp32_default": 0.0009576882764964276,
+      "webgpu_fp16": 1.0
+    },
+    "native_fp16_denormal_as_zero": {
+      "native_fp16_default": 0.0,
+      "native_fp16_threads1": 0.0,
+      "native_fp16_threads4": 0.0,
+      "native_fp16_denormal_as_zero": 0.0,
+      "native_fp32_default": 0.0009576882764964276,
+      "webgpu_fp16": 1.0
+    },
+    "native_fp32_default": {
+      "native_fp16_default": 0.0009579675860278221,
+      "native_fp16_threads1": 0.0009579675860278221,
+      "native_fp16_threads4": 0.0009579675860278221,
+      "native_fp16_denormal_as_zero": 0.0009579675860278221,
+      "native_fp32_default": 0.0,
+      "webgpu_fp16": 1.0
+    },
+    "webgpu_fp16": {
+      "native_fp16_default": Infinity,
+      "native_fp16_threads1": Infinity,
+      "native_fp16_threads4": Infinity,
+      "native_fp16_denormal_as_zero": Infinity,
+      "native_fp32_default": Infinity,
+      "webgpu_fp16": 0.0
+    }
+  },
+  "matrix_vocals_rel_l2": {
+    "native_fp16_default": {
+      "native_fp16_default": 0.0,
+      "native_fp16_threads1": 0.0,
+      "native_fp16_threads4": 0.0,
+      "native_fp16_denormal_as_zero": 0.0,
+      "native_fp32_default": 0.003817533054302503,
+      "webgpu_fp16": 1.0
+    },
+    "native_fp16_threads1": {
+      "native_fp16_default": 0.0,
+      "native_fp16_threads1": 0.0,
+      "native_fp16_threads4": 0.0,
+      "native_fp16_denormal_as_zero": 0.0,
+      "native_fp32_default": 0.003817533054302503,
+      "webgpu_fp16": 1.0
+    },
+    "native_fp16_threads4": {
+      "native_fp16_default": 0.0,
+      "native_fp16_threads1": 0.0,
+      "native_fp16_threads4": 0.0,
+      "native_fp16_denormal_as_zero": 0.0,
+      "native_fp32_default": 0.003817533054302503,
+      "webgpu_fp16": 1.0
+    },
+    "native_fp16_denormal_as_zero": {
+      "native_fp16_default": 0.0,
+      "native_fp16_threads1": 0.0,
+      "native_fp16_threads4": 0.0,
+      "native_fp16_denormal_as_zero": 0.0,
+      "native_fp32_default": 0.003817533054302503,
+      "webgpu_fp16": 1.0
+    },
+    "native_fp32_default": {
+      "native_fp16_default": 0.003810418467699428,
+      "native_fp16_threads1": 0.003810418467699428,
+      "native_fp16_threads4": 0.003810418467699428,
+      "native_fp16_denormal_as_zero": 0.003810418467699428,
+      "native_fp32_default": 0.0,
+      "webgpu_fp16": 1.0
+    },
+    "webgpu_fp16": {
+      "native_fp16_default": Infinity,
+      "native_fp16_threads1": Infinity,
+      "native_fp16_threads4": Infinity,
+      "native_fp16_denormal_as_zero": Infinity,
+      "native_fp32_default": Infinity,
+      "webgpu_fp16": 0.0
+    }
+  },
+  "meta": {
+    "denormal_as_zero_status": "requested",
+    "webgpu": {
+      "outputNames": [
+        "stems"
+      ],
+      "shapes": {
+        "stems": [
+          1,
+          4,
+          2,
+          343980
+        ]
+      },
+      "create_s": 49.027,
+      "run_s": 10.094,
+      "ort_version": "1.30.0",
+      "executionProvider": "webgpu",
+      "requestedThreads": 1,
+      "actualThreads": 1,
+      "crossOriginIsolated": false,
+      "consoleErrorCount": 513,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "\u001b[0;93m2026-09-28 10:11:06.567999 [W:onnxruntime:, session_state.cc:1397 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf",
+        "\u001b[0;93m2026-09-28 10:11:06.580799 [W:onnxruntime:, session_state.cc:1399 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.\u001b[m",
+        "An uncaught WebGPU validation error was raised: Error while parsing WGSL: :7:70 error: 'f16' type used without 'f16' extension enabled\n      @group(0) @binding(0) var<storage, read> inputData: array<vec4<f16>>;\n                                                                     ^^^\n\n\n - While calli",
+        "An uncaught WebGPU validation error was raised: [Invalid ShaderModule \"Cast\"] is invalid due to a previous error.\n - While validating compute stage ([Invalid ShaderModule \"Cast\"], entryPoint: \"main\").\n - While calling [Device].CreateComputePipeline([ComputePipelineDescriptor \"\"Cast\"\"]).\n",
+        "An uncaught WebGPU validation error was raised: [Invalid ComputePipeline \"Cast\"] is invalid due to a previous error.\n - While Validating GetBindGroupLayout (0) on [Invalid ComputePipeline \"Cast\"]\n",
+        "An uncaught WebGPU validation error was raised: [Invalid BindGroupLayout (unlabeled)] is invalid due to a previous error.\n - While validating [BindGroupDescriptor \"\"Cast\"\"] against [Invalid BindGroupLayout (unlabeled)]\n - While calling [Device].CreateBindGroup([BindGroupDescriptor \"\"Cast\"\"]).\n",
+        "An uncaught WebGPU validation error was raised: [Invalid ComputePipeline \"Cast\"] is invalid due to a previous error.\n - While encoding [ComputePassEncoder (unlabeled)].SetPipeline([Invalid ComputePipeline \"Cast\"]).\n - While finishing [CommandEncoder (unlabeled)].\n",
+        "An uncaught WebGPU validation error was raised: [Invalid CommandBuffer] is invalid due to a previous error.\n - While calling [Queue].Submit([[Invalid CommandBuffer]])\n"
+      ]
+    }
+  }
+}

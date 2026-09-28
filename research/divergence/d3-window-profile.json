@@ -1,0 +1,485 @@
+{
+  "schema": 1,
+  "window_profile": [
+    {
+      "name": "/decoder.2/Add_output_0",
+      "rel_l2_target": 0.005805520013002048,
+      "rel_l2_control": 0.0006004254165624996,
+      "profile": 9.66901109256713
+    },
+    {
+      "name": "/decoder.2/rewrite/Conv_output_0",
+      "rel_l2_target": 0.003326281846295974,
+      "rel_l2_control": 0.00046183196368151274,
+      "profile": 7.20236386364508
+    },
+    {
+      "name": "/decoder.2/Split_output_0",
+      "rel_l2_target": 0.005408806224093121,
+      "rel_l2_control": 0.0006959200551248511,
+      "profile": 7.772166047323866
+    },
+    {
+      "name": "/decoder.2/Split_output_1",
+      "rel_l2_target": 0.0023650063425497783,
+      "rel_l2_control": 0.0003531875467674571,
+      "profile": 6.6961770430340986
+    },
+    {
+      "name": "/decoder.2/Sigmoid_output_0",
+      "rel_l2_target": 0.004088663897560307,
+      "rel_l2_control": 0.0004686547822522355,
+      "profile": 8.724255149838074
+    },
+    {
+      "name": "/decoder.2/Mul_output_0",
+      "rel_l2_target": 0.007230663883291048,
+      "rel_l2_control": 0.0007127113712549781,
+      "profile": 10.145290470894171
+    },
+    {
+      "name": "/decoder.2/Transpose_output_0",
+      "rel_l2_target": 0.007230663883291048,
+      "rel_l2_control": 0.0007127113712549781,
+      "profile": 10.145290470894171
+    },
+    {
+      "name": "/decoder.2/Reshape_output_0",
+      "rel_l2_target": 0.007230663883291048,
+      "rel_l2_control": 0.0007127113712549781,
+      "profile": 10.145290470894171
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.0/Conv_output_0",
+      "rel_l2_target": 0.00945906276930329,
+      "rel_l2_control": 0.000715767771941704,
+      "profile": 13.215267772734657
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.1/Reshape_output_0",
+      "rel_l2_target": 0.00945906276930329,
+      "rel_l2_control": 0.000715767771941704,
+      "profile": 13.215267772734657
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.1/Constant_1_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.1/Constant_2_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.1/InstanceNormalization_output_0",
+      "rel_l2_target": 0.00770803693611525,
+      "rel_l2_control": 0.0007507835643871651,
+      "profile": 10.266656466310653
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.1/Reshape_1_output_0",
+      "rel_l2_target": 0.00770803693611525,
+      "rel_l2_control": 0.0007507835643871651,
+      "profile": 10.266656466310653
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.1/Mul_output_0",
+      "rel_l2_target": 0.009251828143906966,
+      "rel_l2_control": 0.0007234866766051026,
+      "profile": 12.787834860097705
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.1/Add_output_0",
+      "rel_l2_target": 0.008192995058116635,
+      "rel_l2_control": 0.0006582052587316702,
+      "profile": 12.447477362766959
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.2/Constant_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.2/Div_output_0",
+      "rel_l2_target": 0.008192995008747029,
+      "rel_l2_control": 0.0006582053252850751,
+      "profile": 12.44747602915331
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.2/Erf_output_0",
+      "rel_l2_target": 0.007936766155938631,
+      "rel_l2_control": 0.0006365279383101035,
+      "profile": 12.468841787227257
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.2/Constant_1_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.2/Add_output_0",
+      "rel_l2_target": 0.0028253112229237364,
+      "rel_l2_control": 0.00024908186767466254,
+      "profile": 11.342902031768958
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.2/Mul_output_0",
+      "rel_l2_target": 0.006449960371224731,
+      "rel_l2_control": 0.0006017789529856475,
+      "profile": 10.718155460944748
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.2/Constant_2_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.2/Mul_1_output_0",
+      "rel_l2_target": 0.006449960371224731,
+      "rel_l2_control": 0.0006017789529856475,
+      "profile": 10.718155460944748
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.3/Conv_output_0",
+      "rel_l2_target": 0.0051215309038821,
+      "rel_l2_control": 0.0005697978839738308,
+      "profile": 8.98832910393419
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.4/Reshape_output_0",
+      "rel_l2_target": 0.0051215309038821,
+      "rel_l2_control": 0.0005697978839738308,
+      "profile": 8.98832910393419
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.4/Constant_1_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.4/Constant_2_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.4/InstanceNormalization_output_0",
+      "rel_l2_target": 0.005507021480708642,
+      "rel_l2_control": 0.0005993830322594878,
+      "profile": 9.18781677877814
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.4/Reshape_1_output_0",
+      "rel_l2_target": 0.005507021480708642,
+      "rel_l2_control": 0.0005993830322594878,
+      "profile": 9.18781677877814
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.4/Mul_output_0",
+      "rel_l2_target": 0.008217662621617912,
+      "rel_l2_control": 0.0006421699056895901,
+      "profile": 12.796710884159896
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.4/Add_output_0",
+      "rel_l2_target": 0.008559727157764263,
+      "rel_l2_control": 0.0006494728591624649,
+      "profile": 13.179499400179026
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.5/Split_output_0",
+      "rel_l2_target": 0.00707505973029728,
+      "rel_l2_control": 0.0005926152386650192,
+      "profile": 11.938707054235097
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.5/Split_output_1",
+      "rel_l2_target": 0.009155067184230354,
+      "rel_l2_control": 0.0006676401034900497,
+      "profile": 13.712578283378686
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.5/Sigmoid_output_0",
+      "rel_l2_target": 0.0036207562858730836,
+      "rel_l2_control": 0.0002618766204805202,
+      "profile": 13.826191430259485
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.5/Mul_output_0",
+      "rel_l2_target": 0.009159087422438835,
+      "rel_l2_control": 0.0006358836770005131,
+      "profile": 14.40371526069452
+    },
+    {
+      "name": "/decoder.2/dconv/layers.0/layers.0.6/Mul_output_0",
+      "rel_l2_target": 0.012746341602324832,
+      "rel_l2_control": 0.0007083827513716503,
+      "profile": 17.993579851632376
+    },
+    {
+      "name": "/decoder.2/dconv/Add_output_0",
+      "rel_l2_target": 0.008783786796249604,
+      "rel_l2_control": 0.000708986172332365,
+      "profile": 12.389221594200375
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.0/Conv_output_0",
+      "rel_l2_target": 0.014080425063635134,
+      "rel_l2_control": 0.00051945135405402,
+      "profile": 27.10634009083909
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.1/Reshape_output_0",
+      "rel_l2_target": 0.014080425063635134,
+      "rel_l2_control": 0.00051945135405402,
+      "profile": 27.10634009083909
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.1/Constant_1_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.1/Constant_2_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.1/InstanceNormalization_output_0",
+      "rel_l2_target": 0.011092857311318932,
+      "rel_l2_control": 0.0005421685861260185,
+      "profile": 20.460162383404068
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.1/Reshape_1_output_0",
+      "rel_l2_target": 0.011092857311318932,
+      "rel_l2_control": 0.0005421685861260185,
+      "profile": 20.460162383404068
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.1/Mul_output_0",
+      "rel_l2_target": 0.011309710291073149,
+      "rel_l2_control": 0.0005296290685376879,
+      "profile": 21.354021074219723
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.1/Add_output_0",
+      "rel_l2_target": 0.011807956414999822,
+      "rel_l2_control": 0.0005268671889248791,
+      "profile": 22.41163743579296
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Constant_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Div_output_0",
+      "rel_l2_target": 0.011807956348161189,
+      "rel_l2_control": 0.0005268671092051413,
+      "profile": 22.411640700014992
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Erf_output_0",
+      "rel_l2_target": 0.01137208350742953,
+      "rel_l2_control": 0.0005077132990724324,
+      "profile": 22.39863231513883
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Constant_1_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Add_output_0",
+      "rel_l2_target": 0.002849638993603642,
+      "rel_l2_control": 0.0001255133249319318,
+      "profile": 22.703876223094674
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Mul_output_0",
+      "rel_l2_target": 0.01240771843947143,
+      "rel_l2_control": 0.0005466481987972526,
+      "profile": 22.69781271898666
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Constant_2_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Mul_1_output_0",
+      "rel_l2_target": 0.01240771843947143,
+      "rel_l2_control": 0.0005466481987972526,
+      "profile": 22.69781271898666
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.3/Conv_output_0",
+      "rel_l2_target": 0.010069641373422668,
+      "rel_l2_control": 0.0005310597535779806,
+      "profile": 18.961409343447915
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.4/Reshape_output_0",
+      "rel_l2_target": 0.010069641373422668,
+      "rel_l2_control": 0.0005310597535779806,
+      "profile": 18.961409343447915
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.4/Constant_1_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.4/Constant_2_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.4/InstanceNormalization_output_0",
+      "rel_l2_target": 0.008645734894051921,
+      "rel_l2_control": 0.000492797133768777,
+      "profile": 17.544206939540654
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.4/Reshape_1_output_0",
+      "rel_l2_target": 0.008645734894051921,
+      "rel_l2_control": 0.000492797133768777,
+      "profile": 17.544206939540654
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.4/Mul_output_0",
+      "rel_l2_target": 0.008624394227925216,
+      "rel_l2_control": 0.0004695782511759634,
+      "profile": 18.366255690776075
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.4/Add_output_0",
+      "rel_l2_target": 0.007870632042910082,
+      "rel_l2_control": 0.00044975810453778324,
+      "profile": 17.499700313346743
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.5/Split_output_0",
+      "rel_l2_target": 0.016667820776499774,
+      "rel_l2_control": 0.0005821750673899475,
+      "profile": 28.630255244743207
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.5/Split_output_1",
+      "rel_l2_target": 0.006749333822304052,
+      "rel_l2_control": 0.0004350465279258412,
+      "profile": 15.514050541864238
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.5/Sigmoid_output_0",
+      "rel_l2_target": 0.004034541536331595,
+      "rel_l2_control": 0.00020362491631381182,
+      "profile": 19.81359457068532
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.5/Mul_output_0",
+      "rel_l2_target": 0.015279600650468796,
+      "rel_l2_control": 0.0005115938409884027,
+      "profile": 29.866662626251532
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.6/Mul_output_0",
+      "rel_l2_target": 0.022823745868975762,
+      "rel_l2_control": 0.0006872741777431979,
+      "profile": 33.20908395528855
+    },
+    {
+      "name": "/decoder.2/dconv/Add_1_output_0",
+      "rel_l2_target": 0.0157950952335574,
+      "rel_l2_control": 0.0007399788861349469,
+      "profile": 21.345332318950675
+    },
+    {
+      "name": "/decoder.2/Reshape_1_output_0",
+      "rel_l2_target": 0.0157950952335574,
+      "rel_l2_control": 0.0007399788861349469,
+      "profile": 21.345332318950675
+    },
+    {
+      "name": "/decoder.2/Transpose_1_output_0",
+      "rel_l2_target": 0.0157950952335574,
+      "rel_l2_control": 0.0007399788861349469,
+      "profile": 21.345332318950675
+    },
+    {
+      "name": "/decoder.2/conv_tr/ConvTranspose_output_0",
+      "rel_l2_target": 0.010638519587757501,
+      "rel_l2_control": 0.0004813091786437349,
+      "profile": 22.103296716126277
+    },
+    {
+      "name": "/decoder.2/Slice_output_0",
+      "rel_l2_target": 0.010778629521054415,
+      "rel_l2_control": 0.0004824710945884305,
+      "profile": 22.34046690454911
+    },
+    {
+      "name": "/decoder.2/Constant_9_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/Div_output_0",
+      "rel_l2_target": 0.010778629516746534,
+      "rel_l2_control": 0.00048247108201028804,
+      "profile": 22.340467478041916
+    },
+    {
+      "name": "/decoder.2/Erf_output_0",
+      "rel_l2_target": 0.01136853184868231,
+      "rel_l2_control": 0.0005208954135514732,
+      "profile": 21.824979742423682
+    },
+    {
+      "name": "/decoder.2/Constant_10_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/Add_1_output_0",
+      "rel_l2_target": 0.009181900182957902,
+      "rel_l2_control": 0.0004147259612549477,
+      "profile": 22.139680272664293
+    },
+    {
+      "name": "/decoder.2/Mul_1_output_0",
+      "rel_l2_target": 0.016817517297397503,
+      "rel_l2_control": 0.0008015223415751938,
+      "profile": 20.9819694661871
+    },
+    {
+      "name": "/decoder.2/Constant_11_output_0",
+      "rel_l2_target": 0.0,
+      "rel_l2_control": 0.0,
+      "profile": 0.0
+    },
+    {
+      "name": "/decoder.2/Mul_2_output_0",
+      "rel_l2_target": 0.016817517297397503,
+      "rel_l2_control": 0.0008015223415751938,
+      "profile": 20.9819694661871
+    }
+  ]
+}

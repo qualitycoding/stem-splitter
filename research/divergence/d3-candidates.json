@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "tau": 10.0,
+  "first_exceedance": "/decoder.2/Mul_output_0",
+  "top_jumps": [
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Add_output_0",
+      "ratio": 23806739.71450772
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Mul_1_output_0",
+      "ratio": 23800381.669624157
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.2/Div_output_0",
+      "ratio": 23500308.55865892
+    },
+    {
+      "name": "/decoder.2/Div_output_0",
+      "ratio": 23425678.02625528
+    },
+    {
+      "name": "/decoder.2/Add_1_output_0",
+      "ratio": 23215137.381589234
+    },
+    {
+      "name": "/decoder.2/Mul_2_output_0",
+      "ratio": 22001189.614976604
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.1/InstanceNormalization_output_0",
+      "ratio": 21454035.231340304
+    },
+    {
+      "name": "/decoder.2/dconv/layers.1/layers.1.4/InstanceNormalization_output_0",
+      "ratio": 18396434.33583578
+    }
+  ],
+  "candidates": [
+    "/decoder.2/Mul_output_0",
+    "/decoder.2/dconv/layers.1/layers.1.2/Add_output_0",
+    "/decoder.2/dconv/layers.1/layers.1.2/Mul_1_output_0",
+    "/decoder.2/dconv/layers.1/layers.1.2/Div_output_0",
+    "/decoder.2/Div_output_0"
+  ]
+}

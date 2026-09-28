@@ -1,0 +1,438 @@
+{
+  "schema": 1,
+  "tau": 10.0,
+  "profile": [
+    {
+      "name": "/tencoder.0/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.002509790795642707,
+      "rel_l2_control": 0.002685971200073108,
+      "profile": 0.934407187826286
+    },
+    {
+      "name": "/encoder.0/dconv/layers.0/layers.0.1/InstanceNormalization_output_0",
+      "kind": "instancenorm",
+      "rel_l2_target": 0.0016067042263382563,
+      "rel_l2_control": 0.00031390826080831787,
+      "profile": 5.118387844273267
+    },
+    {
+      "name": "/encoder.0/dconv/layers.0/layers.0.4/InstanceNormalization_output_0",
+      "kind": "instancenorm",
+      "rel_l2_target": 0.0020362009437353426,
+      "rel_l2_control": 0.0006303246506129392,
+      "profile": 3.2304003052320795
+    },
+    {
+      "name": "/encoder.0/dconv/layers.1/layers.1.1/InstanceNormalization_output_0",
+      "kind": "instancenorm",
+      "rel_l2_target": 0.004062447271544015,
+      "rel_l2_control": 0.0005909503763053981,
+      "profile": 6.874430467313176
+    },
+    {
+      "name": "/encoder.0/dconv/layers.1/layers.1.4/InstanceNormalization_output_0",
+      "kind": "instancenorm",
+      "rel_l2_target": 0.002649440594109027,
+      "rel_l2_control": 0.0006980817645635398,
+      "profile": 3.795315575626777
+    },
+    {
+      "name": "/encoder.0/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.003131027653765832,
+      "rel_l2_control": 0.000614861815093784,
+      "profile": 5.092246057414154
+    },
+    {
+      "name": "/tencoder.1/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.0024539012060418417,
+      "rel_l2_control": 0.005918961734387716,
+      "profile": 0.41458304955500513
+    },
+    {
+      "name": "/encoder.1/dconv/layers.0/layers.0.1/InstanceNormalization_output_0",
+      "kind": "instancenorm",
+      "rel_l2_target": 0.0012545045018875257,
+      "rel_l2_control": 0.00030448644083173095,
+      "profile": 4.120066885279813
+    },
+    {
+      "name": "/encoder.1/dconv/layers.0/layers.0.4/InstanceNormalization_output_0",
+      "kind": "instancenorm",
+      "rel_l2_target": 0.0011917035782945304,
+      "rel_l2_control": 0.0002822256705160842,
+      "profile": 4.222520141826059
+    },
+    {
+      "name": "/encoder.1/dconv/layers.1/layers.1.1/InstanceNormalization_output_0",
+      "kind": "instancenorm",
+      "rel_l2_target": 0.0017040305384109008,
+      "rel_l2_control": 0.0003747115179622176,
+      "profile": 4.547579822680335
+    },
+    {
+      "name": "/encoder.1/dconv/layers.1/layers.1.4/InstanceNormalization_output_0",
+      "kind": "instancenorm",
+      "rel_l2_target": 0.0015201771042752659,
+      "rel_l2_control": 0.000301751154838655,
+      "profile": 5.037850161959108
+    },
+    {
+      "name": "/encoder.1/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.002368577196006795,
+      "rel_l2_control": 0.0004900966570787752,
+      "profile": 4.832877681975464
+    },
+    {
+      "name": "/tencoder.2/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.0026938463470286486,
+      "rel_l2_control": 0.00467199463175801,
+      "profile": 0.5765944867995256
+    },
+    {
+      "name": "/encoder.2/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.002228362326182624,
+      "rel_l2_control": 0.0004623911313003225,
+      "profile": 4.819215108897288
+    },
+    {
+      "name": "/tencoder.3/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.0024902163832748467,
+      "rel_l2_control": 0.0031373605153165065,
+      "profile": 0.7937297518463944
+    },
+    {
+      "name": "/encoder.3/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.0022911965871474063,
+      "rel_l2_control": 0.0006626198616207948,
+      "profile": 3.4577843494504488
+    },
+    {
+      "name": "/crosstransformer/norm_in/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0013826008089481531,
+      "rel_l2_control": 0.00026134241264615696,
+      "profile": 5.290380520134393
+    },
+    {
+      "name": "/crosstransformer/norm_in_t/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.001627062295620501,
+      "rel_l2_control": 0.0018576562760243365,
+      "profile": 0.8758683275372443
+    },
+    {
+      "name": "/crosstransformer/layers.0/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.001992260618742013,
+      "rel_l2_control": 0.00035309890530300393,
+      "profile": 5.642216922288102
+    },
+    {
+      "name": "/crosstransformer/layers.0/self_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.019058105329528605,
+      "rel_l2_control": 0.0038948603404079956,
+      "profile": 4.893142157577908
+    },
+    {
+      "name": "/crosstransformer/layers.0/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0019952034391681147,
+      "rel_l2_control": 0.0004386956694583646,
+      "profile": 4.54803541058769
+    },
+    {
+      "name": "/crosstransformer/layers_t.0/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0022607596258011464,
+      "rel_l2_control": 0.002590291533287966,
+      "profile": 0.8727819230955324
+    },
+    {
+      "name": "/crosstransformer/layers_t.0/self_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.002041374496351001,
+      "rel_l2_control": 0.0017095872304768885,
+      "profile": 1.1940744876654001
+    },
+    {
+      "name": "/crosstransformer/layers_t.0/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.002078569656169084,
+      "rel_l2_control": 0.002542247702378049,
+      "profile": 0.8176109881915775
+    },
+    {
+      "name": "/crosstransformer/layers.1/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.001431148225305455,
+      "rel_l2_control": 0.0002769719166673798,
+      "profile": 5.167123954390455
+    },
+    {
+      "name": "/crosstransformer/layers.1/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0026234613758676154,
+      "rel_l2_control": 0.0025687932817060237,
+      "profile": 1.0212816245475715
+    },
+    {
+      "name": "/crosstransformer/layers.1/cross_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.011983064036953654,
+      "rel_l2_control": 0.014295954298388754,
+      "profile": 0.8382136502985479
+    },
+    {
+      "name": "/crosstransformer/layers.1/norm3/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0014117829424900824,
+      "rel_l2_control": 0.0006540083466576473,
+      "profile": 2.1586619646447818
+    },
+    {
+      "name": "/crosstransformer/layers_t.1/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0018386918051045496,
+      "rel_l2_control": 0.0022403902935322537,
+      "profile": 0.8207015583010867
+    },
+    {
+      "name": "/crosstransformer/layers_t.1/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0016615413339621883,
+      "rel_l2_control": 0.00034308351063199903,
+      "profile": 4.842964708217656
+    },
+    {
+      "name": "/crosstransformer/layers_t.1/cross_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.0032698675161852396,
+      "rel_l2_control": 0.0015227283671096722,
+      "profile": 2.1473741389554952
+    },
+    {
+      "name": "/crosstransformer/layers_t.1/norm3/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.002441007322860496,
+      "rel_l2_control": 0.0025543035692486256,
+      "profile": 0.9556449563191673
+    },
+    {
+      "name": "/crosstransformer/layers.2/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0020930304411835798,
+      "rel_l2_control": 0.0005662978244815527,
+      "profile": 3.6959888431493715
+    },
+    {
+      "name": "/crosstransformer/layers.2/self_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.0037681168307210403,
+      "rel_l2_control": 0.00099594400263045,
+      "profile": 3.783462544850746
+    },
+    {
+      "name": "/crosstransformer/layers.2/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0017236162447057863,
+      "rel_l2_control": 0.000535446746265706,
+      "profile": 3.219024593438228
+    },
+    {
+      "name": "/crosstransformer/layers_t.2/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.002723940113352604,
+      "rel_l2_control": 0.0029446726088181332,
+      "profile": 0.925040055453186
+    },
+    {
+      "name": "/crosstransformer/layers_t.2/self_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.0019782462582210126,
+      "rel_l2_control": 0.002193141359845106,
+      "profile": 0.9020149336660768
+    },
+    {
+      "name": "/crosstransformer/layers_t.2/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.002785392558415192,
+      "rel_l2_control": 0.002717604523248762,
+      "profile": 1.0249440397182563
+    },
+    {
+      "name": "/crosstransformer/layers.3/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.001639458924277109,
+      "rel_l2_control": 0.0005169123265887162,
+      "profile": 3.171638283606946
+    },
+    {
+      "name": "/crosstransformer/layers.3/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0022651734454887384,
+      "rel_l2_control": 0.0027888098313985804,
+      "profile": 0.8122366107526092
+    },
+    {
+      "name": "/crosstransformer/layers.3/cross_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.0025476289914292,
+      "rel_l2_control": 0.002662844604828042,
+      "profile": 0.9567321302978241
+    },
+    {
+      "name": "/crosstransformer/layers.3/norm3/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.001911524004885117,
+      "rel_l2_control": 0.0017936928112924273,
+      "profile": 1.0656919584283708
+    },
+    {
+      "name": "/crosstransformer/layers_t.3/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0019477125847420322,
+      "rel_l2_control": 0.002487875059184942,
+      "profile": 0.7828819930290737
+    },
+    {
+      "name": "/crosstransformer/layers_t.3/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0017412084003656958,
+      "rel_l2_control": 0.0007513707967644123,
+      "profile": 2.3173756657349047
+    },
+    {
+      "name": "/crosstransformer/layers_t.3/cross_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.0027104330861904575,
+      "rel_l2_control": 0.0015538248987824511,
+      "profile": 1.744361985906072
+    },
+    {
+      "name": "/crosstransformer/layers_t.3/norm3/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0027835980418159947,
+      "rel_l2_control": 0.0028915199316486245,
+      "profile": 0.9626764150399277
+    },
+    {
+      "name": "/crosstransformer/layers.4/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0019369265626432621,
+      "rel_l2_control": 0.0013136650403995354,
+      "profile": 1.4744447808812582
+    },
+    {
+      "name": "/crosstransformer/layers.4/self_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.0032002814534885776,
+      "rel_l2_control": 0.0023636457656614268,
+      "profile": 1.3539598445679242
+    },
+    {
+      "name": "/crosstransformer/layers.4/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0014823231591518883,
+      "rel_l2_control": 0.0009634175949627727,
+      "profile": 1.538609183496557
+    },
+    {
+      "name": "/crosstransformer/layers_t.4/norm1/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0029991916393062304,
+      "rel_l2_control": 0.003191758110393906,
+      "profile": 0.9396675861931434
+    },
+    {
+      "name": "/crosstransformer/layers_t.4/self_attn/Softmax_output_0",
+      "kind": "softmax",
+      "rel_l2_target": 0.003074069343247098,
+      "rel_l2_control": 0.003060177960963428,
+      "profile": 1.0045394034140736
+    },
+    {
+      "name": "/crosstransformer/layers_t.4/norm2/LayerNormalization_output_0",
+      "kind": "layernorm",
+      "rel_l2_target": 0.0017454893594308336,
+      "rel_l2_control": 0.002385623677707911,
+      "profile": 0.7316700348597673
+    },
+    {
+      "name": "/crosstransformer/Transpose_8_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.0025243646094098944,
+      "rel_l2_control": 0.001433604325263539,
+      "profile": 1.7608516973090476
+    },
+    {
+      "name": "/decoder.0/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.0027136156580869803,
+      "rel_l2_control": 0.0010639583392149403,
+      "profile": 2.5504905202296433
+    },
+    {
+      "name": "/tdecoder.0/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.0019077373663272852,
+      "rel_l2_control": 0.002850446763183873,
+      "profile": 0.6692766169035178
+    },
+    {
+      "name": "/decoder.1/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.005809743268803683,
+      "rel_l2_control": 0.0006068564031583249,
+      "profile": 9.573505756168085
+    },
+    {
+      "name": "/tdecoder.1/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.0013355996567254284,
+      "rel_l2_control": 0.0037379173660738348,
+      "profile": 0.35731117783598604
+    },
+    {
+      "name": "/decoder.2/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.016817517297397503,
+      "rel_l2_control": 0.0008015223415751938,
+      "profile": 20.9819694661871
+    },
+    {
+      "name": "/tdecoder.2/Mul_2_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.0014502136497507527,
+      "rel_l2_control": 0.002241214790698244,
+      "profile": 0.6470658929120054
+    },
+    {
+      "name": "/decoder.3/Slice_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.1541516203335128,
+      "rel_l2_control": 0.001391149946861139,
+      "profile": 110.80877419528078
+    },
+    {
+      "name": "/tdecoder.3/Slice_output_0",
+      "kind": "block",
+      "rel_l2_target": 0.00032137224097480706,
+      "rel_l2_control": 0.000976342042750184,
+      "profile": 0.3291594819265981
+    }
+  ],
+  "window": {
+    "start_after": "/tdecoder.1/Mul_2_output_0",
+    "end_at": "/decoder.2/Mul_2_output_0",
+    "note": "first exceedance at index 57 (/decoder.2/Mul_2_output_0)"
+  }
+}
