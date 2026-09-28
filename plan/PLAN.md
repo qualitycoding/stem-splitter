@@ -1,5 +1,8 @@
 ```
 IMPLEMENTED — S-001..S-007 done; S-008 (deploy) awaits gate G-002
+plans/perf-divergence/ complete-pending-G-103: G-101 proceed (perf/REPORT.md, T-028 fail,
+  T-027/T-029/T-030 unmeasured), G-102 proceed (research/divergence/REPORT.md, AMPLIFICATION,
+  docs-only per D-109)
 Profiles: software, computational
 Mode flags: software.deploys = true
 Claims: 14 (verified 11, verified-with-conditions 1 [C-012], by-design 1, downgraded 1 [C-002])

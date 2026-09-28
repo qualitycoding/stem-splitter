@@ -20,4 +20,13 @@ npm run build          # production build to dist/
 - Review of the original plan and what changed: [`plan/REVIEW.md`](plan/REVIEW.md)
 - Handoff for implementers: [`HANDOFF.md`](HANDOFF.md)
 
+## Known limitations
+
+Exactly-mono, exactly-periodic synthetic input can produce large numerical
+disagreement between runtimes (WASM vs native ONNX Runtime); ordinary music
+is unaffected in our tests. See
+[`research/divergence/REPORT.md`](research/divergence/REPORT.md) for the
+full investigation (root cause: the model is numerically ill-conditioned on
+this input class, not a defect in either runtime).
+
 Licensed under the Apache License 2.0 — see [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).

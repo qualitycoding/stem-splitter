@@ -78,4 +78,15 @@ remain as-is.
 
 ## Human decisions
 
-_(awaiting reply)_
+**2026-09-28: `proceed`.**
+
+S-111 ran exactly per D-109. On question 2's nuance: D-109's condition for the additional
+exactly-mono UI notice is "noise σ ≤ 1e-5 on R removes reproduction" — D1's actual data shows
+reproduction survives through σ=1e-4 and only breaks at σ=1e-3, one order of magnitude looser
+than the condition as written. Since 1e-4 < 1e-5 is false (1e-4 is larger than 1e-5) and 1e-4
+still reproduces, the condition is not met by the data on its literal terms, so S-111 applied
+the row's "otherwise docs only" branch: `README.md` known-limitation note (cross-referenced from
+`HANDOFF.md`) and an `SP-3.md` addendum — no UI notice, no new frozen test. This reading was
+flagged in advance above and not separately re-confirmed beyond the bare `proceed`; if that
+reading is wrong, say so and the UI notice can still be added as a follow-up (new frozen test
+first, per D-109).

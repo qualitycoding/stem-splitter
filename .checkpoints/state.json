@@ -26,6 +26,7 @@
     "T-006 passing (max abs diff 3.4e-5) on generated fixture; original tone fixture diverged, unexplained -- research/spikes/SP-3.md",
     "tests/PERF.md: WASM timings on i5-6200U recorded; T-028/T-029/T-030 and M1 T-027 need WebGPU/M1 hardware",
     "tests/FROZEN_MANIFEST.sha256 written 2026-09-25 (verified in CI via npm run verify:frozen)",
-    "S-008 not started: awaits gate G-002 sign-off"
+    "S-008 not started: awaits gate G-002 sign-off",
+    "plans/perf-divergence/: G-101 proceed 2026-09-27 (perf/REPORT.md; T-028 fail; T-027/T-029/T-030 unmeasured); G-102 proceed 2026-09-28 (research/divergence/REPORT.md; outcome AMPLIFICATION; docs-only guard per D-109 -- README.md Known limitations + HANDOFF.md + SP-3.md addendum, no UI change)"
   ]
 }

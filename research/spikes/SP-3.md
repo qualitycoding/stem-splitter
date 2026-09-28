@@ -48,3 +48,27 @@ T-006 on it: **max abs diff 3.4e-5**, ~30x inside the 1e-3 bound.
   browser test runs single-threaded; the multi-threaded path the deployed app
   uses by default is exercised only by manual QA. (Threading was checked here
   with a temporary isolated server; results above.)
+
+## Addendum (2026-09-28, `plans/perf-divergence/` S-107..S-111)
+
+The original fixture is recoverable from git: `git show 729c249:tests/fixtures/golden-20s.wav`
+(sha256 `9d60e12db5fd40ac8c71356e05dbed8c6e387c7330c668f4403a134e57260376`); it now lives at
+`tests/fixtures/diagnostic/golden-tones-mono-20s.wav` (see that directory's `README.md`).
+
+Root cause investigated end to end (D0–D5, `scripts/divergence/`); full evidence in
+[`research/divergence/REPORT.md`](../divergence/REPORT.md). **Outcome: `AMPLIFICATION`** — every
+candidate op (a `Div`/`Mul`/`Add` sequence in `decoder.2`'s dconv block, right after an
+`InstanceNormalization`) agrees with a float64 oracle to ~2.5e-8 given identical real inputs, so
+neither runtime is defective; the divergence is ordinary rounding-level disagreement between the
+two runtimes, amplified ~350x-1370x by this network's numerical instability on this specific
+exact-periodic input class. Confirmed independent of the runtime: perturbing the *native* input by
+1e-7 relative noise alone reproduces the same order of amplification.
+
+The percentages above (`drums 6%, bass 14%, other 4.7%, vocals 119%`) were measured in the browser
+(WASM EP) against native fp32, on the original 2026-09-25 run. The Node-based `wasm-node` harness
+built for this investigation (D-107) measured the same chunk on 2026-09-28 with the recovered fixture
+and got comparable, not identical, numbers — `research/divergence/d0-target.json`:
+drums rel_l2 0.328 (33%), bass 0.141 (14%), other 0.0719 (7.2%), vocals 1.155 (115%). The two runs
+used different reference weights (native fp16 vs the fp32 comparison above) and are not expected to
+match exactly; both show the same qualitative pattern (vocals worst by a wide margin, other least
+affected).
