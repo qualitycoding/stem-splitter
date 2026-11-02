@@ -9,3 +9,7 @@
 | software.deploys | yes | Deployed to GitHub Pages (external action, gated by G-002) |
 
 N/A: all [math] and [publication] sections.
+
+## v3.9 addendum profile confirmation
+
+Active profiles unchanged; `software` active. Target protocol v3.9.

@@ -24,3 +24,29 @@
 - **D-12 Session options (SP-2):** `{ graphOptimizationLevel: 'disabled', enableCpuMemArena: false, enableMemPattern: false }` for every session, both EPs. Any optimisation level ≥ `basic` exhausts the 4 GB wasm heap at load. Changing this requires re-running `research/spikes/sp2.py`.
 - **D-13 Session reuse:** create each session once per page and reuse it across files; session creation costs 27 s (WASM) / 48 s (WebGPU) on the reference machine.
 - **D-14 Sample-0 window artifact (found writing T-005, `tests/unit/ola.test.ts`):** the triangular window (`triangularWindow`, `demucs_onnx.inference._make_transition_window`) is exactly 0 at its own index 0. The global first sample of any track is covered by only the first chunk, so it is forced to exactly 0 in every stem, regardless of input — this is a genuine, deterministic property of the reference algorithm (needed for bit-exact parity, T-006), not a bug in this port. A final chunk that happens to be exactly `SEGMENT_SAMPLES` long would zero the true last sample the same way, but in production `stride < segment` always, so a later (shorter) chunk's own nonzero window value covers what would otherwise be a symmetric tail-zero — verified in `tests/unit/ola.test.ts`. No UI action needed (one sample at 44.1 kHz is inaudible); noted here so nobody "fixes" it later without re-reading this.
+
+## Addendum v3.9 decisions (2026-11-02)
+
+- **D-900** — Planning-only amendment. Product scope, public interfaces,
+  expected test behaviour, performance targets and human gates do not change,
+  except the mandatory split G-003 lesson/knowledge store semantics.
+- **D-901** — Source-branch drift: the planning source branch tip `e6f62c0ff749`
+  is the rollout phase's `plan: add protocol v3.9 addendum` commit, a direct
+  child of the audited source commit `b9173b7d80c0`. The implementation
+  branch descends from `e6f62c0ff749`, which descends from the audited commit;
+  no newer planning was overwritten or rebased away.
+- **D-902** — No platform expansion: no new OS/architecture/runtime support is
+  claimed; CI coverage is recorded as plan-level jobs/waivers only.
+- **D-903** — No release, deployment or package publication is authorised or
+  planned by this amendment.
+- **D-904** — Ambiguities resolved from existing plan artifacts and repository
+  evidence only; defaults follow the addendum's no-added-platform / explicit
+  waiver rule.
+- **D-905** — Local build and test execution is not available in the ephemeral
+  sandbox; the CI matrix jobs are the authoritative execution venue (honest
+  substitution; see DEVIATIONS.md).
+- **D-906** — Fresh-context independent review is unavailable in this
+  environment; the cold read is recorded as a substitution with High risk
+  (S-ADD-090), not claimed as an independent pass.
+- **D-980** — Mutation testing design: see `reviews/MUTATION.md` (priced
+  three-tier trigger strategy, one aggregator job, report-based score gate).

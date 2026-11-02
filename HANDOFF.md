@@ -1,5 +1,7 @@
 # HANDOFF
 
+
+Reading order: `HANDOFF.md` → `ADDENDUM-PLAN-V3.9.md` → `plan/PLAN.md`. Later protocol amendments take precedence only where the gap ledger says so.
 Start with `plan/REVIEW.md` (why the original plan changed), then
 `plan/PLAN.md`'s "Implementation status" section for what's built. Do
 **not** create `.github/workflows/deploy.yml` until gate G-002 is signed
