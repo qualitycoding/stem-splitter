@@ -1,3 +1,5 @@
+# PLAN — protocol v3.9 (upgraded by ADDENDUM-PLAN-V3.9.md)
+
 ```
 IMPLEMENTED — S-001..S-007 done; S-008 (deploy) awaits gate G-002
 Profiles: software, computational
@@ -249,3 +251,11 @@ chromium, webkit, firefox) for everything touching Web APIs.
 
 ## Gates
 See `plan/GATES.md`. Only G-002 (deployment).
+
+
+## Amendment closing/review steps (v3.9)
+
+- **S-REVIEW** — Traditional code review before packaging/release.
+- **S-ADVERSARIAL** — Adversarial review of security/correctness claims.
+- **S-RETRO** — Retrospective: review execution log, deviations and gate records.
+- **S-KNOW** — Knowledge/lessons: record classified lessons and knowledge items; G-003 controls publication to the Lessons and knowledge stores.
