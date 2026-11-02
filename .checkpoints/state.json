@@ -1,31 +1,48 @@
 {
-  "plan_version": 5,
-  "updated": "2026-09-25",
-  "status": "implemented-verified-pending-G-002",
-  "completed_steps": [
-    "S-000",
-    "S-001",
-    "S-002",
-    "S-003",
-    "S-004",
-    "S-005",
-    "S-006",
-    "S-007"
-  ],
-  "current_step": "S-008",
-  "spikes": {
-    "SP-1": "done",
-    "SP-2": "done"
-  },
-  "blocking_claims": [],
-  "gates": {
-    "G-002": "pending"
-  },
-  "notes": [
-    "browser suite executed: CI run 36029185471 green (chromium/firefox/webkit); local chromium+firefox pass, local Windows WebKit lacks OfflineAudioContext",
-    "T-006 passing (max abs diff 3.4e-5) on generated fixture; original tone fixture diverged, unexplained -- research/spikes/SP-3.md",
-    "tests/PERF.md: WASM timings on i5-6200U recorded; T-028/T-029/T-030 and M1 T-027 need WebGPU/M1 hardware",
-    "tests/FROZEN_MANIFEST.sha256 written 2026-09-25 (verified in CI via npm run verify:frozen)",
-    "S-008 not started: awaits gate G-002 sign-off"
-  ]
+ "plan_version": 5,
+ "updated": "2026-09-25",
+ "status": "implemented-verified-pending-G-002",
+ "completed_steps": [
+  "S-000",
+  "S-001",
+  "S-002",
+  "S-003",
+  "S-004",
+  "S-005",
+  "S-006",
+  "S-007"
+ ],
+ "current_step": "S-008",
+ "spikes": {
+  "SP-1": "done",
+  "SP-2": "done"
+ },
+ "blocking_claims": [],
+ "gates": {
+  "G-002": "pending"
+ },
+ "notes": [
+  "browser suite executed: CI run 36029185471 green (chromium/firefox/webkit); local chromium+firefox pass, local Windows WebKit lacks OfflineAudioContext",
+  "T-006 passing (max abs diff 3.4e-5) on generated fixture; original tone fixture diverged, unexplained -- research/spikes/SP-3.md",
+  "tests/PERF.md: WASM timings on i5-6200U recorded; T-028/T-029/T-030 and M1 T-027 need WebGPU/M1 hardware",
+  "tests/FROZEN_MANIFEST.sha256 written 2026-09-25 (verified in CI via npm run verify:frozen)",
+  "S-008 not started: awaits gate G-002 sign-off"
+ ],
+ "execution_context": {
+  "objective": "v3.9 planning addendum amendment (planning-only)",
+  "protocol": "v3.9",
+  "protocol_commit": "ef99285404419153dd5f9aaae14f14bb53604a62",
+  "implementation_branch": "impl-v39-addendum-20261102",
+  "amended_on": "2026-11-02"
+ },
+ "active_variables": {
+  "baseline": "unversioned",
+  "source_tip": "e6f62c0ff7497e2b47f6028ba3e540ceaa3b6ca8",
+  "audited_commit": "b9173b7d80c0323b28bf69cfe09e8b6eb478bef9"
+ },
+ "artifacts": {
+  "ADDENDUM-V3.9-STATUS.md": "written"
+ },
+ "lesson_store": "qualitycoding/Lessons",
+ "knowledge_store": "qualitycoding/knowledge"
 }
